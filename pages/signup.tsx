@@ -2,13 +2,13 @@ import Head from 'next/head'
 import Link from 'next/link'
 import LoginForm from '../Forms/LoginForm';
 import { CodeIcon } from '@heroicons/react/solid'
+import Signupform from '../Forms/SignupForm';
 
-
-function LogIn () {
+function Signup() {
     return (
         <div className="flex w-all h-screen">
             <Head>
-            <title>Log In</title>
+            <title>Sign Up</title>
             {/* <link rel="icon" href="/favicon.ico" /> */}
             </Head>
 
@@ -24,12 +24,12 @@ function LogIn () {
 
                 <div className="flex items-center h-full">
                     <div className="flex flex-col p-32"> 
-                        <h1 className="text-4xl ">Log in </h1>
-                        <p className="py-3">Business Portal Log In</p>
-                        <LoginForm />
+                        <h1 className="text-4xl ">Sign up </h1>
+                        <p className="py-3">Create a new business account</p>
+                        <Signupform />
                         <div className="flex items-center">
-                            <p className="py-3 mr-1">Not yet a member?</p>
-                            <a href="/signup" className="underline">Sign up</a>
+                            <p className="py-3 mr-1">Already a member?</p>
+                            <a href="/login" className="underline">Log in</a>
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@ function LogIn () {
 
 
             <div className="flex">
-                <div className="absolute p-4 flex flex-col h-full bg-btlack bg-opacity-30">  
+                <div className="absolute p-4 flex flex-col h-full bg-black bg-opacity-30">  
                     <div className="p-20 flex flex-col justify-around h-full">
                         <div>
                             <p className="text-xl text-white">The Road Ahead Is Lee Hsien Loong</p>
@@ -59,4 +59,4 @@ function LogIn () {
     )
 }
 
-export default LogIn
+export default Signup

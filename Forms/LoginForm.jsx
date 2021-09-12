@@ -33,9 +33,9 @@ const LoginForm = () => {
     });
 
     return (
-        <form onSubmit={formik.handleSubmit} className="flex flex-col p-8">
+        <form onSubmit={formik.handleSubmit} className="flex flex-col">
 
-        <div className="flex border-2 w-80 items-center">
+        <div className="flex border-2 w-80 items-center rounded-sm">
             <UserIcon className="h-6 w-6 my-2" />
             <input
             id="email"
@@ -53,7 +53,7 @@ const LoginForm = () => {
             <div className="text-red-500">{formik.errors.email}</div>
         ) : null}
 
-        <div className="flex border-2 w-80 items-center mt-4">
+        <div className="flex border-2 w-80 items-center mt-4 rounded-sm">
             <LockOpenIcon className="h-6 w-6 my-2" />
             <input
             id="password"
@@ -71,10 +71,8 @@ const LoginForm = () => {
             <div className="text-red-500">{formik.errors.password}</div>
         ) : null}
 
-        <div className="flex justify-around">
-            <button className="border-2 bg-green-500 mt-4 p-1 rounded-md" type="submit">Log In</button>
+        <button className=" mt-4 p-2 rounded-sm bg-blue-500 text-white" type="submit">Log In</button>
 
-        </div>
         </form>
     );
 };
