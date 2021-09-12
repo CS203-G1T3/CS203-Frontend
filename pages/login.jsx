@@ -38,7 +38,7 @@ function LogIn () {
 
 
             <div className="flex">
-                <div className="absolute p-4 flex flex-col h-full bg-btlack bg-opacity-30">  
+                <div className="absolute p-4 flex flex-col h-full bg-black bg-opacity-30">  
                     <div className="p-20 flex flex-col justify-around h-full">
                         <div>
                             <p className="text-xl text-white">The Road Ahead Is Lee Hsien Loong</p>
@@ -53,8 +53,7 @@ function LogIn () {
                     </div>
                 </div>
                 <img className="object-cover h-screen" src="/LHL.jpeg" alt="Log in cover" />
-            </div>
-            
+            </div>            
         </div>
     )
 }
