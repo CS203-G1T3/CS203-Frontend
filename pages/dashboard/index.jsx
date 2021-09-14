@@ -10,8 +10,6 @@ import DashboardCard from "../../components/dashboard/DashboardCard";
 
 function Dashboard () {
 
-    const [header1, setHeader1] = useState("Allowed To Operate?")
-
     return (
         <div className="h-screen flex">
             <Navbar />
@@ -39,54 +37,13 @@ function Dashboard () {
 
                 <div class="grid grid-flow-col lg:grid-cols-3 lg:grid-rows-2 gap-4 md:grid-cols-2 md:grid-rows-3">
 
-                    <DashboardCard header={header1} value="YES" link="#" />
                     <DashboardCard header="Allowed To Operate?" value="YES" link="#" />
-                    <DashboardCard header="Allowed To Operate?" value="YES" link="#" />
-                    <DashboardCard header="Allowed To Operate?" value="YES" link="#" />
-                    <DashboardCard header="Allowed To Operate?" value="YES" link="#" />
-                    <DashboardCard header="Allowed To Operate?" value="YES" link="#" />
+                    <DashboardCard header="Contact Tracing" value="100% required SAFE ENTRY" link="#" />
+                    <DashboardCard header="Group Size" value="2 PAX" link="#" />
+                    <DashboardCard header="Operating Capacity" value="100%" link="#" />
+                    <DashboardCard header="COVID-19 Swab Test Frequency" value="Every 14 Days" link="#" />
+                    <DashboardCard header="Operating Guidelines" value="By MOM" link="#" />
 
-
-
-
-                {/* <div class="flex flex-col items-baseline shadow-xl h-50 w-60 m-4 bg-gray-200 rounded-lg" id="open-btn">
-                    <p className="order-first">Allowed To Operate?</p>
-                    <p className="order-second text-2xl font-bold">YES</p>
-                    <a href="#" className="no-underline hover:underline text-gray-600 pt-9">Click here for more details</a>
-   
-                    
-                </div>
-                <div class="flex flex-col items-baseline shadow-xl h-50 w-60 m-4 bg-gray-200 rounded-lg" >
-                    <p>Contact Tracing</p>
-                    <p className="text-2xl font-bold">100% required <br></br> SAFE ENTRY</p>
-                    <a href="#" className="no-underline hover:underline text-gray-600 pt-9">Click here for more details</a>
-                </div>
-                
-                 <div class="flex flex-col items-baseline shadow-xl h-50 w-60 m-4 bg-gray-200 rounded-lg">
-                    <p>Group Size</p>
-                    <p className="text-2xl font-bold">2 PAX</p>
-                    <a href="#" className="no-underline hover:underline text-gray-600 pt-9">Click here for more details</a>
-                </div>
-                <div class="flex flex-col items-baseline shadow-xl h-50 w-60 m-4 bg-gray-200 rounded-lg">
-                    <p>Operating Capactiy</p>
-                    <p className="text-2xl font-bold">100%</p>
-                    <a href="#" className="no-underline hover:underline text-gray-600 pt-9">Click here for more details</a>
-                </div>
-                <div class="flex flex-col items-baseline shadow-xl h-50 w-60 m-4 bg-gray-200 rounded-lg">
-                    <p>COVID-19 Swab Test Frequency</p>
-                    <p className="text-2xl font-bold">Every 14 Days</p>
-                    <a href="#" className="no-underline hover:underline text-gray-600 pt-9">Click here for more details</a>
-                </div>
-                <div class="flex flex-col items-baseline shadow-xl h-50 w-60 m-4 bg-gray-200 rounded-lg">
-                    <p>Operating Guidelines</p>
-                    <p className="text-2xl font-bold">By MOM</p>
-                    <p className="text-xs">Ministry Of Manpower</p>
-                    <a href="#" className="no-underline hover:underline text-gray-600 pt-9">Click here for more details</a>
-                </div> */}
-                
-               
-              
-            
                 </div>
 
 

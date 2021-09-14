@@ -7,13 +7,13 @@ function UserProfile () {
         <div className = "flex flex-col justify-baseline w-80 h-full bg-gray-200">
              <button className="flex space-x-1 mt-4 p-5 items-center">
 
-                <div className="bg-gray-500 h-3/4 w-48 rounded-sm">
-                    <img className="object-cover h-full w-full" src="/LHL.jpeg" alt="profile_pic" />
+                <div className="bg-black-500 h-full w-48 rounded-sm">
+                    <img className="object-fill" src="/hawker.webp" alt="profile_pic" />
                 </div>
 
 
 
-                <div className="p-1">
+                <div className="client-details">
                     <div className="flex justify-between">
                         <p className="text-blue-500 font-bold">Waterloo Cai Fan</p>
                         <div className="w-4 flex items-center"> 
