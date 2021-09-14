@@ -4,6 +4,7 @@ import popUps from "../dashboard/popUps"
 import { DownOutlined } from '@ant-design/icons';
 import { SearchIcon } from '@heroicons/react/solid';
 import Link from 'next/link'
+import DashboardCard from "../../components/dashboard/DashboardCard";
   
 
 function Dashboard () {
@@ -35,7 +36,18 @@ function Dashboard () {
                 </div>
 
                 <div class="grid grid-flow-col grid-cols-3 grid-rows-2 gap-4">
-                <div class="flex flex-col items-baseline shadow-xl h-50 w-60 m-4 bg-gray-200 rounded-lg" id="open-btn">
+
+                    <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
+                    <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
+                    <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
+                    <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
+                    <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
+                    <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
+
+
+
+
+                {/* <div class="flex flex-col items-baseline shadow-xl h-50 w-60 m-4 bg-gray-200 rounded-lg" id="open-btn">
                     <p className="order-first">Allowed To Operate?</p>
                     <p className="order-second text-2xl font-bold">YES</p>
                     <a href="#" className="no-underline hover:underline text-gray-600 pt-9">Click here for more details</a>
@@ -68,7 +80,7 @@ function Dashboard () {
                     <p className="text-2xl font-bold">By MOM</p>
                     <p className="text-xs">Ministry Of Manpower</p>
                     <a href="#" className="no-underline hover:underline text-gray-600 pt-9">Click here for more details</a>
-                </div>
+                </div> */}
                 
                
               
