@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "babel src -d lib",
+    "start": "webpack-dev-server --mode development"
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.4",
