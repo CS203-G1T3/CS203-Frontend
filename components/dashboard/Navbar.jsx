@@ -8,8 +8,8 @@ function Navbar () {
         <div className="flex flex-col w-80 h-full ">
             <div className="flex items-center p-4">
                 <SparklesIcon />
-                <h1 className="ml-2 text-3xl">
-                    CovidLoveIt
+                <h1 className="text-indigo-700 ml-2 text-4xl font-bold">
+                    TRAIL
                 </h1>
             </div>
 
