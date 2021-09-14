@@ -1,6 +1,6 @@
 import Navbar from "../../components/dashboard/Navbar"
 import UserProfile from "../../components/dashboard/UserProfile"
-import popUps from "../dashboard/popUps"
+import popUps from "./popups"
 import { DownOutlined } from '@ant-design/icons';
 import { SearchIcon } from '@heroicons/react/solid';
 import Link from 'next/link'
@@ -35,7 +35,7 @@ function Dashboard () {
                     <h2 className="text-gray-600">for F&B Establishments - Coffeeshop as of 31 August 2021</h2>
                 </div>
 
-                <div class="grid grid-flow-col grid-cols-3 grid-rows-2 gap-4">
+                <div class="grid grid-flow-col lg:grid-cols-3 lg:grid-rows-2 gap-4 md:grid-cols-2 md:grid-rows-3">
 
                     <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
                     <DashboardCard header="Allowed To Operate?" value="YES" link="/" />

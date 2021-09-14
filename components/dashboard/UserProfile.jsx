@@ -5,20 +5,25 @@ import { SmileOutlined } from '@ant-design/icons';
 function UserProfile () {
     return (
         <div className = "flex flex-col justify-baseline w-80 h-full bg-gray-200">
-             <div className="flex space-x-1 mt-4 p-5">
+             <button className="flex space-x-1 mt-4 p-5 items-center">
 
-                <div><SmileOutlined /></div>
-                <div className="p-2">
+                <div className="bg-gray-500 h-3/4 w-48 rounded-sm">
+                    <img className="object-cover h-full w-full" src="/LHL.jpeg" alt="profile_pic" />
+                </div>
+
+
+
+                <div className="p-1">
                     <div className="flex justify-between">
-                        <p className="text-blue-500 font-bold text-lg">Waterloo Cai Fan</p>
-                        <button className="w-4 flex items-center"> 
+                        <p className="text-blue-500 font-bold">Waterloo Cai Fan</p>
+                        <div className="w-4 flex items-center"> 
                             <DownOutlined/>
-                        </button>
+                        </div>
                     </div>
                     <p>waterloocaifan@hawker.com.sg</p>
                 </div>
 
-            </div>
+            </button>
 
             <div className="flex flex-col p-5 space-y-3">
 
