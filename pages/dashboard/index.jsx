@@ -1,6 +1,7 @@
 import Navbar from "../../components/dashboard/Navbar"
 import UserProfile from "../../components/dashboard/UserProfile"
 import popUps from "./popups"
+import { useState } from "react";
 import { DownOutlined } from '@ant-design/icons';
 import { SearchIcon } from '@heroicons/react/solid';
 import Link from 'next/link'
@@ -9,6 +10,7 @@ import DashboardCard from "../../components/dashboard/DashboardCard";
 
 function Dashboard () {
 
+    const [header1, setHeader1] = useState("Allowed To Operate?")
 
     return (
         <div className="h-screen flex">
@@ -37,12 +39,12 @@ function Dashboard () {
 
                 <div class="grid grid-flow-col lg:grid-cols-3 lg:grid-rows-2 gap-4 md:grid-cols-2 md:grid-rows-3">
 
-                    <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
-                    <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
-                    <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
-                    <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
-                    <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
-                    <DashboardCard header="Allowed To Operate?" value="YES" link="/" />
+                    <DashboardCard header={header1} value="YES" link="#" />
+                    <DashboardCard header="Allowed To Operate?" value="YES" link="#" />
+                    <DashboardCard header="Allowed To Operate?" value="YES" link="#" />
+                    <DashboardCard header="Allowed To Operate?" value="YES" link="#" />
+                    <DashboardCard header="Allowed To Operate?" value="YES" link="#" />
+                    <DashboardCard header="Allowed To Operate?" value="YES" link="#" />
 
 
 
