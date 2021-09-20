@@ -1,19 +1,15 @@
 import Navbar from "../../components/dashboard/Navbar"
 import UserProfile from "../../components/dashboard/UserProfile"
-import popUps from "./popups"
-import { useState } from "react";
-import { DownOutlined } from '@ant-design/icons';
 import { SearchIcon } from '@heroicons/react/solid';
-import Link from 'next/link'
 import DashboardCard from "../../components/dashboard/DashboardCard";
-  
+import PopUps from "../../components/dashboard/PopUps"
 
 function Dashboard () {
 
     return (
         <div className="h-screen flex">
             <Navbar />
-           
+            <PopUps />
             
             <div className="p-4 w-full">
                 {/* search bar and language */}
@@ -46,12 +42,11 @@ function Dashboard () {
 
                 </div>
 
-
-
-
+            
             </div>
             <UserProfile />
-            <popUps />
+
+
         </div>
     )
 

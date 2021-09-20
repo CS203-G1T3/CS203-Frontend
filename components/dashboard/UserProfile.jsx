@@ -15,7 +15,7 @@ function UserProfile () {
 
                 <div className="client-details">
                     <div className="flex justify-between">
-                        <p className="text-blue-500 font-bold">Waterloo Cai Fan</p>
+                        <p className="text-indigo-500 font-bold">Waterloo Cai Fan</p>
                         <div className="w-4 flex items-center"> 
                             <DownOutlined/>
                         </div>
@@ -36,11 +36,7 @@ function UserProfile () {
                 <p className = "text-3xl font-bold mt-20">Updates </p>
                 <p className = "text-gray-500">You have no new updates</p>
             </div>
-           
         </div>
-        
-
-       
     )
 }
 
