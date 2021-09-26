@@ -22,11 +22,14 @@ export default function Home() {
             </Link>
 
             <h1 className="mt-16 text-5xl font-bold">The Road Ahead Is Long. But we can get there together.</h1>
-            <p className="mt-4">Join us at trail.sg as we strive to make a difference for businesses heavily hit by the pandemic.</p>
+            <p className="mt-8">Join us at trail.sg as we strive to make a difference for businesses heavily hit by the pandemic.</p>
 
-            <div className="mt-4">
-                <Link href="/login">
-                    <button className="flex bg-blue-500 text-white p-2 rounded-md"> Business Portal Log In</button>
+            <div className="mt-8 flex justify-around">
+                <Link href="/login"> 
+                    <button className="flex bg-blue-500 text-white p-2 rounded-sm"> Business Portal Log In </button> 
+                </Link>
+                <Link href="/admin/login"> 
+                    <button className="flex bg-blue-500 text-white p-2 rounded-sm"> Admin Portal Log In </button> 
                 </Link>
             </div>
             
