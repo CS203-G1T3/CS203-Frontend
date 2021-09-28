@@ -6,10 +6,7 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {
-      gridAutoFlow: ['hover', 'focus'],
-      boxShadow: ['active']
-    },
+ 
   },
   plugins: [],
 
