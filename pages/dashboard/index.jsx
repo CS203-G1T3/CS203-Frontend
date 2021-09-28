@@ -29,7 +29,7 @@ function Dashboard () {
                     <h2 className="text-gray-600">for F&B Establishments - Coffeeshop as of 31 August 2021</h2>
                 </div>
 
-                <div class="grid grid-flow-col lg:grid-cols-3 lg:grid-rows-2 gap-4 md:grid-cols-2 md:grid-rows-3">
+                <div className="grid grid-flow-col lg:grid-cols-3 lg:grid-rows-2 gap-4 md:grid-cols-2 md:grid-rows-3">
 
                     
                     <PopUps header="Allowed To Operate?" value="YES" title="Allowed To Operate" body="F&B establishments are only permitted to seat dine-in groups of up to 2 persons, i.e. a decrease from groups of up to 5 persons allowed previously. Vaccination-differentiated SMMs must continue to be applied to such dine-in groups or individuals."/>
