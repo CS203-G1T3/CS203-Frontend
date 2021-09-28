@@ -3,18 +3,20 @@
   "scripts": {
     "dev": "next dev",
     "build": "babel src -d lib",
-    "start": "webpack-dev-server --mode development"
+    "start": "jest"
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.4",
     "@heroicons/react": "^1.0.4",
+    "@visx/visx": "^2.1.1",
     "antd": "^4.16.13",
     "axios": "^0.21.4",
     "formik": "^2.2.9",
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-render-hook": "^2.0.0"
+    "react-render-hook": "^2.0.0",
+    "react-vis": "^1.11.7"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
