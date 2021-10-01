@@ -4,37 +4,24 @@ import { SmileOutlined } from '@ant-design/icons';
 
 function UserProfile () {
     return (
-        <div className = "flex flex-col justify-baseline w-80 h-full bg-gray-200">
-             <button className="flex space-x-1 mt-4 p-5 items-center">
+        <div className = "flex flex-col justify-baseline w-1/5 h-full bg-gray-200">
 
-                <div className="bg-black-500 h-full w-48 rounded-sm">
-                    <img className="object-fill" src="/hawker.webp" alt="profile_pic" />
+             <button className="flex mt-4 m-2 items-center">
+                <div className="h-16 w-16 p-1">
+                    <img className="object-cover rounded-full h-full w-full" src="/hawker.webp" alt="profile_pic" />
                 </div>
-
-
-
-                <div className="client-details">
-                    <div className="flex justify-between">
-                        <p className="text-indigo-500 font-bold">Waterloo Cai Fan</p>
-                        <div className="w-4 flex items-center"> 
-                            <DownOutlined/>
-                        </div>
-                    </div>
-                    <p>waterloocaifan@hawker.com.sg</p>
-                </div>
-
+                <div className="text-indigo-500 font-bold text-sm">Waterloo Cai Fan</div>
+                <DownOutlined className="w-4"/>
             </button>
 
-            <div className="flex flex-col p-5 space-y-3">
-
-                <p className = "text-3xl font-bold mt-20">Profile Details </p>
-                <p className = "text-gray-500 flex flex-col">Industry <span className ="text-2xl font-bold">Food & Beverage</span></p>
-                <p className = "text-gray-500 flex flex-col">Sub-Industry <span className ="text-2xl font-bold">Coffeeshop</span></p>
-                
+            <div className="flex flex-col p-5 space-y-3 mt-8">
+                <span className = "text-xl font-bold">Profile Details </span>
+                <span className = "text-gray-500 flex flex-col">Industry <span className ="text-xl font-bold">Food & Beverage</span></span>
+                <span className = "text-gray-500 flex flex-col">Sub-Industry <span className ="text-xl font-bold">Coffeeshop</span></span>
             </div>
-            <div className="flex flex-col p-5 space-y-3">
-                <p className = "text-3xl font-bold mt-20">Updates </p>
-                <p className = "text-gray-500">You have no new updates</p>
+            <div className="flex flex-col p-5 space-y-3 mt-8">
+                <span className = "text-xl font-bold">Updates </span>
+                <span className = "text-gray-500">You have no new updates</span>
             </div>
         </div>
     )

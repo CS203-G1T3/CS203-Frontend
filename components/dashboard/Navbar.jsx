@@ -8,9 +8,9 @@ function Navbar () {
         <div className="flex flex-col w-80 h-full ">
             <div className="flex items-center p-4">
                 <SparklesIcon />
-                <h1 className="text-indigo-700 ml-2 text-4xl font-bold">
+                <span className="text-indigo-700 ml-2 text-4xl font-bold">
                     TRAIL
-                </h1>
+                </span>
             </div>
 
             <div className="flex flex-col mt-8 border-r-2 p-1 h-full">
@@ -19,35 +19,35 @@ function Navbar () {
                 <Link href="#">
                     <button className="flex items-center hover:bg-gray-200 rounded-lg p-1 px-4 w-full my-2">
                         <AppstoreOutlined />
-                        <h1 className="ml-4">Operating Guidelines</h1>
+                        <span className="ml-4">Operating Guidelines</span>
                     </button>
                 </Link>
 
                 <Link href="#">
                     <button className="flex items-center hover:bg-gray-200 p-1 px-4 w-full my-2">
                         <AppstoreOutlined />
-                        <h1 className="ml-4">Employee Management</h1>
+                        <span className="ml-4">Employee Management</span>
                     </button>
                 </Link>
 
                 <Link href="#">
                     <button className="flex items-center hover:bg-gray-200 p-1 px-4 w-full my-2">
                         <AppstoreOutlined />
-                        <h1 className="ml-4">Business Forecast</h1>
+                        <span className="ml-4">Business Forecast</span>
                     </button>
                 </Link>
 
                 <Link href="#">
                     <button className="flex items-center hover:bg-gray-200 p-1 px-4 w-full my-2">
                         <AppstoreOutlined />
-                        <h1 className="ml-4">Risk Assessment</h1>
+                        <span className="ml-4">Risk Assessment</span>
                     </button>
                 </Link>
 
                 <Link href="#">
                     <button className="flex items-center hover:bg-gray-200 p-1 px-4 w-full my-2">
                         <AppstoreOutlined />
-                        <h1 className="ml-4">Grants and Support</h1>
+                        <span className="ml-4">Grants and Support</span>
                     </button>
                 </Link>
 

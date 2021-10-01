@@ -10,7 +10,7 @@ function Dashboard () {
             <Navbar />
             
             <div className="p-4 w-full">
-                {/* search bar and language */}
+
                 <div className="w-full flex justify-around">
                     <div className="flex w-96 p-2 px-4 border-2 rounded-full bg-gray-200" >
                         <SearchIcon className="w-6 h-6 mx-2" />
@@ -20,13 +20,13 @@ function Dashboard () {
 
                 <div className="m-8 flex flex-col">
                     <div className="flex items-end">
-                        <h1 className="text-5xl font-bold">Hi,</h1>
-                        <h3 className="text-3xl pl-3">WaterLoo Cai Fan</h3>
+                        <span className="text-4xl font-bold">Hi,</span>
+                        <span className="text-3xl pl-3">WaterLoo Cai Fan</span>
                     </div>
 
-                    <h4 className="text-gray-600">Welcome to your homepage</h4>
-                    <h2 className="text-3xl mt-4">Safe Management Measures</h2>
-                    <h2 className="text-gray-600">for F&B Establishments - Coffeeshop as of 31 August 2021</h2>
+                    <span className="text-gray-600">Welcome to your homepage</span>
+                    <span className="text-3xl mt-4">Safe Management Measures</span>
+                    <span className="text-gray-600">for F&B Establishments - Coffeeshop as of 31 August 2021</span>
                 </div>
 
                 <div className="grid grid-flow-col lg:grid-cols-3 lg:grid-rows-2 gap-4 md:grid-cols-2 md:grid-rows-3">
@@ -44,7 +44,6 @@ function Dashboard () {
             
             </div>
             <UserProfile />
-
 
         </div>
     )
