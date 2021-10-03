@@ -15,9 +15,9 @@ function Signup() {
             <div className="flex flex-col">
                 <div className="absolute flex">
                     <Link href="/">
-                        <button className="flex px-32 pt-16 text-3xl items-center text-blue-600">
-                            <CodeIcon className="h-10 mx-2" />
-                            <h1>TRAIL</h1>
+                        <button className="flex px-32 pt-16 text-3xl items-center">
+                            <CodeIcon className="h-10 mx-2 text-blue-600" />
+                            TRAIL
                         </button>
                     </Link>
                 </div>
@@ -27,8 +27,8 @@ function Signup() {
                         <h1 className="text-4xl ">Sign up </h1>
                         <p className="py-3">Create a new business account</p>
                         <Signupform />
-                        <div className="flex items-center">
-                            <p className="py-3 mr-1">Already a member?</p>
+                        <div className="flex my-3">
+                            <p className="mr-1">Already a member?</p>
                             <a href="/login" className="underline">Log in</a>
                         </div>
                     </div>
