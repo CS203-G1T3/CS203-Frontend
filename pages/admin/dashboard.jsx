@@ -1,38 +1,48 @@
-import Navbar from "../../components/dashboard/Navbar"
-import AdminUserProfile from "../../components/dashboard/AdminUserProfile"
-import Graphs from "../../components/dashboard/Graphs"
+import Navbar from "../../components/admin/Navbar"
+import Graphs from "../../components/admin/Graphs"
 import { SearchIcon } from '@heroicons/react/solid';
+import { DownOutlined } from '@ant-design/icons';
+
 
 function AdminDashboard () {
 
     return (
         <div className="h-screen flex">
             <Navbar />
+
             <div className="p-4 w-full">
-                {/* search bar and language */}
-                <div className="w-full flex justify-around">
+
+                <div className="w-full flex justify-around items-center">
                     <div className="flex w-96 p-2 px-4 border-2 rounded-full bg-gray-200" >
                         <SearchIcon className="w-6 h-6 mx-2" />
                         <input className="bg-gray-200" type="text" placeholder="Search"></input>
                     </div>
+                    <button className="flex">
+                        <div className="h-10 w-10 p-1">
+                            <img className="object-cover rounded-lg h-full w-full" src="/hawker.webp" alt="profile_pic" />
+                        </div>
+                        <div className="flex flex-col text-left mx-2">
+                            <span className="text-indigo-500 font-bold text-sm">Admin User 01</span>
+                            <span className="text-gray-400 font-bold text-xs">user@admin.com</span>
+                        </div>
+                        <DownOutlined className="w-4 pt-1"/>
+                    </button>
                 </div>
 
                 <div className="m-8 flex flex-col">
-                    <div className="flex items-end">
-                        <h1 className="text-5xl font-bold">Hi,</h1>
-                        <h3 className="text-3xl pl-3">Sally Tan Xiao Hui</h3>
-                    </div>
-                    <h4 className="text-gray-600">Welcome to your homepage</h4>
+                    <span className="text-2xl font-bold">Overview</span>
                 </div>
+
                 <h2 className="text-2xl m-8">Current Vaccination Rates Per Industry</h2>
-                <div class="grid grid-flow-col lg:grid-cols-4 lg:grid-rows-1 gap-20 md:grid-cols-2 md:grid-rows-3 p-1 mb-4">
+                <div className="grid grid-flow-col lg:grid-cols-4 lg:grid-rows-1 gap-20 md:grid-cols-2 md:grid-rows-3 p-1 m-8">
                     <Graphs industry="F&B" vaccinated="12,000" unvacccinated="100"/>
                     <Graphs industry="Retail"/>
                     <Graphs industry="Entertainment"/>
                     <Graphs industry="Office"/>
                 </div>
+                
                 <h2 className="text-2xl m-5">Quicklinks</h2>
-                <div class="grid grid-flow-col lg:grid-cols-3 lg:grid-rows-1 gap-20 md:grid-cols-2 md:grid-rows-3 ">
+                <div className="grid grid-flow-col lg:grid-cols-3 lg:grid-rows-1 gap-20 md:grid-cols-2 md:grid-rows-3 ">
                     <div className="flex flex-col items-baseline shadow-xl h-50 w-60 m-4 bg-gray-200 rounded-lg p-4">
                             <h2 className="text-xl">COVID-19 Guidelines</h2>
                             <a href="#">View Guidelines</a>
@@ -51,7 +61,6 @@ function AdminDashboard () {
 
                 </div>
             </div>
-            <AdminUserProfile/>
             
         </div>
        

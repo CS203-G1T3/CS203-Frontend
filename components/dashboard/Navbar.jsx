@@ -19,35 +19,35 @@ function Navbar () {
                 <p className="my-4 pl-4">Find out more about...</p>
                 
                 <Link href="#">
-                    <button className="flex items-center hover:bg-indigo-100 rounded-lg p-1 px-4 w-full my-2">
+                    <button className="flex items-center hover:bg-indigo-100 rounded-lg p-1 px-4 w-full py-4">
                         <AppstoreOutlined />
                         <span className="ml-4 text-left">Operating Guidelines</span>
                     </button>
                 </Link>
 
                 <Link href="#">
-                    <button className="flex items-center hover:bg-indigo-100 p-1 px-4 w-full my-2">
+                    <button className="flex items-center hover:bg-indigo-100 p-1 px-4 w-full py-4">
                         <AppstoreOutlined />
                         <span className="ml-4 text-left">Employee Management</span>
                     </button>
                 </Link>
 
                 <Link href="#">
-                    <button className="flex items-center hover:bg-indigo-100 p-1 px-4 w-full my-2">
+                    <button className="flex items-center hover:bg-indigo-100 p-1 px-4 w-full py-4">
                         <AppstoreOutlined />
                         <span className="ml-4 text-left">Business Forecast</span>
                     </button>
                 </Link>
 
                 <Link href="#">
-                    <button className="flex items-center hover:bg-indigo-100 p-1 px-4 w-full my-2">
+                    <button className="flex items-center hover:bg-indigo-100 p-1 px-4 w-full py-4">
                         <AppstoreOutlined />
                         <span className="ml-4 text-left">Risk Assessment</span>
                     </button>
                 </Link>
 
                 <Link href="#">
-                    <button className="flex items-center hover:bg-indigo-100 p-1 px-4 w-full my-2">
+                    <button className="flex items-center hover:bg-indigo-100 p-1 px-4 w-full py-4">
                         <AppstoreOutlined />
                         <span className="ml-4 text-left">Grants and Support</span>
                     </button>
