@@ -28,7 +28,7 @@ const PopUps = ({ header, value, title, body, disclaimer}) => {
             <div className="flex flex-col h-full pl-2">
                 <span className="">{header}</span>
                 <span className="text-2xl font-bold">{value}</span>
-                <button className="absolute mt-28 text-red-500" onClick={showModal}>
+                <button className="absolute mt-28 text-red-500 mr-4" onClick={showModal}>
                     Click here for more details
                 </button>
                 <Modal
