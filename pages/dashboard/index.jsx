@@ -11,8 +11,8 @@ function Dashboard ({ cookies }) {
 
     // user states
     const [user, setUser] = useState()
-    const [businessName, setBusinessName] = useState("")
-    const [clientEmail, setClientEmail] = useState("")
+    const [businessName, setBusinessName] = useState("Waterloo Caifan")
+    const [clientEmail, setClientEmail] = useState("waterloo@caifan.com")
     const [businessIndustry, setBusinessIndustry] = useState("Food & Beverage")
     const [businessSubindustry, setBusinessSubindustry] = useState("Coffee Shop")
 
