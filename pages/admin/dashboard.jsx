@@ -3,12 +3,12 @@ import Graphs from "../../components/admin/Graphs"
 import { SearchIcon } from '@heroicons/react/solid';
 import { DownOutlined } from '@ant-design/icons';
 
-
 function AdminDashboard () {
 
     return (
         <div className="h-screen flex">
             <Navbar />
+
 
             <div className="p-4 w-full">
 

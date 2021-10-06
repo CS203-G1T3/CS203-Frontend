@@ -1,15 +1,17 @@
 import Navbar from "../../components/admin/Navbar"
 import { SearchIcon } from '@heroicons/react/solid';
 import { DownOutlined } from '@ant-design/icons';
-
+import GuidelineForm from "../../components/admin/GuidelineForm"
 function AdminGuidelines() {
 
     async function handleSubmit() {
 
     }
 
-    return ( <div className="flex h-screen">
+    return ( 
+    <div className="flex h-screen">
         <Navbar/>
+      
         <div className="p-4 w-full">
             <div className="w-full flex justify-around items-center">
                 <div className="flex w-96 p-2 px-4 border-2 rounded-full bg-gray-200" >
@@ -69,20 +71,15 @@ function AdminGuidelines() {
                     </tr>
                 </table>
 
-                <span className="text-2xl font-bold">Create New Guideline</span>
-                <form onSubmit={handleSubmit}>
-
-                    <label>Name</label>
-                    <input id="name" type="text" autoComplete="name" required />
-
-
-                    <button className="bg-blue-200 p-1" type="submit">Create</button>
-                </form>
+                <span className="text-2xl font-bold pb-4">Create New Guideline</span>
+            
+                <GuidelineForm/>
+                
 
             </div>
 
         </div>
-
+        
     </div>
     )
 }
