@@ -66,12 +66,15 @@ function Dashboard ({ cookies }) {
 
     // this function gets the current authenticated user or redirects to login if not found
     const getAuthentication = async() => {
-        if (user) return
-
-        const userCookie = JSON.parse(cookies.user)
-        const user_data = await getUser(userCookie.user_id, userCookie.refresh_token)
-        setUser(user_data)
-        if (!user_data) router.push('/login')
+        try {
+            const userCookie = JSON.parse(cookies.user)
+            const user_data = await getUser(userCookie.user_id, userCookie.refresh_token)
+            if (!user_data) router.push('/login')
+            if (!user) setUser(user_data)    
+        }
+        catch {
+            router.push('/login')
+        }
     }
 
     // this hook calls the function when the page loads and when user changes 
