@@ -1,13 +1,14 @@
 import axios from "axios"
 import { getInMemoryToken } from "../utils/auth"
 
-export async function getIndustry(industryId){
+export async function getLatestGuidelineByIndustry(industryId){
     if (!getInMemoryToken()) return null
 
-    const industry = await axios.get('/api/v1/industry/id/' + industryId, {
+    const guideline = await axios.get('/api/v1/guideline/byIndustry/' + industryId, {
         headers: {
             'Authorization': `Bearer ${getInMemoryToken()}`
         }
     })
-    return industry.data
+    return guideline.data
 }
+
