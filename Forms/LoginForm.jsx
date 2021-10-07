@@ -1,7 +1,11 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import { UserIcon, LockOpenIcon } from '@heroicons/react/outline';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
+import axios from 'axios';
+import qs from 'qs';
+import { setInMemoryToken, getInMemoryToken } from '../utils/auth'
+import { useCookies } from "react-cookie"
 
 
 const validate = values => {
@@ -23,13 +27,44 @@ const validate = values => {
 
 
 const LoginForm = () => {
-    
-    const router = useRouter();
+    const router = useRouter()
+    const qs = require('qs');
+    const[cookie, setCookie] = useCookies(['user'])
 
-    async function submitLogin() {
+    // function to log a user in and store data in cookie
+    async function handleSubmit(email, password) {
 
-    }
+        try {
+            const response = await axios.post("/api/login", qs.stringify({
+                'email': email,
+                'password': password
+            }))
+            setInMemoryToken(response.data.access_token)
 
+            const user = await axios.get('/api/v1/client/email/' + email, {
+                headers: {
+                    'Authorization': `Bearer ${getInMemoryToken()}`
+                }
+            })
+
+            const data = {
+                'refresh_token': response.data.refresh_token,
+                'user_id': user.data.clientId
+            }
+
+            setCookie("user", JSON.stringify(data), {
+                path: "/",
+                maxAge: 36000, // Expires after 10hr
+                sameSite: true,
+            })
+            router.push('/dashboard') 
+
+        } catch(e) {
+            console.log(e)
+            alert("error signing up")
+            router.push('/login')
+        }
+    }   
 
     const formik = useFormik({
         initialValues: {
@@ -38,7 +73,7 @@ const LoginForm = () => {
         },
         validate,
         onSubmit: values => {
-        alert(JSON.stringify(values, null, 2));
+            handleSubmit(values.email, values.password);
         },
     });
 

@@ -121,13 +121,15 @@ const Signupform = () => {
 
 
         <div className="flex justify-end w-full">
+            {/* TODO: FIX THIS */}
             <select 
             name="industry" id="industry" 
             value={formik.values.industry} 
             className="p-1 border-2 mt-4" 
             onChange={formik.handleChange} 
-            onBlur={formik.handleBlur}>
-                <option value="" disabled selected hidden>Select an industry</option>
+            onBlur={formik.handleBlur}
+            defaultValue={'DEFAULT'}>
+                <option value="DEFAULT" disabled>Select an industry</option>
                 <option value="red" label="red" />
                 <option value="blue" label="blue" />
                 <option value="green" label="green" />
