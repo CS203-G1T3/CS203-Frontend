@@ -38,13 +38,11 @@ function Employees({ cookies }) {
                 </div>
 
                 <div className="mx-8 mt-8 mb-4 flex flex-col">
-                    <div className="flex items-end">
-                        <span className="text-5xl font-bold">Hi</span>
-                        <span className="text-4xl">,  WaterLoo Cai Fan</span>
+                    <span className="text-4xl">Employee Management</span>
+
+                    <div>
+                        
                     </div>
-                    <span className="text-gray-600">Welcome to your dashboard</span>
-                    <span className="text-2xl mt-6">Safe Management Measures</span>
-                    <span className="text-gray-600">for F&B Establishments - Coffeeshop as of 31 August 2021</span>
                 </div>
             </div>
         </div>    
