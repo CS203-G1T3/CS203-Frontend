@@ -38,9 +38,19 @@ function Employees({ cookies }) {
                 </div>
 
                 <div className="mx-8 mt-8 mb-4 flex flex-col">
-                    <span className="text-4xl">Employee Management</span>
+                    <span className="text-2xl">Employee Management</span>
 
-                    <div>
+                    <div className="flex mt-4 justify-between">
+                        
+                        <div className="p-2 mx-4">
+                            <span className="text-xl">Overview</span>
+                            <div className="bg-indigo-50">
+                                <span className="">Number employees</span>
+
+                            </div>
+                        </div>
+                        
+
                         
                     </div>
                 </div>
