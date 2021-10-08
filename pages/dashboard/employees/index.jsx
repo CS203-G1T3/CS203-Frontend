@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { SearchIcon } from '@heroicons/react/solid';
-import { getUser } from "../../../services/userService";
+import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+import { SearchIcon } from '@heroicons/react/solid'
+import { Statistic, Row, Col, Button } from 'antd'
+import { getUser } from "../../../services/userService"
 import Navbar from "../../../components/dashboard/Navbar"
+import VaccinationChart from "../../../components/dashboard/VaccinationChart"
 
 
 function Employees({ cookies }) {
@@ -40,18 +42,39 @@ function Employees({ cookies }) {
                 <div className="mx-8 mt-8 mb-4 flex flex-col">
                     <span className="text-2xl">Employee Management</span>
 
-                    <div className="flex mt-4 justify-between">
-                        
-                        <div className="p-2 mx-4">
+                    <div className="flex mt-4 w-full h-56">
+                        <div className="w-full mr-3">
                             <span className="text-xl">Overview</span>
-                            <div className="bg-indigo-50">
-                                <span className="">Number employees</span>
-
+                            <div className="bg-gray-50 rounded-lg mt-2 p-4 h-full">
+                                <Row gutter={16}>
+                                    <Col span={12}>
+                                    <Statistic title="Number of employees" value={2432} />
+                                    </Col>
+                                    <Col span={12}>
+                                    <Statistic title="Total number vaccinated" value={134} />
+                                    <Button style={{ marginTop: 16 }} type="primary">
+                                        See breakdown
+                                    </Button>
+                                    </Col>
+                                    <Col span={12}>
+                                    <Statistic title="Active Users" value={112893} />
+                                    </Col>
+                                </Row>
                             </div>
                         </div>
-                        
 
-                        
+                        <div className="w-144 ml-3 h-full p-1">
+                            <span className="text-xl">Vaccination Rate</span>
+                            <div className="bg-gray-50 rounded-lg mt-2 p-2 h-full">
+                                <span className=""></span>
+                                <VaccinationChart />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex w-full mt-14">
+                        <span className="text-xl">Employees</span>
+
                     </div>
                 </div>
             </div>
