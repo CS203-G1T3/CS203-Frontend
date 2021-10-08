@@ -30,7 +30,7 @@ function Navbar () {
                     </button>
                 </Link>
 
-                <Link href="#">
+                <Link href="/admin/industry">
                     <button className="flex items-center hover:bg-gray-200 rounded-lg p-1 w-full py-4">
                         <span className="ml-4">View Businesses</span>
                     </button>

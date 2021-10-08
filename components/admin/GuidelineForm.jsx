@@ -1,9 +1,62 @@
-import React,{ useState } from 'react'
+import React,{ useEffect, useState } from 'react'
 import NumericInput from 'react-numeric-input'
-import axios from 'axios'
+import getAllIndustries from '../../services/guidelinesService'
+import axios from "axios"
+
 
 function GuidelineForm() {
-    const [industries, setIndustries] = useState(["Entertainment", "Office", "F&B"])
+    const [industries, setIndustries] = useState([])
+
+    function displayIndustries() {
+        industries.map((industry, index) => {
+        console.log('hello',industry)
+
+        return (
+            <option key={index} value={industry} >{industry}</option>
+        )
+        
+    })
+}
+
+    
+      const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaW5zeWhlbjk5QGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hcGkvbG9naW4iLCJleHAiOjE2MzM3MTY1MzR9.8FSkrzVxo-E3nYYdv74X1ZMUPChZUh3GaO4j1FmnBIc'
+
+ function getAllIndustryNames() {
+            
+            axios.get('/api/v1/industryNames', {
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                }
+              })
+              .then((res) => {
+                setIndustries(res.data)
+        
+        
+                // res.data.map(
+                //     resIndx => {
+                // //shallow copying 
+                // setIndustries(...industries,resIndx))
+                // }
+               
+                
+              })
+              .catch((error) => {
+                console.error(error)
+              })
+
+    
+}
+    useEffect(() => {
+        getAllIndustryNames()
+    },[])
+
+
+    // const displayIndustries = (industries) => {
+    //     return (
+    //         <option value={industries} >{industries}</option>
+    //     )
+    // }
+
 
     const [state, setState] = useState({
         option: '',
@@ -13,52 +66,17 @@ function GuidelineForm() {
         setState({option: event.target.value})
     }
 
-    const displayIndustries = industries.map((industry, index) => {
-        console.log(industry)
-
-        return (
-            <option key={index} value={industry} >{industry}</option>
-        )
-        
-    })
+    
+   
  
-    const addGuideline = async event => {
-        event.preventDefault()
-
-        const guideline = {
-            option: state.option
-        };
-
-            const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJydXdhbnNhZHJpcy4yMDIwQHNtdS5lZHUuc2ciLCJyb2xlcyI6WyJVU0VSIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hcGkvbG9naW4iLCJleHAiOjE2MzM0NDEyMzV9.CHHI63tDLX2UADkOCqdK2xus8NtBjarnZTfJaZDHJ-c'
-
-            axios.post('http://localhost:8080/api/v1/guideline/add/6ff9e0e0-23ee-4620-844f-e5809928efb8', {
-              guideline
-            }, {
-              headers: {
-                'Authorization': `Bearer ${token}` 
-              }
-            })
-            .then(res => {
-                res.map(resIndx => {
-                    //shallow copying
-                    setIndustries(...industries, resIndx)
-                })
-                console.log(res)
-                console.log(res.data)
-            })
-      }
+    
 
     return(
-        <form onSubmit={addGuideline} className="shadow-xl bg-purple-50 rounded-lg p-4">
+        <form /* onSubmit={addGuideline}*/ className="shadow-xl bg-purple-50 rounded-lg p-4">
             <div>
                 <label>This guideline applies to (Select one industry):</label><br></br>
                 <select className="border border-gray-300 rounded" name="industry" id="industry">
-                    {displayIndustries}
-                    {/* <option value="pls">-Please select one industry-</option>
-                    <option value="fnb">F&B</option>
-                    <option value="entertainment">Entertainment</option>
-                    <option value="office">Offices</option>
-                    <option value="retail">Retail</option> */}
+                    {displayIndustries()}
                 </select>
 
                 <label>This guideline applies to (Select one sub-industry):</label><br></br>

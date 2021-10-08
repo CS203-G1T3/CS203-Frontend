@@ -3,8 +3,6 @@ import { useFormik } from 'formik'
 import { UserIcon, LockOpenIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
 
-const router = useRouter();
-
 async function handleSubmit(email , password) {
     try {
         const user = await Auth.signIn(email, password);
