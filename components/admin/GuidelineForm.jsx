@@ -1,10 +1,12 @@
 import React,{ useEffect, useState } from 'react'
 import NumericInput from 'react-numeric-input'
-import getAllIndustries from '../../services/guidelinesService'
+import {getAllIndustries} from '../../services/industryService'
 import axios from "axios"
+import {setInMemoryToken} from '../../utils/auth'
 
 
 function GuidelineForm() {
+    
     const [industries, setIndustries] = useState([])
 
     function displayIndustries() {
@@ -15,39 +17,21 @@ function GuidelineForm() {
             <option key={index} value={industry} >{industry}</option>
         )
         
-    })
-}
+        })
+    }
 
     
-      const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaW5zeWhlbjk5QGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hcGkvbG9naW4iLCJleHAiOjE2MzM3MTY1MzR9.8FSkrzVxo-E3nYYdv74X1ZMUPChZUh3GaO4j1FmnBIc'
+    const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaW5zeWhlbjk5QGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hcGkvbG9naW4iLCJleHAiOjE2MzM3MTg4NjV9.DP2vNpjuf4DG76J1nE-Ms2anGd5JeQFF_kClrohpMOI'
 
- function getAllIndustryNames() {
-            
-            axios.get('/api/v1/industryNames', {
-                headers: {
-                  'Authorization': `Bearer ${token}`
-                }
-              })
-              .then((res) => {
-                setIndustries(res.data)
-        
-        
-                // res.data.map(
-                //     resIndx => {
-                // //shallow copying 
-                // setIndustries(...industries,resIndx))
-                // }
-               
-                
-              })
-              .catch((error) => {
-                console.error(error)
-              })
+    async function setData() {
+        const allIndustries = await getAllIndustries()
+        setIndustries(allIndustries)
 
-    
-}
+    }
+
     useEffect(() => {
-        getAllIndustryNames()
+        setInMemoryToken(token)
+        setData()
     },[])
 
 
@@ -66,17 +50,16 @@ function GuidelineForm() {
         setState({option: event.target.value})
     }
 
-    
-   
- 
-    
+
 
     return(
         <form /* onSubmit={addGuideline}*/ className="shadow-xl bg-purple-50 rounded-lg p-4">
             <div>
                 <label>This guideline applies to (Select one industry):</label><br></br>
                 <select className="border border-gray-300 rounded" name="industry" id="industry">
-                    {displayIndustries()}
+                    { industries.map((element, index) => {
+                        return <option key={index} value={element}>{element}</option>
+                    })}
                 </select>
 
                 <label>This guideline applies to (Select one sub-industry):</label><br></br>

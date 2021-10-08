@@ -13,22 +13,13 @@ export async function getIndustry(industryId){
     return business.data
 }
 
-export async function getAllIndustries(token){
+export async function getAllIndustries(){
     if (!getInMemoryToken()) return null
 
-    const getAllIndustryNames = await axios.get('/api/v1/industryNames/' + token, {
+    const industryNames = await axios.get('/api/v1/industryNames/', {
         headers:{
             'Authorization': `Bearer ${getInMemoryToken()}`
         }
-    }).then(res => {
-        // res.map(resIndx => {
-        //     //shallow copying
-        //     setIndustries(...industries, resIndx)
-        // })
-        const nameOfIndustries = getAllIndustryNames.data.industryName
-        console.log(nameOfIndustries)
-        setIndustries(nameOfIndustries)
-
     })
-    .catch(error => console.error(`Error: ${error}`))
+    return industryNames.data
 }
