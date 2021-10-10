@@ -5,7 +5,7 @@ import { SparklesIcon } from '@heroicons/react/solid'
 function Navbar () {
 
     return (
-        <div className="flex flex-col w-80 h-full">
+        <div className="flex flex-col w-80">
             <Link href="/dashboard">
                 <button className="flex items-center p-4">
                     <SparklesIcon className="w-8 h-8"/>

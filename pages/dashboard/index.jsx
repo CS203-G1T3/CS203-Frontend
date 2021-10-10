@@ -17,6 +17,8 @@ function Dashboard ({ cookies }) {
     const [clientEmail, setClientEmail] = useState("waterloo@caifan.com")
     const [businessIndustry, setBusinessIndustry] = useState("Food & Beverage")
     const [businessSubindustry, setBusinessSubindustry] = useState("Coffee Shop")
+    const [guidelineDate, setGuidelineDate] = useState("31 August 2021")
+
 
     // popup states: placed as json objects
     const [popup1, setpopup1] = useState({
@@ -70,6 +72,7 @@ function Dashboard ({ cookies }) {
 
         // TODO: set popups
         const guideline = await getLatestGuidelineByIndustry(business.industryId)
+        setGuidelineDate(new Date(guideline.createdAt).toDateString())
         setpopup1({header: "Allowed To Operate?", value: guideline.isCanOpOnSite ? "YES" : "NO", title: "Allowed To Operate? " + guideline.isCanOpOnSite, body: guideline.canOpOnSiteDetails})
         setpopup2({header: "Contact Tracing", value: guideline.contactTracing, title: "Contact Tracing: " + guideline.contactTracing, body: guideline.contactTracingDetails})
         setpopup3({header: "Group Size", value: guideline.groupSize + " PAX", title: "Group Size: " + guideline.groupSize + " PAX", body: guideline.groupSizeDetails})
@@ -115,7 +118,7 @@ function Dashboard ({ cookies }) {
                     </div>
                     <span className="text-gray-600">Welcome to your dashboard</span>
                     <span className="text-2xl mt-6">Safe Management Measures</span>
-                    <span className="text-gray-600">for F&B Establishments - Coffeeshop as of 31 August 2021</span>
+                    <span className="text-gray-600">for {businessIndustry} Establishments - {businessSubindustry} as of {guidelineDate}</span>
                 </div>
                 <div className="grid grid-flow-col lg:grid-cols-3 lg:grid-rows-2 gap-4 md:grid-cols-2 md:grid-rows-3">
                     <PopUps header={popup1.header} value={popup1.value} title={popup1.title} body={popup1.body}/>

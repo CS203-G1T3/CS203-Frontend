@@ -22,6 +22,10 @@ module.exports = {
     variants: {
     },
   plugins: [],
+  corePlugins: {
+   tableLayout: false,
+  }
+
 
   
 }
