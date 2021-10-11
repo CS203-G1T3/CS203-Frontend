@@ -1,7 +1,21 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { getUser } from "../../../services/userService"
+
 
 function IndustryForm() {
+    const router = useRouter()
+    const [user, setUser] = useState()
+    const { Option } = Select;
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        const res = await addIndustry(event.industryDesc, event.industry, event.subIndustry)
+        if (res) router.push('/dashboard/industry')
+    }
+    
+   
+    
 
     const [value, setValue] = useState({
         industryDesc:'',
@@ -34,6 +48,26 @@ function IndustryForm() {
     }
 
 
+
+    const getAuthentication = async() => {
+
+        try {
+            const userCookie = JSON.parse(cookies.cookies.user)
+            const user_data = await getUser(userCookie.user_id, userCookie.refresh_token)
+            if (!user_data) router.push('/login')
+            if (!user) setUser(user_data)    
+        }
+        catch(e) {
+            console.log(e);
+            router.push('/login')
+        }
+    }
+    useEffect(() => {
+        getAuthentication()
+    }, [user])
+
+
+
     return(
         <form onSubmit = {handleSubmit} className="shadow-xl bg-purple-50 rounded-lg p-4">
             <div className="grid grid-flow-col lg:grid-cols-1 lg:grid-rows-2">
@@ -62,3 +96,9 @@ function IndustryForm() {
 }
 
 export default IndustryForm
+
+export const getServerSideProps = async (ctx) => {
+    const { req, res } = ctx
+    const {cookies} = req
+    return { props: { cookies } }
+}

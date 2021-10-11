@@ -17,9 +17,10 @@ export async function getAllIndustries(){
     if (!getInMemoryToken()) return null
 
     const industryNames = await axios.get('/api/v1/industryNames/', {
-        headers:{
+        headers: {
             'Authorization': `Bearer ${getInMemoryToken()}`
         }
     })
+    
     return industryNames.data
 }

@@ -1,45 +1,54 @@
 import React,{ useEffect, useState } from 'react'
 import NumericInput from 'react-numeric-input'
+import {getUser} from '../../services/userService'
 import {getAllIndustries} from '../../services/industryService'
 import axios from "axios"
 import {setInMemoryToken} from '../../utils/auth'
 
 
-function GuidelineForm() {
+function GuidelineForm(cookies) {
     
-    const [industries, setIndustries] = useState([])
+    const[user, setUser] = useState()
+    const[industries, setIndustries] = useState()
 
-    function displayIndustries() {
-        industries.map((industry, index) => {
-        console.log('hello',industry)
+    async function displayIndustries() {
+        // console.log(industries)
 
-        return (
-            <option key={index} value={industry} >{industry}</option>
-        )
-        
-        })
+        // industries.map((industry, index) => {
+        //     return (
+        //         <option key={index} value={industry}>{industry}</option>
+        //     )
+        // })
     }
-
-    
-    const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsaW5zeWhlbjk5QGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hcGkvbG9naW4iLCJleHAiOjE2MzM3MTg4NjV9.DP2vNpjuf4DG76J1nE-Ms2anGd5JeQFF_kClrohpMOI'
 
     async function setData() {
         const allIndustries = await getAllIndustries()
         setIndustries(allIndustries)
-
     }
 
     useEffect(() => {
-        setInMemoryToken(token)
         setData()
     },[])
 
+    
 
-    // const displayIndustries = (industries) => {
-    //     return (
-    //         <option value={industries} >{industries}</option>
-    //     )
-    // }
+
+    const getAuthentication = async() => {
+
+        try {
+            const userCookie = JSON.parse(cookies.cookies.user)
+            const user_data = await getUser(userCookie.user_id, userCookie.refresh_token)
+            if (!user_data) router.push('/login')
+            if (!user) setUser(user_data)    
+        }
+        catch(e) {
+            console.log(e);
+            router.push('/login')
+        }
+    }
+    useEffect(() => {
+        getAuthentication()
+    }, [user])
 
 
     const [state, setState] = useState({
@@ -51,15 +60,15 @@ function GuidelineForm() {
     }
 
 
+  
+
 
     return(
         <form /* onSubmit={addGuideline}*/ className="shadow-xl bg-purple-50 rounded-lg p-4">
             <div>
                 <label>This guideline applies to (Select one industry):</label><br></br>
                 <select className="border border-gray-300 rounded" name="industry" id="industry">
-                    { industries.map((element, index) => {
-                        return <option key={index} value={element}>{element}</option>
-                    })}
+                    {displayIndustries()}
                 </select>
 
                 <label>This guideline applies to (Select one sub-industry):</label><br></br>
@@ -146,3 +155,9 @@ function GuidelineForm() {
     )
 }
 export default GuidelineForm
+
+export const getServerSideProps = async (ctx) => {
+    const { req, res } = ctx
+    const {cookies} = req
+    return { props: { cookies } }
+}
