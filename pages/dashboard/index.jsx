@@ -5,16 +5,20 @@ import { getUser } from "../../services/userService";
 import Navbar from "../../components/dashboard/Navbar"
 import UserProfile from "../../components/dashboard/UserProfile"
 import PopUps from "../../components/dashboard/PopUps"
+import { getIndustry } from "../../services/industryService";
+import { getLatestGuidelineByIndustry } from "../../services/guidelineService";
 
 function Dashboard ({ cookies }) {
     const router = useRouter()
 
     // user states
     const [user, setUser] = useState()
-    const [businessName, setBusinessName] = useState("")
-    const [clientEmail, setClientEmail] = useState("")
+    const [businessName, setBusinessName] = useState("Waterloo Caifan")
+    const [clientEmail, setClientEmail] = useState("waterloo@caifan.com")
     const [businessIndustry, setBusinessIndustry] = useState("Food & Beverage")
     const [businessSubindustry, setBusinessSubindustry] = useState("Coffee Shop")
+    const [guidelineDate, setGuidelineDate] = useState("31 August 2021")
+
 
     // popup states: placed as json objects
     const [popup1, setpopup1] = useState({
@@ -58,10 +62,24 @@ function Dashboard ({ cookies }) {
     async function setData() {
         if (!user) return
         setClientEmail(user.email)
-        setBusinessName(user.registeredBusiness.businessName)
-        // TODO: industry and sub industry
+
+        const business = user.registeredBusiness
+        setBusinessName(business.businessName)
+        
+        const industry = await getIndustry(business.industryId)
+        setBusinessIndustry(industry.industryName)
+        setBusinessSubindustry(industry.industrySubtype)
 
         // TODO: set popups
+        const guideline = await getLatestGuidelineByIndustry(business.industryId)
+        setGuidelineDate(new Date(guideline.createdAt).toDateString())
+        setpopup1({header: "Allowed To Operate?", value: guideline.isCanOpOnSite ? "YES" : "NO", title: "Allowed To Operate? " + guideline.isCanOpOnSite, body: guideline.canOpOnSiteDetails})
+        setpopup2({header: "Contact Tracing", value: guideline.contactTracing, title: "Contact Tracing: " + guideline.contactTracing, body: guideline.contactTracingDetails})
+        setpopup3({header: "Group Size", value: guideline.groupSize + " PAX", title: "Group Size: " + guideline.groupSize + " PAX", body: guideline.groupSizeDetails})
+        setpopup4({header: "Operating Capacity", value: guideline.opCapacity + "%", title: "Operating Capacity: " + guideline.opCapacity + "%", body: guideline.opCapacityDetails})
+        setpopup5({header: "Covid Testing", value: guideline.covidTestingVaccinated + " DAYS", title: "Covid Testing: " + guideline.covidTestingVaccinated, body: guideline.covidTestingDetails})
+        setpopup6({header: "Operating Guidelines", value: "BY MOM", title: "Operating Guidelines: Ministry of Manpower", body: guideline.opGuidelines})
+
     }
 
     // this function gets the current authenticated user or redirects to login if not found
@@ -97,11 +115,11 @@ function Dashboard ({ cookies }) {
                 <div className="mx-8 mt-8 mb-4 flex flex-col">
                     <div className="flex items-end">
                         <span className="text-5xl font-bold">Hi</span>
-                        <span className="text-4xl">,  WaterLoo Cai Fan</span>
+                        <span className="text-4xl">,  {businessName}</span>
                     </div>
                     <span className="text-gray-600">Welcome to your dashboard</span>
                     <span className="text-2xl mt-6">Safe Management Measures</span>
-                    <span className="text-gray-600">for F&B Establishments - Coffeeshop as of 31 August 2021</span>
+                    <span className="text-gray-600">for {businessIndustry} Establishments - {businessSubindustry} as of {guidelineDate}</span>
                 </div>
                 <div className="grid grid-flow-col lg:grid-cols-3 lg:grid-rows-2 gap-4 md:grid-cols-2 md:grid-rows-3">
                     <PopUps header={popup1.header} value={popup1.value} title={popup1.title} body={popup1.body}/>

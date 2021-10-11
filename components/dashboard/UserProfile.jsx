@@ -2,7 +2,7 @@ import { DownOutlined } from '@ant-design/icons';
 
 function UserProfile ({businessName, clientEmail, businessIndustry, businessSubindustry}) {
     return (
-        <div className = "flex flex-col justify-baseline w-1/5 h-full bg-indigo-50">
+        <div className = " w-1/5 h-full bg-indigo-50">
              <button className="flex mt-4 p-2">
                 <div className="h-10 w-10 p-1">
                     <img className="object-cover rounded-lg h-full w-full" src="/hawker.webp" alt="profile_pic" />
