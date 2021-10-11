@@ -1,6 +1,4 @@
 import { DownOutlined } from '@ant-design/icons';
-import { SmileOutlined } from '@ant-design/icons';
-
 
 function UserProfile ({businessName, clientEmail, businessIndustry, businessSubindustry}) {
     return (

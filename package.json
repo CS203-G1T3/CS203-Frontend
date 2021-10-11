@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "babel src -d lib",
-    "start": "webpack-dev-server --mode development"
+    "start": "jest"
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.4",
@@ -25,7 +25,8 @@
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
     "react-render-hook": "^2.0.0",
-    "react-spring": "^9.2.6"
+    "react-spring": "^9.2.6",
+    "react-vis": "^1.11.7"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
