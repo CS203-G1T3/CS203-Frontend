@@ -46,3 +46,19 @@ export async function addEmployee(name, dob, vaccination, lastSwabDate, swabResu
         console.log(e);
     }
 }
+
+export async function deleteEmployee(employeeId) {
+    if (!getInMemoryToken()) return null
+
+    try {
+        const res = await axios.delete(`/api/v1/employeeRecord/` + employeeId, {
+            headers: {
+                'Authorization': `Bearer ${getInMemoryToken()}`
+            }
+        })
+        return res
+    } 
+    catch (e) {
+        console.log(e);
+    }
+}
