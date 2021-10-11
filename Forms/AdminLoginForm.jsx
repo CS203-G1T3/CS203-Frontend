@@ -58,7 +58,7 @@ const AdminLoginForm = () => {
             <input
             id="password"
             name="password"
-            type="text"
+            type="password"
             placeholder="Password"
             className="h-full w-full p-2"
             onChange={formik.handleChange}

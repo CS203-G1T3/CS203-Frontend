@@ -20,7 +20,7 @@ const PopUps = ({ header, value, title, body}) => {
       };
     
     return(
-        <div className="flex shadow-xl h-40 w-70 m-4 bg-indigo-50 rounded-lg p-4" id="open-btn">
+        <div className="flex shadow-xl h-40 w-70 bg-indigo-50 rounded-lg p-4" id="open-btn">
             <div className="flex">
                 <UserIcon className="h-16 w-16"/>
             </div>
