@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'antd/dist/antd.css';
 import axios from 'axios';
-import { CookiesProvider } from "react-cookie"
+import { CookiesProvider } from 'react-cookie';
 
 function MyApp({ Component, pageProps }) {
 
