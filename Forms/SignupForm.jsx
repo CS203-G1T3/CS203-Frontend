@@ -87,7 +87,7 @@ const Signupform = () => {
         <input
         id="password"
         name="password"
-        type="text"
+        type="password"
         placeholder="Create Password *"
         className="w-full p-1 border-2 mt-4"
         onChange={formik.handleChange}

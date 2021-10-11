@@ -60,7 +60,7 @@ const LoginForm = () => {
 
         } catch(e) {
             console.log(e)
-            alert("error signing up")
+            alert("error logging in")
             router.push('/login')
         }
     }   
@@ -102,7 +102,7 @@ const LoginForm = () => {
             <input
             id="password"
             name="password"
-            type="text"
+            type="password"
             placeholder="Password"
             className="h-full w-full p-2"
             onChange={formik.handleChange}

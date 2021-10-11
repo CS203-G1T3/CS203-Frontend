@@ -8,16 +8,24 @@
   "dependencies": {
     "@ant-design/icons": "^4.6.4",
     "@heroicons/react": "^1.0.4",
+    "@visx/group": "^2.1.0",
+    "@visx/mock-data": "^2.1.0",
+    "@visx/scale": "^2.1.0",
+    "@visx/shape": "^2.1.1",
+    "@visx/xychart": "^2.1.1",
     "antd": "^4.16.13",
     "axios": "^0.21.4",
+    "chart.js": "^3.5.1",
     "cookie": "^0.4.1",
     "formik": "^2.2.9",
     "next": "latest",
     "qs": "^6.10.1",
     "react": "^17.0.2",
+    "react-chartjs-2": "^3.0.5",
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
-    "react-render-hook": "^2.0.0"
+    "react-render-hook": "^2.0.0",
+    "react-spring": "^9.2.6"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
