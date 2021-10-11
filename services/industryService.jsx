@@ -9,14 +9,14 @@ export async function getIndustry(industryId){
             'Authorization': `Bearer ${getInMemoryToken()}`
         }
     })
-    return business.data
+    return industry.data
 }
 
-export async function getAllIndustries(){
+export async function getAllIndustries() {
     if (!getInMemoryToken()) return null
 
-    const industryNames = await axios.get('/api/v1/industryNames/', {
-        headers:{
+    const industryNames = await axios.get('/api/v1/industryNames' , {
+        headers: {
             'Authorization': `Bearer ${getInMemoryToken()}`
         }
     })
