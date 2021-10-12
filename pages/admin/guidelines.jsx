@@ -27,12 +27,9 @@ function AdminGuidelines(cookies) {
     }
     useEffect(() => {
         getAuthentication()
-        // setData()
     }, [user])
 
-    async function handleSubmit() {
-
-    }
+   
 
     return ( 
     <div className="flex h-screen">

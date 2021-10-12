@@ -12,3 +12,25 @@ export async function getLatestGuidelineByIndustry(industryId){
     return guideline.data
 }
 
+// export async function addGuideline(name, dob, vaccination, lastSwabDate, swabResult, businessId) {
+//     if (!getInMemoryToken()) return null
+
+//     try {
+//         const res = await axios.post(`/api/v1/employeeRecord/add`, {
+//             "employeeName": name,
+//             "dateOfBirth": dob,
+//             "vaccine": vaccination,
+//             "lastSwabDate": lastSwabDate,
+//             "swabResult": swabResult,
+//             "businessId": businessId
+//         }, {
+//             headers: {
+//                 'Authorization': `Bearer ${getInMemoryToken()}`
+//             }
+//         })
+//         return res
+//     } 
+//     catch (e) {
+//         console.log(e);
+//     }
+// }

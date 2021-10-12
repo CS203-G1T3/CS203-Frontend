@@ -2,37 +2,32 @@ import React,{ useEffect, useState } from 'react'
 import NumericInput from 'react-numeric-input'
 import {getUser} from '../../services/userService'
 import {getAllIndustries} from '../../services/industryService'
+import { Form, Input, Button, Select, InputNumber} from 'antd';
 import axios from "axios"
 import {setInMemoryToken} from '../../utils/auth'
 
 
 function GuidelineForm() {
-
-    const[user, setUser] = useState()
     const[industries, setIndustries] = useState()
+    console.log(industries)
 
-    function displayIndustries() {
-        console.log(industries)
 
-        industries.map((industry, index) => {
-            return (
-                <option key={index} value={industry}>{industry}</option>
-            )
-        })
-    }
+    // function displayIndustries() {
+    //     industries.map((industry, index) => {
+    //         return (
+    //             <option key={index} value={industry}>{industry}</option>
+    //         )
+    //     })
+    // }
 
     async function setData() {
-        if(!industries) {
-            const allIndustries = await getAllIndustries()
-            console.log(allIndustries)
-            setIndustries(allIndustries)
-        }
+        const allIndustries = await getAllIndustries()
+        setIndustries(allIndustries)
     }
 
-    useEffect( async() => {
+    useEffect(() => {
         setData()
-
-    }, [industries])
+    },[])
 
 
     const [state, setState] = useState({
@@ -42,97 +37,270 @@ function GuidelineForm() {
     const handleChange = (event) => {
         setState({option: event.target.value})
     }
+    
+    const { Option } = Select;
+
+    function onChange(value) {
+    console.log(`selected ${value}`);
+    }
+
+    const onFinish = async (values) => {
+        const res = await addEmployee(values.name, values.dob.format('DD/MM/YYYY'), values.vaccinationStatus, values.lastSwabDate.format('DD/MM/YYYY'), values.lastSwabResult, user.registeredBusiness.businessId)
+        if (res) router.push('/dashboard/employees')
+    }
+    
+    const onFinishFailed = (errorInfo) => {
+        alert("Guideline creation failed!")
+    }
 
 
+
+
+    
+      
 
     return(
-        <form /* onSubmit={addGuideline}*/ className="shadow-xl bg-purple-50 rounded-lg p-4">
-            <div>
-                <label>This guideline applies to (Select one industry):</label><br></br>
-                <select className="border border-gray-300 rounded" name="industry" id="industry">
-                    {/* {displayIndustries()} */}
-                </select>
+        <Form
+        name="basic"
+        labelCol={{
+            span: 5,
+        }}
+        wrapperCol={{
+            span: 5,
+        }}
+        initialValues={{
+            remember: true,
+        }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+        >
+        <Form.Item
+            label="Please select one industry"
+            name="industry"
+            rules={[
+            {
+                required: true,
+                message: `Please select one industry!`,
+            },
+            ]}
+        >
+        <Select
+            style={{ width: 200 }}
+            placeholder="Select an industry"
+            onChange={onChange} 
+        >
+            <Option value="fnb">F&B</Option>
+            <Option value="entertainment">Entertainment</Option>
+            <Option value="retail">Retail</Option>
+            <Option value="office">Office</Option>
+        </Select>
+        </Form.Item>
 
-                <label>This guideline applies to (Select one sub-industry):</label><br></br>
-                <select className="border border-gray-300 rounded" name="industry" id="industry">
-                    <option value="pls">-Please select one industry-</option>
-                    <option value="coffeeshop">Coffeeshop</option>
-                    <option value="restaurantsCafe">Restaurants/Cafe</option>
-                    <option value="entertainmentI">Indoor Entertainment</option>
-                    <option value="entertainmentO">Outdoor Entertainment</option>
-                </select>
-            </div><br></br>
-            <div className="grid grid-flow-col lg:grid-cols-2 lg:grid-rows-3 gap-x-20">
-                        <div>
-                            <div>
-                                <label htmlFor="operation">Can shops operate on site?</label><br></br>
-                                <input id="operationY" type="radio" value="Yes" name="option" onChange={handleChange}/>
-                                <label htmlFor="operationY"> Yes</label><br></br>
-                                <input id="operationN" type="radio" value="No" name="option"/>
-                                <label htmlFor="operationN"> No</label><br></br>
-                            </div>
-                            <div>
-                                <label htmlFor="operationDetails">Additional Details</label>
-                                <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" id="operationDetails" type="text" name="operationDetails"/><br></br>
-                            </div>
-                        </div>
+        <Form.Item
+            label="Please select one sub-industry (if applicable)"
+            name="subIndustry"
+        >
+        <Select
+            style={{ width: 200 }}
+            placeholder="Select a sub-industry"
+            onChange={onChange} 
+        >
+            <Option value="hawker">Hawker</Option>
+            <Option value="restaurantsncafe">Restaurant/Cafe</Option>
+            <Option value="indoor">Indoor Entertainment</Option>
+            <Option value="outdoor">Outdoor Entertainment</Option>
+        </Select>
+        </Form.Item> <br></br>
 
-                        <div>   
-                            <label htmlFor="contactTracing">What are the Contact Tracing measures required?</label><br></br>
-                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" id="contactTracing" type="text" name="contactTracing"/><br></br>
+        <Form.Item
+            label="Can shops operate on site?"
+            name="operate"
+            rules={[
+                {
+                    required: true,
+                    message: `Please select one industry!`,
+                },
+            ]}
+        >
+        <Select
+            style={{ width: 200 }}
+            placeholder="Select an option"
+            onChange={onChange} 
+        >
+            <Option value="yes">Yes</Option>
+            <Option value="no">No</Option>
+        </Select>
+        </Form.Item>
 
-                            <label htmlFor="contactTracingDetails">Additional Details</label><br></br>
-                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" id="contactTracingDetails" type="text" name="contactTracingDetails"/><br></br>
-                        </div>
+        <Form.Item
+            label="Additional Details"
+            name="operateDetails"
+            rules={[
+            {
+                required: true,
+                message: `Please enter details!`,
+            },
+            ]}
+        >
+        <Input />
+        </Form.Item> <br></br>
 
-                    <div>
-                        <label htmlFor="swabTestV">Test frequency for the vaccinated (Every  day(s))</label><br></br>
-                        <NumericInput min={1} max={14} value={1} /><br></br>
 
-                        <label htmlFor="swabTestUV">Test frequency for the unvaccinated (Every  days(s))</label><br></br>
-                        <NumericInput min={1} max={14} value={1} /><br></br>
+        <Form.Item
+            label="Contact Tracing Measures"
+            name="contactTracing"
+            rules={[
+            {
+                required: true,
+                message: `Please enter Contact Tracing Measures!`,
+            },
+            ]}
+        >
+        <Input />
+        </Form.Item> 
 
-                        <label htmlFor="swabTestDetails">Additional Details</label><br></br>
-                        <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500" id="swabTestDetails" type="text" name="swabTestDetails"/><br></br>
-                    </div>
+        <Form.Item
+            label="Additional Details"
+            name="contactTracingDetails"
+            rules={[
+            {
+                required: true,
+                message: `Please enter details!`,
+            },
+            ]}
+        >
+        <Input />
+        </Form.Item> <br></br>
 
-                    <div>
-                        <label htmlFor="maxSize">Maximum Group Size</label><br></br>
-                        <NumericInput min={1} max={8} value={1} /><br></br>
-                        
-                        <div className="mt-5">
-                            <label htmlFor="maxSizeDetails">Additional Details</label><br></br>
-                            <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500"  id="maxSizeDetails" type="text" name="maxSizeDetails"/><br></br>
-                        </div>
-                    </div>
 
-                    <div>
-                        <label htmlFor="maxCap">Maximum Operating Capacity (In percentage)</label><br></br>
-                        <NumericInput min={0} max={100} value={0} /><br></br>
+        <Form.Item
+            label="[Vaccinated] Swab Test Every __ Day(s)"
+            name="swabTestV"
+            rules={[
+            {
+                required: true,
+                message: `Please enter/select a number!`,
+            },
+            ]}
+        >
+        <InputNumber min={1} max={31} defaultValue={7} onChange={onChange} />
+        </Form.Item> 
 
-                        <label htmlFor="maxCapDetails">Additional Details</label><br></br>
-                        <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500"  id="maxCapDetails" type="text" name="maxCapDetails"/><br></br>
-                    </div>
+        <Form.Item
+            label="[Unvaccinated] Swab Test Every __ Day(s)"
+            name="swabTestU"
+            rules={[
+            {
+                required: true,
+                message: `Please enter/select a number!`,
+            },
+            ]}
+        >
+        <InputNumber min={1} max={31} defaultValue={7} onChange={onChange} />
+        </Form.Item> 
 
-                    <div>
-                        <label htmlFor="operatingGuidelines">Details on Operating Guidelines</label><br></br>
-                        <input className="appearance-none block w-full h-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-500"  id="operatingGuidelines" type="text" name="operatingGuidelines"/><br></br>
-                        
-                        <div className="grid place-content-end mt-20">
-                            <button className="shadow bg-indigo-700 hover:bg-indigo-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
-                                SUBMIT
-                            </button>
-                        </div>
-                    
-                    </div>
+        <Form.Item
+            label="Additional Details"
+            name="swabTestDetails"
+            rules={[
+            {
+                required: true,
+                message: `Please enter details!`,
+            },
+            ]}
+        >
+        <Input />
+        </Form.Item> <br></br>
 
-                   
+        <Form.Item
+            label="Maximum Group Size"
+            name="groupSize"
+            rules={[
+            {
+                required: true,
+                message: `Please enter/select a number!`,
+            },
+            ]}
+        >
+        <InputNumber min={1} max={10} defaultValue={2} onChange={onChange} />
+        </Form.Item> 
 
-                   
-            </div>
-        </form>
+        <Form.Item
+            label="Additional Details"
+            name="swabTestDetails"
+            rules={[
+            {
+                required: true,
+                message: `Please enter details!`,
+            },
+            ]}
+        >
+        <Input />
+        </Form.Item> <br></br>
 
-        
-    )
+
+        <Form.Item
+            label="Maximum Operating Capacity"
+            name="operatingCapacity"
+            rules={[
+            {
+                required: true,
+                message: `Please enter/select a number!`,
+            },
+            ]}
+        >
+        <InputNumber min={1} max={100} defaultValue={50} onChange={onChange} />
+        </Form.Item> 
+
+        <Form.Item
+            label="Additional Details"
+            name="operatingCapacityDetails"
+            rules={[
+            {
+                required: true,
+                message: `Please enter details!`,
+            },
+            ]}
+        >
+        <Input />
+        </Form.Item> <br></br>
+
+        <Form.Item
+            label="Operating Guidelines"
+            name="operatingGuidelines"
+            rules={[
+            {
+                required: true,
+                message: `Please enter guidelines!`,
+            },
+            ]}
+        >
+        <Input />
+        </Form.Item> 
+
+        <Form.Item
+            wrapperCol={{
+            offset: 8,
+            span: 16,
+            }}
+        >
+            <Button type="primary" htmlType="submit"> Add Guideline</Button>
+        </Form.Item>
+
+
+
+
+
+
+
+        </Form>
+
+
+
+
+    
+)
 }
 export default GuidelineForm
+
