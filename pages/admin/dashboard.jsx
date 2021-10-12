@@ -2,9 +2,30 @@ import Navbar from "../../components/admin/Navbar"
 import Graphs from "../../components/admin/Graphs"
 import { SearchIcon } from '@heroicons/react/solid';
 import { DownOutlined } from '@ant-design/icons';
+import { useRouter } from "next/router";
+import { getUser } from "../../services/userService";
+import { useState, useEffect } from "react";
 
-function AdminDashboard () {
+function AdminDashboard (cookies) {
+    const router = useRouter()
 
+    const [user, setUser] = useState()
+
+    const getAuthentication = async() => {
+        try {
+            const userCookie = JSON.parse(cookies.cookies.user)
+            const user_data = await getUser(userCookie.user_id, userCookie.refresh_token)
+            if (!user_data) router.push('//admin/login')
+            if (!user) setUser(user_data)    
+        }
+        catch {
+            router.push('/admin/login')
+        }
+    }
+    useEffect(() => {
+        getAuthentication()
+    }, [user])
+    
     return (
         <div className="h-screen flex">
             <Navbar />
@@ -69,3 +90,9 @@ function AdminDashboard () {
 }
     
 export default AdminDashboard
+
+export const getServerSideProps = async (ctx) => {
+    const { req, res } = ctx
+    const {cookies} = req
+    return { props: { cookies } }
+}

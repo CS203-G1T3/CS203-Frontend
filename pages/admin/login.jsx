@@ -33,8 +33,10 @@ function AdminLogin () {
                         </div> */}
                     </div>
                 </div>
-
             </div>
+            <div className="flex">
+                <img className="object-cover h-screen" src="/sg_kids.jpeg" alt="Log in cover" />
+            </div>            
         </div>
     )
 }
