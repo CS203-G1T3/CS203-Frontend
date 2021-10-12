@@ -1,6 +1,11 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import { UserIcon, LockOpenIcon } from '@heroicons/react/outline';
+import { useRouter } from 'next/router'
+import axios from 'axios';
+import qs from 'qs';
+import { setInMemoryToken, getInMemoryToken } from '../utils/auth'
+import { useCookies } from "react-cookie"
 
 const validate = values => {
     const errors = {};
@@ -20,7 +25,54 @@ const validate = values => {
 
 
 const AdminLoginForm = () => {
+
+    const router = useRouter()
+    const qs = require('qs');
+    const[cookie, setCookie] = useCookies(['user'])
+
     
+    // function to log a user in and store data in cookie
+    async function handleSubmit(email, password) {
+
+        try {
+            const response = await axios.post("/api/login", qs.stringify({
+                'email': email,
+                'password': password
+            }))
+            setInMemoryToken(response.data.access_token)
+
+            const user = await axios.get('/api/v1/client/email/' + email, {
+                headers: {
+                    'Authorization': `Bearer ${getInMemoryToken()}`
+                }
+            })
+
+            // check if user is admin
+            if (user.data.roles[0].roleName != "ADMIN") {
+                alert("Error, user is not admin")
+                return
+            }
+
+            const data = {
+                'refresh_token': response.data.refresh_token,
+                'user_id': user.data.clientId
+            }
+
+            setCookie("user", JSON.stringify(data), {
+                path: "/",
+                maxAge: 36000, // Expires after 10hr
+                sameSite: true,
+            })
+            router.push('/admin/dashboard') 
+
+        } catch(e) {
+            console.log(e)
+            alert("error logging in")
+            router.push('/admin/login')
+        }
+    }   
+
+
     const formik = useFormik({
         initialValues: {
         email: '',
@@ -28,9 +80,10 @@ const AdminLoginForm = () => {
         },
         validate,
         onSubmit: values => {
-        alert(JSON.stringify(values, null, 2));
+            handleSubmit(values.email, values.password)
         },
     });
+    
 
     return (
         <form onSubmit={formik.handleSubmit} className="flex flex-col">

@@ -17,7 +17,7 @@ function AdminLogin () {
                     <Link href="/">
                         <button className="flex px-32 pt-16 text-3xl items-center text-blue-600">
                             <CodeIcon className="h-10 mx-2" />
-                            <h1>TRAIL</h1>
+                            <span>TRAIL</span>
                         </button>
                     </Link>
                 </div>
@@ -33,8 +33,10 @@ function AdminLogin () {
                         </div> */}
                     </div>
                 </div>
-
             </div>
+            <div className="flex">
+                <img className="object-cover h-screen" src="/sg_kids.jpeg" alt="Log in cover" />
+            </div>            
         </div>
     )
 }

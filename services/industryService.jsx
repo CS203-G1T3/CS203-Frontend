@@ -11,3 +11,14 @@ export async function getIndustry(industryId){
     })
     return industry.data
 }
+
+export async function getAllIndustries() {
+    if (!getInMemoryToken()) return null
+
+    const industryNames = await axios.get('/api/v1/industrySubtypes' , {
+        headers: {
+            'Authorization': `Bearer ${getInMemoryToken()}`
+        }
+    })
+    return industryNames.data
+}

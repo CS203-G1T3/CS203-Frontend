@@ -2,8 +2,7 @@ import React, {useState} from "react";
 import {Modal, Button} from "antd";
 import { UserIcon } from '@heroicons/react/solid';
 
-
-const PopUps = ({ header, value, title, body, disclaimer}) => {
+const PopUps = ({ header, value, title, body}) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {

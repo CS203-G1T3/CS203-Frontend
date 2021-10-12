@@ -118,6 +118,12 @@ function Employees({ cookies }) {
                             key="action"
                             render={(text, record) => (
                                 <Space size="middle">
+                                <button className="text-blue-500 hover:text-blue-300" onClick={async() => {
+                                                                                                           router.reload(window.location.pathname
+                                                                                                           )}}>View</button>
+                                <button className="text-blue-500 hover:text-blue-300" onClick={async() => {
+                                                                                                           router.reload(window.location.pathname
+                                                                                                           )}}>Edit</button>
                                 <button className="text-blue-500 hover:text-blue-300" onClick={async() => {deleteEmployee(record.id)
                                                                                                            router.reload(window.location.pathname
                                                                                                            )}}>Delete</button>

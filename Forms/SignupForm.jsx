@@ -1,6 +1,24 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import { UserIcon, LockOpenIcon } from '@heroicons/react/outline';
+import { useRouter } from 'next/router';
+
+async function handleSubmit(email , password) {
+    try {
+        const user = await Auth.signIn(email, password);
+
+        if(!user) {            
+            alert("Error signing in. Please try again.")
+            router.push('login');
+        }
+        router.push('/');
+    } 
+    catch (error) {
+        console.log('error logging in', error);
+        alert("Error: " + error.message + ". Please try again.")
+        router.push('login');
+    }
+}
 
 const validate = values => {
     const errors = {};

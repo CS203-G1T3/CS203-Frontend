@@ -83,6 +83,7 @@ function Dashboard ({ cookies }) {
     }
 
     // this function gets the current authenticated user or redirects to login if not found
+    //COPY THIS
     const getAuthentication = async() => {
         try {
             const userCookie = JSON.parse(cookies.user)
@@ -136,6 +137,7 @@ function Dashboard ({ cookies }) {
 
 // this function fetches data from the server
 // we use it to return the cookies data in Dashboard function props
+//put on every page that uses cookies
 export const getServerSideProps = async (ctx) => {
     const { req, res } = ctx
     const {cookies} = req
