@@ -6,11 +6,11 @@ import { Statistic, Row, Col, Button, Table, Tag, Space, Pagination} from 'antd'
 import { getUser } from "../../../services/userService"
 import Navbar from "../../../components/dashboard/Navbar"
 import VaccinationChart from "../../../components/dashboard/VaccinationChart"
-import { getEmployeeAge, getEmployees, getNumberOfVaccinatedEmployees } from "../../../services/employeesService"
+import { deleteEmployee, getEmployeeAge, getEmployees, getNumberOfVaccinatedEmployees } from "../../../services/employeesService"
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    //   console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
     },
 };
   
@@ -19,7 +19,7 @@ function Employees({ cookies }) {
     const { Column, ColumnGroup } = Table;
 
     const [user, setUser] = useState()
-    const [employees, setEmployees] = useState([{ key: '1', name: 'John', age: 32, vaccinationStatus: 'PFIZER', lastSwab: '10 Oct 2021', lastSwabResult: 'NEGATIVE' }])
+    const [employees, setEmployees] = useState([{ key: 0, id:"1", name: 'John', age: 32, vaccinationStatus: 'PFIZER', lastSwab: '10 Oct 2021', lastSwabResult: 'NEGATIVE' }])
     const [numEmployees, setNumEmployees] = useState(28)
     const [numVaccinatedEmployees, setNumVaccinatedEmployees] = useState(16)
     const [vaccinationRate, setVaccinationRate] = useState("58%")
@@ -31,7 +31,7 @@ function Employees({ cookies }) {
         
         const employeeRecords = await getEmployees(businessId)
         const employeeArray = []
-        employeeRecords.forEach((element) => {employeeArray.push({key: element.employeeId, name: element.employeeName, age: getEmployeeAge(element), vaccinationStatus: element.vaccine, lastSwab: element.lastSwabDate, lastSwabResult: element.swabResult})})
+        employeeRecords.forEach((element, index) => {employeeArray.push({key: index, id: element.employeeId, name: element.employeeName, age: getEmployeeAge(element), vaccinationStatus: element.vaccine, lastSwab: element.lastSwabDate, lastSwabResult: element.swabResult})})
         setEmployees(employeeArray)
 
         setNumEmployees(employeeArray.length)
@@ -91,7 +91,7 @@ function Employees({ cookies }) {
                         </div>
 
                         <div className="w-144 ml-3 h-full">
-                            <span className="text-xl">Vaccination Rate</span>
+                            <span className="text-xl">Workforce Engagement</span>
                             <div className="bg-white rounded-lg mt-2 p-4 h-full">
                                 <span className=""></span>
                                 <VaccinationChart />
@@ -118,9 +118,9 @@ function Employees({ cookies }) {
                             key="action"
                             render={(text, record) => (
                                 <Space size="middle">
-                                <a>View</a>
-                                <a>Edit</a>
-                                <a>Delete</a>
+                                <button className="text-blue-500 hover:text-blue-300" onClick={async() => {deleteEmployee(record.id)
+                                                                                                           router.reload(window.location.pathname
+                                                                                                           )}}>Delete</button>
                                 </Space>
                             )}          
                             />
