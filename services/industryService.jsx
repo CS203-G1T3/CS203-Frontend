@@ -15,7 +15,7 @@ export async function getIndustry(industryId){
 export async function getAllIndustries() {
     if (!getInMemoryToken()) return null
 
-    const industryNames = await axios.get('/api/v1/industryNames' , {
+    const industryNames = await axios.get('/api/v1/industrySubtypes' , {
         headers: {
             'Authorization': `Bearer ${getInMemoryToken()}`
         }

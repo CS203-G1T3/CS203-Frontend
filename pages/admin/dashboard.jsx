@@ -10,6 +10,13 @@ function AdminDashboard (cookies) {
     const router = useRouter()
 
     const [user, setUser] = useState()
+    const [email, setEmail] = useState()
+
+    async function setData() {
+        if (!user) return
+        setEmail(user.email)
+
+    }
 
     const getAuthentication = async() => {
         try {
@@ -24,6 +31,7 @@ function AdminDashboard (cookies) {
     }
     useEffect(() => {
         getAuthentication()
+        setData()
     }, [user])
     
     return (
@@ -44,7 +52,7 @@ function AdminDashboard (cookies) {
                         </div>
                         <div className="flex flex-col text-left mx-2">
                             <span className="text-indigo-500 font-bold text-sm">Admin User</span>
-                            <span className="text-gray-400 font-bold text-xs">{user.email}</span>
+                            <span className="text-gray-400 font-bold text-xs">{email}</span>
                         </div>
                         <DownOutlined className="w-4 pt-1"/>
                     </button>

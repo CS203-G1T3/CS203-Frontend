@@ -1,33 +1,27 @@
-import React,{ useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import NumericInput from 'react-numeric-input'
 import {getUser} from '../../services/userService'
 import {getAllIndustries} from '../../services/industryService'
 import { Form, Input, Button, Select, InputNumber} from 'antd';
 import axios from "axios"
 import {setInMemoryToken} from '../../utils/auth'
+import { addGuideline } from '../../services/guidelinesService';
+import { useRouter } from "next/router";
 
 
-function GuidelineForm() {
-    const[industries, setIndustries] = useState()
-    console.log(industries)
+
+function GuidelineForm({clientId, industries}) {
+    const router = useRouter()
 
 
-    // function displayIndustries() {
-    //     industries.map((industry, index) => {
-    //         return (
-    //             <option key={index} value={industry}>{industry}</option>
-    //         )
-    //     })
-    // }
-
-    async function setData() {
-        const allIndustries = await getAllIndustries()
-        setIndustries(allIndustries)
-    }
-
-    useEffect(() => {
-        setData()
-    },[])
+    // useEffect(() => {
+    //     const fetchIndustries = async() => {
+    //         const allIndustries = await getAllIndustries()
+    //         setIndustries(allIndustries)  
+    //         console.log(allIndustries);  
+    //     }
+    //     fetchIndustries()
+    // },[]);
 
 
     const [state, setState] = useState({
@@ -45,28 +39,39 @@ function GuidelineForm() {
     }
 
     const onFinish = async (values) => {
-        const res = await addEmployee(values.name, values.dob.format('DD/MM/YYYY'), values.vaccinationStatus, values.lastSwabDate.format('DD/MM/YYYY'), values.lastSwabResult, user.registeredBusiness.businessId)
-        if (res) router.push('/dashboard/employees')
+        const res = await addGuideline(
+            clientId,
+            values.industry,
+            values.operate,
+            values.operateDetails,
+            values.groupSize,
+            values.groupSizeDetails,
+            values.swabTestV,
+            values.swabTestU,
+            values.swabTestDetails,
+            values.contactTracing,
+            values.contactTracingDetails,
+            values.operatingCapacity,
+            values.operatingCapacityDetails,
+            values.operatingGuidelines,
+            values.referenceLink
+        )
+        console.log(res)
+        if (res) router.reload(window.location.pathname)
     }
     
     const onFinishFailed = (errorInfo) => {
         alert("Guideline creation failed!")
     }
 
-
-
-
-    
-      
-
     return(
         <Form
         name="basic"
         labelCol={{
-            span: 5,
+            span: 7,
         }}
         wrapperCol={{
-            span: 5,
+            span: 10,
         }}
         initialValues={{
             remember: true,
@@ -90,14 +95,14 @@ function GuidelineForm() {
             placeholder="Select an industry"
             onChange={onChange} 
         >
-            <Option value="fnb">F&B</Option>
-            <Option value="entertainment">Entertainment</Option>
-            <Option value="retail">Retail</Option>
-            <Option value="office">Office</Option>
+            {industries.map((element, index) => {
+                return (<Option value={element.industryId}>{element.industryName}: {element.industrySubtype}</Option>
+                )})
+            }
         </Select>
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
             label="Please select one sub-industry (if applicable)"
             name="subIndustry"
         >
@@ -111,7 +116,7 @@ function GuidelineForm() {
             <Option value="indoor">Indoor Entertainment</Option>
             <Option value="outdoor">Outdoor Entertainment</Option>
         </Select>
-        </Form.Item> <br></br>
+        </Form.Item> <br></br> */}
 
         <Form.Item
             label="Can shops operate on site?"
@@ -128,8 +133,8 @@ function GuidelineForm() {
             placeholder="Select an option"
             onChange={onChange} 
         >
-            <Option value="yes">Yes</Option>
-            <Option value="no">No</Option>
+            <Option value={true}>Yes</Option>
+            <Option value={false}>No</Option>
         </Select>
         </Form.Item>
 
@@ -228,7 +233,7 @@ function GuidelineForm() {
 
         <Form.Item
             label="Additional Details"
-            name="swabTestDetails"
+            name="groupSizeDetails"
             rules={[
             {
                 required: true,
@@ -280,6 +285,20 @@ function GuidelineForm() {
         </Form.Item> 
 
         <Form.Item
+            label="Reference Link"
+            name="referenceLink"
+            rules={[
+            {
+                required: true,
+                message: `Please enter reference link!`,
+            },
+            ]}
+        >
+        <Input />
+        </Form.Item> 
+
+
+        <Form.Item
             wrapperCol={{
             offset: 8,
             span: 16,
@@ -288,18 +307,8 @@ function GuidelineForm() {
             <Button type="primary" htmlType="submit"> Add Guideline</Button>
         </Form.Item>
 
-
-
-
-
-
-
         </Form>
 
-
-
-
-    
 )
 }
 export default GuidelineForm

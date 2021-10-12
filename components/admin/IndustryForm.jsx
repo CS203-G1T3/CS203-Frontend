@@ -8,11 +8,11 @@ function IndustryForm() {
     const [user, setUser] = useState()
     const { Option } = Select;
 
-    const handleSubmit = async (event) => {
-        event.preventDefault()
-        const res = await addIndustry(event.industryDesc, event.industry, event.subIndustry)
-        if (res) router.push('/dashboard/industry')
-    }
+    // const handleSubmit = async (event) => {
+    //     event.preventDefault()
+    //     const res = await addIndustry(event.industryDesc, event.industry, event.subIndustry)
+    //     if (res) router.push('/dashboard/industry')
+    // }
     
    
     
