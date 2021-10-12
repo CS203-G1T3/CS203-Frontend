@@ -15,8 +15,8 @@ function AdminDashboard (cookies) {
         try {
             const userCookie = JSON.parse(cookies.cookies.user)
             const user_data = await getUser(userCookie.user_id, userCookie.refresh_token)
-            if (!user_data) router.push('//admin/login')
-            if (!user) setUser(user_data)    
+            if (!user_data) router.push('/admin/login')
+            if (!user) setUser(user_data)   
         }
         catch {
             router.push('/admin/login')
@@ -43,8 +43,8 @@ function AdminDashboard (cookies) {
                             <img className="object-cover rounded-lg h-full w-full" src="/hawker.webp" alt="profile_pic" />
                         </div>
                         <div className="flex flex-col text-left mx-2">
-                            <span className="text-indigo-500 font-bold text-sm">Admin User 01</span>
-                            <span className="text-gray-400 font-bold text-xs">user@admin.com</span>
+                            <span className="text-indigo-500 font-bold text-sm">Admin User</span>
+                            <span className="text-gray-400 font-bold text-xs">{user.email}</span>
                         </div>
                         <DownOutlined className="w-4 pt-1"/>
                     </button>

@@ -11,8 +11,13 @@ function AdminGuidelines(cookies) {
     const router = useRouter()
 
     const [user, setUser] = useState()
+    const [guidelines, setGuidelines] = useState()
+
+    async function setData() {
+        if (!user) return
 
 
+    }
 
     const getAuthentication = async() => {
         try {
@@ -27,6 +32,7 @@ function AdminGuidelines(cookies) {
     }
     useEffect(() => {
         getAuthentication()
+        setData()
     }, [user])
 
    
