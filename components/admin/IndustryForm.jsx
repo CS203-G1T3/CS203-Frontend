@@ -1,10 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { getUser } from "../../../services/userService"
+import { getUser } from "../../services/userService"
 
 
 function IndustryForm() {
-    const router = useRouter()
+    // const router = useRouter()
     const [user, setUser] = useState()
     const { Option } = Select;
 
