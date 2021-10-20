@@ -4,7 +4,7 @@ import { getInMemoryToken } from "../utils/auth"
 export async function getIndustry(industryId){
     if (!getInMemoryToken()) return null
 
-    const industry = await axios.get('/api/v1/industry/id/' + industryId, {
+    const industry = await axios.get('/api/v1/industry/' + industryId, {
         headers: {
             'Authorization': `Bearer ${getInMemoryToken()}`
         }
@@ -12,10 +12,22 @@ export async function getIndustry(industryId){
     return industry.data
 }
 
-export async function getAllIndustries() {
+export async function getAllIndustries(industryName) {
     if (!getInMemoryToken()) return null
 
-    const industryNames = await axios.get('/api/v1/industrySubtypes' , {
+    const industries = await axios.get('/api/v1/industrySubtypes' , {
+        params: {industryName: industryName},
+        headers: {
+            'Authorization': `Bearer ${getInMemoryToken()}`
+        }
+    })
+    return industries.data
+}
+
+export async function getAllIndustryNames() {
+    if (!getInMemoryToken()) return null
+
+    const industryNames = await axios.get('/api/v1/industryNames' , {
         headers: {
             'Authorization': `Bearer ${getInMemoryToken()}`
         }

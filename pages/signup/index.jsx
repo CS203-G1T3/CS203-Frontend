@@ -1,21 +1,20 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import LoginForm from '../Forms/LoginForm';
 import { CodeIcon } from '@heroicons/react/solid'
-import Signupform from '../Forms/SignupForm';
+import Signupform from '../../Forms/SignupForm';
 
 function Signup() {
     return (
-        <div className="flex w-all h-screen">
+        <div className="flex h-screen">
             <Head>
             <title>Sign Up</title>
             {/* <link rel="icon" href="/favicon.ico" /> */}
             </Head>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col w-1/3">
                 <div className="absolute flex">
                     <Link href="/">
-                        <button className="flex px-32 pt-16 text-3xl items-center">
+                        <button className="flex px-16 pt-16 text-3xl items-center">
                             <CodeIcon className="h-10 mx-2 text-blue-600" />
                             TRAIL
                         </button>
@@ -23,12 +22,12 @@ function Signup() {
                 </div>
 
                 <div className="flex items-center h-full">
-                    <div className="flex flex-col p-32"> 
+                    <div className="flex flex-col pl-16"> 
                         <h1 className="text-4xl ">Sign up </h1>
                         <p className="py-3">Create a new business account</p>
                         <Signupform />
                         <div className="flex my-3">
-                            <p className="mr-1">Already a member?</p>
+                            <p className="mr-1">Already have an account?</p>
                             <a href="/login" className="underline">Log in</a>
                         </div>
                     </div>

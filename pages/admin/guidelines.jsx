@@ -6,7 +6,7 @@ import { getUser } from "../../services/userService";
 import { useState, useEffect } from "react";
 import Navbar from "../../components/admin/Navbar"
 import GuidelineForm from "../../components/admin/GuidelineForm"
-import { getAllGuidelines } from '../../services/guidelineService';
+import { getAllGuidelines } from '../../services/guidelinesService';
 import { getAllIndustries, getIndustry } from '../../services/industryService';
 
 const rowSelection = {
