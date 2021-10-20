@@ -13,17 +13,6 @@ import { useRouter } from "next/router";
 function GuidelineForm({clientId, industries}) {
     const router = useRouter()
 
-
-    // useEffect(() => {
-    //     const fetchIndustries = async() => {
-    //         const allIndustries = await getAllIndustries()
-    //         setIndustries(allIndustries)  
-    //         console.log(allIndustries);  
-    //     }
-    //     fetchIndustries()
-    // },[]);
-
-
     const [state, setState] = useState({
         option: '',
     })
@@ -101,22 +90,6 @@ function GuidelineForm({clientId, industries}) {
             }
         </Select>
         </Form.Item>
-
-        {/* <Form.Item
-            label="Please select one sub-industry (if applicable)"
-            name="subIndustry"
-        >
-        <Select
-            style={{ width: 200 }}
-            placeholder="Select a sub-industry"
-            onChange={onChange} 
-        >
-            <Option value="hawker">Hawker</Option>
-            <Option value="restaurantsncafe">Restaurant/Cafe</Option>
-            <Option value="indoor">Indoor Entertainment</Option>
-            <Option value="outdoor">Outdoor Entertainment</Option>
-        </Select>
-        </Form.Item> <br></br> */}
 
         <Form.Item
             label="Can shops operate on site?"

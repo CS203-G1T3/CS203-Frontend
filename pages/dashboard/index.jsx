@@ -6,7 +6,7 @@ import Navbar from "../../components/dashboard/Navbar"
 import UserProfile from "../../components/dashboard/UserProfile"
 import PopUps from "../../components/dashboard/PopUps"
 import { getIndustry } from "../../services/industryService";
-import { getLatestGuidelineByIndustry } from "../../services/guidelineService";
+import { getLatestGuidelineByIndustry } from "../../services/guidelinesService";
 
 function Dashboard ({ cookies }) {
     const router = useRouter()
