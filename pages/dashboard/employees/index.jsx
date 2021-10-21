@@ -36,7 +36,8 @@ function Employees({ cookies }) {
 
         setNumEmployees(employeeArray.length)
         setNumVaccinatedEmployees(getNumberOfVaccinatedEmployees(employeeArray))
-        setVaccinationRate(employeeArray.length/getNumberOfVaccinatedEmployees(employeeArray)*100 + "%")
+
+        employeeArray.length > 0 ? setVaccinationRate((getNumberOfVaccinatedEmployees(employeeArray)/employeeArray.length*100).toFixed() + "%") : setVaccinationRate("NA")
     }
 
     const getAuthentication = async() => {

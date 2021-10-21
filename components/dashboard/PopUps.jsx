@@ -34,7 +34,7 @@ const PopUps = ({ header, value, title, body}) => {
                     title={title}
                     visible={isModalVisible}
                     onOk={handleOk}
-                    okText={<a href = "https://www.stb.gov.sg/content/stb/en/home-pages/advisory-for-food-and-beverage-establishments.html" target="_blank">READ MORE</a>}
+                    okText={<a href = "https://www.enterprisesg.gov.sg/media-centre/media-releases/2021/september/mr06721_updated-advisory-for-safe-management-measures-at-food_beverage-establishments" target="_blank">READ MORE</a>}
                     okType="round"
                     onCancel={handleCancel}
                     cancelButtonProps={{style:{display:'none'}}}
