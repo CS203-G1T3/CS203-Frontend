@@ -1,37 +1,34 @@
 import axios from "axios"
 import { getInMemoryToken } from "../utils/auth"
 
-// const addGuideline = async event => {
-//     event.preventDefault()
+export async function getLatestGuidelineByIndustry(industryId){
+    if (!getInMemoryToken()) return null
 
-//     const guideline = {
-//         option: state.option
-//     };
+    const guideline = await axios.get('/api/v1/guideline/industry/' + industryId, {
+        headers: {
+            'Authorization': `Bearer ${getInMemoryToken()}`
+        }
+    })
+    return guideline.data
+}
 
+export async function getAllGuidelines(){
+    if (!getInMemoryToken()) return null
 
-//         axios.post('http://localhost:8080/api/v1/guideline/add' + userId, {
-//           guideline
-//         }, {
-//           headers: {
-//             'Authorization': `Bearer ${getInMemoryToken()}` 
-//           }
-//         })
-//         .then(res => {
-//             res.map(resIndx => {
-//                 //shallow copying
-//                 setIndustries(...industries, resIndx)
-//             })
-//             console.log(res)
-//             console.log(res.data)
-//         })
-//   }
+    const guidelines = await axios.get('/api/v1/guidelines', {
+        headers: {
+            'Authorization': `Bearer ${getInMemoryToken()}`
+        }
+    })
+    return guidelines.data
+}
 
 
 export async function addGuideline(clientId, industryId, isCanOpOnSite, canOpOnSiteDetails, groupSize, groupSizeDetails, covidTestingVaccinated, covidTestingUnvaccinated, covidTestingDetails, contactTracing, contactTracingDetails, opCapacity, opCapacityDetails, opGuidelines, referenceLink) {
     if (!getInMemoryToken()) return null
 
     try {
-        const res = await axios.post(`/api/v1/guideline/add/` + clientId, {
+        const res = await axios.post(`/api/v1/guideline` + clientId, {
             "industryId": industryId,
             "isCanOpOnSite": isCanOpOnSite,
             "canOpOnSiteDetails": canOpOnSiteDetails,

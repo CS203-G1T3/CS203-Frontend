@@ -15,3 +15,18 @@ export async function getUser(userId, refresh_token){
     })
     return user.data
 }
+
+export async function addUser(email, password, roles) {
+
+    try {
+        const res = await axios.post(`/api/v1/client`, {
+            "email": email,
+            "password": password,
+            "roles": roles,
+        })
+        return res
+    } 
+    catch (e) {
+        console.log(e);
+    }
+}
