@@ -1,25 +1,25 @@
 import { DownOutlined } from '@ant-design/icons';
+import { SearchIcon } from '@heroicons/react/solid';
 
-function AdminUserProfile () {
+
+function AdminUserProfile ({email}) {
     return (
-        <div className = "flex flex-col justify-baseline w-80 h-80">
-             <button className="flex space-x-1 mt-4 p-5 items-center">
-
-                <div className="h-auto w-20">
-                    <img className="object-fill" src="/admin.png" alt="profile_pic"/>
+        <div className="w-full flex justify-around items-center">
+                <div className="flex w-96 p-2 px-4 border-2 rounded-full bg-gray-200" >
+                    <SearchIcon className="w-6 h-6 mx-2" />
+                    <input className="bg-gray-200" type="text" placeholder="Search"></input>
                 </div>
-
-                <div className="client-details">
-                    <div className="flex justify-between">
-                        <p className="text-indigo-500 font-bold">Sally Tan</p>
-                        <div className="w-4 flex items-center"> 
-                            <DownOutlined/>
-                        </div>
+                <button className="flex">
+                    <div className="h-10 w-10 p-1">
+                        <img className="object-cover rounded-lg h-full w-full" src="/hawker.webp" alt="profile_pic" />
                     </div>
-                    <p>sallytanxh@govt.com.sg</p>
-                </div>
-            </button>
-        </div>
+                    <div className="flex flex-col text-left mx-2">
+                        <span className="text-indigo-500 font-bold text-sm">Admin User</span>
+                        <span className="text-gray-400 font-bold text-xs">{email}</span>
+                    </div>
+                    <DownOutlined className="w-4 pt-1"/>
+                </button>
+            </div>
     )
 }
 

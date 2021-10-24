@@ -34,3 +34,23 @@ export async function getAllIndustryNames() {
     })
     return industryNames.data
 }
+
+export async function addIndustry(adminId, industryName, subIndustryName, industryDesc) {
+    if (!getInMemoryToken()) return null
+
+    try {
+        const res = await axios.post(`/api/v1/industry/` + adminId, {
+            "industryName": industryName,
+            "industrySubtype": subIndustryName,
+            "industryDesc": industryDesc,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${getInMemoryToken()}`
+            }
+        })
+        return res
+    } 
+    catch (e) {
+        console.log(e);
+    }
+}
