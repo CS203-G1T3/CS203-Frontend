@@ -70,7 +70,6 @@ function Dashboard ({ cookies }) {
         setBusinessIndustry(industry.industryName)
         setBusinessSubindustry(industry.industrySubtype)
 
-        // TODO: set popups
         const guideline = await getLatestGuidelineByIndustry(business.industryId)
         setGuidelineDate(new Date(guideline.createdAt).toDateString())
         setpopup1({header: "Allowed To Operate?", value: guideline.isCanOpOnSite ? "YES" : "NO", title: "Allowed To Operate? " + guideline.isCanOpOnSite, body: guideline.canOpOnSiteDetails})
@@ -107,9 +106,9 @@ function Dashboard ({ cookies }) {
             <Navbar />
             <div className="p-4 w-full">
                 <div className="w-full flex justify-around">
-                    <div className="flex w-96 p-2 px-4 border-2 rounded-full bg-gray-200" >
-                        <SearchIcon className="w-6 h-6 mx-2" />
-                        <input className="bg-gray-200" type="text" placeholder="Search"></input>
+                    <div className="flex w-96 px-4 border-2 rounded-full bg-gray-200 items-center" >
+                        <SearchIcon className="w-6 h-6 mx-2 m-1" />
+                        <input className="bg-gray-200 w-full p-2" type="text" placeholder="Search"></input>
                     </div>
                 </div>
                 <div className="mx-8 mt-8 mb-4 flex flex-col">
