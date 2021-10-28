@@ -1,148 +1,121 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import { UserIcon, LockOpenIcon } from '@heroicons/react/outline';
-import { useRouter } from 'next/router';
-
-async function handleSubmit(email , password) {
-    try {
-        const user = await Auth.signIn(email, password);
-
-        if(!user) {            
-            alert("Error signing in. Please try again.")
-            router.push('login');
-        }
-        router.push('/');
-    } 
-    catch (error) {
-        console.log('error logging in', error);
-        alert("Error: " + error.message + ". Please try again.")
-        router.push('login');
-    }
-}
+import { useRouter } from 'next/router'
+import axios from 'axios';
+import qs from 'qs';
+import { setInMemoryToken, getInMemoryToken } from '../utils/auth'
+import { useCookies } from "react-cookie"
+import { addUser } from '../services/userService';
 
 const validate = values => {
     const errors = {};
 
     if (!values.email) {
-        errors.email = 'Email Required';
+        errors.email = 'Required';
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = 'Invalid email address';
     }
-    let strongPassword = new RegExp(`(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})`)
 
     if (!values.password) {
-        errors.password = 'Password Required';
-    } else if (strongPassword.test(values.password)) {
-        errors.email = 'Invalid password';
-    }
-    if (!values.industry) {
-        errors.industry = 'Industry Required';
+        errors.password = 'Required';
     } 
 
     return errors;
 };
 
 
-const Signupform = () => {
-    
+const SignupForm = () => {
+    const router = useRouter()
+    const[cookie, setCookie] = useCookies(['user'])
+
+    // function to log a user in and store data in cookie
+    async function handleSubmit(email, password) {
+
+        try {
+            const user = await addUser(email, password, ["USER"])
+            if (!user) throw "client not created"
+
+            // log in the new user to get credentials
+            const response = await axios.post("/api/login", qs.stringify({
+                'email': email,
+                'password': password
+            }))
+            if (!response) throw "new client not found"
+            setInMemoryToken(response.data.access_token)
+
+            const data = {
+                'refresh_token': response.data.refresh_token,
+                'user_id': user.data.clientId
+            }
+
+            setCookie("user", JSON.stringify(data), {
+                path: "/",
+                maxAge: 36000, // Expires after 10hr
+                sameSite: true,
+            })
+            router.push('/signup/details') 
+
+        } catch(e) {
+            console.log(e)
+            alert("error signing up")
+        }
+    }   
+
     const formik = useFormik({
         initialValues: {
-        companyName: '',
-        companyDescription: '',
-        industry: '',
         email: '',
         password: '',
         },
         validate,
         onSubmit: values => {
-        alert(JSON.stringify(values, null, 2));
+            handleSubmit(values.email, values.password);
         },
     });
 
     return (
         <form onSubmit={formik.handleSubmit} className="flex flex-col">
 
-            <div className="flex">
-                <input
-                id="companyName"
-                name="companyName"
-                type="companyName"
-                placeholder="Company Name *"
-                className="border-2 rounded-sm p-1"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.companyName}
-                />
-
-                <input
-                id="companyDescription"
-                name="companyDescription"
-                type="companyDescription"
-                placeholder="Company Description *"
-                className="border-2 rounded-sm p-1 ml-4"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.companyDescription}
-                />
-            </div>
-
+        <div className="flex border-2 w-80 items-center rounded-sm">
+            <UserIcon className="h-6 w-6 my-2" />
             <input
             id="email"
             name="email"
             type="email"
-            placeholder="Email *"
-            className="w-full p-1 border-2 mt-4"
+            placeholder="Email"
+            className="h-full w-full p-2"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
             />
+        </div>
 
         {formik.touched.email && formik.errors.email ? (
             <div className="text-red-500">{formik.errors.email}</div>
         ) : null}
 
-
-        <input
-        id="password"
-        name="password"
-        type="password"
-        placeholder="Create Password *"
-        className="w-full p-1 border-2 mt-4"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.password}
-        />
+        <div className="flex border-2 w-80 items-center mt-4 rounded-sm">
+            <LockOpenIcon className="h-6 w-6 my-2" />
+            <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            className="h-full w-full p-2"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+            />
+        </div>
 
         {formik.touched.password && formik.errors.password ? (
             <div className="text-red-500">{formik.errors.password}</div>
         ) : null}
 
-
-        <div className="flex justify-end w-full">
-            {/* TODO: FIX THIS */}
-            <select 
-            name="industry" id="industry" 
-            value={formik.values.industry} 
-            className="p-1 border-2 mt-4" 
-            onChange={formik.handleChange} 
-            onBlur={formik.handleBlur}
-            defaultValue={'DEFAULT'}>
-                <option value="DEFAULT" disabled>Select an industry</option>
-                <option value="red" label="red" />
-                <option value="blue" label="blue" />
-                <option value="green" label="green" />
-            </select>
-        </div>
-
-        {formik.touched.industry && formik.errors.industry ? (
-            <div className="text-red-500">{formik.errors.industry}</div>
-        ) : null}
-
-
-        <button className="p-2 rounded-sm bg-blue-500 text-white mt-4" type="submit">Sign Up</button>
+        <button className=" mt-4 p-2 rounded-sm bg-blue-500 text-white" type="submit">Sign Up</button>
 
         </form>
     );
 };
 
-export default Signupform
+export default SignupForm

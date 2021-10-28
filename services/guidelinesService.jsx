@@ -4,7 +4,7 @@ import { getInMemoryToken } from "../utils/auth"
 export async function getLatestGuidelineByIndustry(industryId){
     if (!getInMemoryToken()) return null
 
-    const guideline = await axios.get('/api/v1/guideline/byIndustry/' + industryId, {
+    const guideline = await axios.get('/api/v1/guideline/industry/' + industryId, {
         headers: {
             'Authorization': `Bearer ${getInMemoryToken()}`
         }
@@ -23,11 +23,19 @@ export async function getAllGuidelines(){
     return guidelines.data
 }
 
+    const guidelines = await axios.get('/api/v1/guidelines', {
+        headers: {
+            'Authorization': `Bearer ${getInMemoryToken()}`
+        }
+    })
+    return guidelines.data
+}
+
 export async function addGuideline(clientId, industryId, isCanOpOnSite, canOpOnSiteDetails, groupSize, groupSizeDetails, covidTestingVaccinated, covidTestingUnvaccinated, covidTestingDetails, contactTracing, contactTracingDetails, opCapacity, opCapacityDetails, opGuidelines, referenceLink) {
     if (!getInMemoryToken()) return null
 
     try {
-        const res = await axios.post(`/api/v1/guideline/add/` + clientId, {
+        const res = await axios.post(`/api/v1/guideline` + clientId, {
             "industryId": industryId,
             "isCanOpOnSite": isCanOpOnSite,
             "canOpOnSiteDetails": canOpOnSiteDetails,

@@ -1,10 +1,4 @@
-import { useEffect, useState } from 'react'
-import NumericInput from 'react-numeric-input'
-import {getUser} from '../../services/userService'
-import {getAllIndustries} from '../../services/industryService'
 import { Form, Input, Button, Select, InputNumber} from 'antd';
-import axios from "axios"
-import {setInMemoryToken} from '../../utils/auth'
 import { addGuideline } from '../../services/guidelinesService';
 import { useRouter } from "next/router";
 
@@ -13,14 +7,6 @@ import { useRouter } from "next/router";
 function GuidelineForm({clientId, industries}) {
     const router = useRouter()
 
-    const [state, setState] = useState({
-        option: '',
-    })
-
-    const handleChange = (event) => {
-        setState({option: event.target.value})
-    }
-    
     const { Option } = Select;
 
     function onChange(value) {

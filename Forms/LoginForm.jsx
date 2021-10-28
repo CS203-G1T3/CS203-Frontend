@@ -33,7 +33,7 @@ const LoginForm = () => {
 
     // function to log a user in and store data in cookie
     async function handleSubmit(email, password) {
-
+        
         try {
             const response = await axios.post("/api/login", qs.stringify({
                 'email': email,

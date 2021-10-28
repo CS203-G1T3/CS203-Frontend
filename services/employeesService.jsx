@@ -4,7 +4,7 @@ import { getInMemoryToken } from "../utils/auth"
 export async function getEmployees(businessId){
     if (!getInMemoryToken()) return null
 
-    const employees = await axios.get('/api/v1/employeeRecord/all/' + businessId, {
+    const employees = await axios.get('/api/v1/employeeRecords/' + businessId, {
         headers: {
             'Authorization': `Bearer ${getInMemoryToken()}`
         }
@@ -19,7 +19,7 @@ export function getEmployeeAge(employee) {
 export function getNumberOfVaccinatedEmployees(employeeArray) {
     var count = 0
     employeeArray.forEach(element => {
-        if (element.vaccination != "UNVACCINATED") count++
+        if (element.vaccinationStatus != "UNVACCINATED") count++
     })
     return count
 }
@@ -28,7 +28,7 @@ export async function addEmployee(name, dob, vaccination, lastSwabDate, swabResu
     if (!getInMemoryToken()) return null
 
     try {
-        const res = await axios.post(`/api/v1/employeeRecord/add`, {
+        const res = await axios.post(`/api/v1/employeeRecord`, {
             "employeeName": name,
             "dateOfBirth": dob,
             "vaccine": vaccination,
