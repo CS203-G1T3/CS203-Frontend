@@ -32,6 +32,13 @@ function Navbar () {
                     </button>
                 </Link>
 
+                <Link href="/dashboard/grants">
+                    <button className="flex items-center hover:bg-indigo-100 pl-3 py-4">
+                        <AppstoreOutlined />
+                        <span className="ml-2 text-left">Grants and Support</span>
+                    </button>
+                </Link>
+
                 <Link href="#">
                     <button className="flex items-center hover:bg-indigo-100 pl-3 py-4">
                         <AppstoreOutlined />
@@ -46,12 +53,6 @@ function Navbar () {
                     </button>
                 </Link>
 
-                <Link href="#">
-                    <button className="flex items-center hover:bg-indigo-100 pl-3 py-4">
-                        <AppstoreOutlined />
-                        <span className="ml-2 text-left">Grants and Support</span>
-                    </button>
-                </Link>
             </div>
 
         </div>
