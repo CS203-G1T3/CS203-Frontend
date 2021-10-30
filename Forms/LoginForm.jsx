@@ -47,6 +47,13 @@ const LoginForm = () => {
                 }
             })
 
+            // check if user is admin
+            if (user.data.roles[0].roleName != "USER") {
+                alert("Error, user is not authorised")
+                return
+            }
+            
+
             const data = {
                 'refresh_token': response.data.refresh_token,
                 'user_id': user.data.clientId

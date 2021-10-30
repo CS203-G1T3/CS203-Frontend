@@ -7,6 +7,7 @@ import { getUser } from "../../../services/userService"
 import Navbar from "../../../components/dashboard/Navbar"
 import VaccinationChart from "../../../components/dashboard/VaccinationChart"
 import { deleteEmployee, getEmployeeAge, getEmployees, getNumberOfVaccinatedEmployees } from "../../../services/employeesService"
+import { DownOutlined } from "@ant-design/icons"
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -19,6 +20,8 @@ function Employees({ cookies }) {
     const { Column, ColumnGroup } = Table;
 
     const [user, setUser] = useState()
+    const [businessName, setBusinessName] = useState()
+    const [email, setEmail] = useState()
     const [employees, setEmployees] = useState([{ key: 0, id:"1", name: 'John', age: 32, vaccinationStatus: 'PFIZER', lastSwab: '10 Oct 2021', lastSwabResult: 'NEGATIVE' }])
     const [numEmployees, setNumEmployees] = useState(28)
     const [numVaccinatedEmployees, setNumVaccinatedEmployees] = useState(16)
@@ -27,8 +30,10 @@ function Employees({ cookies }) {
     async function setData(){
         if (!user) return
 
-        const businessId = user.registeredBusiness.businessId
-        
+        setBusinessName(user.registeredBusiness.businessName)
+        setEmail(user.email)
+
+        const businessId = user.registeredBusiness.businessId        
         const employeeRecords = await getEmployees(businessId)
         const employeeArray = []
         employeeRecords.forEach((element, index) => {employeeArray.push({key: index, id: element.employeeId, name: element.employeeName, age: getEmployeeAge(element), vaccinationStatus: element.vaccine, lastSwab: element.lastSwabDate, lastSwabResult: element.swabResult})})
@@ -60,11 +65,24 @@ function Employees({ cookies }) {
         <div className="flex bg-gray-50 min-h-screen">
             <Navbar />
             <div className="p-4 w-full">
-                <div className="w-full flex justify-around">
-                    <div className="flex w-96 p-2 px-4 border-2 rounded-full bg-gray-200" >
-                        <SearchIcon className="w-6 h-6 mx-2" />
-                        <input className="bg-gray-200" type="text" placeholder="Search"></input>
+                <div className="w-full flex justify-around items-center">
+                    <div className="flex w-96 px-4 border-2 rounded-full bg-gray-200 items-center" >
+                        <SearchIcon className="w-6 h-6 mx-2 m-1" />
+                        <input className="bg-gray-200 w-full p-2" type="text" placeholder="Search"></input>
                     </div>
+
+                    <button className="flex">
+                        <div className="h-10 w-10 p-1">
+                            <img className="object-cover rounded-lg h-full w-full" src="/hawker.webp" alt="profile_pic" />
+                        </div>
+                        <div className="flex flex-col text-left mx-2">
+                            <div className="text-indigo-500 font-bold text-sm">{ businessName }</div>
+                            <div className="text-gray-400 font-bold text-xs">{ email }</div>
+                        </div>
+                        <DownOutlined className="w-4 pt-1"/>
+                        {/* TODO: add logout method */}
+                    </button>
+
                 </div>
 
                 <div className="mx-8 mt-4 flex flex-col h-full">
