@@ -1,7 +1,6 @@
 import Navbar from "../../components/dashboard/Navbar"
 import AdminUserProfile from "../../components/dashboard/AdminUserProfile"
 import Graphs from "../../components/dashboard/Graphs"
-// import QuickLink from "../../components/dashboard/QuickLink"
 import { SearchIcon } from '@heroicons/react/solid';
 
 function AdminDashboard () {
@@ -35,7 +34,6 @@ function AdminDashboard () {
                 <h2 className="text-2xl m-5">Quicklinks</h2>
                 <div class="grid grid-flow-col lg:grid-cols-3 lg:grid-rows-1 gap-20 md:grid-cols-2 md:grid-rows-3 ">
                     <div className="flex flex-col items-baseline shadow-xl h-50 w-60 m-4 bg-gray-200 rounded-lg p-4">
-                        {/* <QuickLink task="Guidelines"/> got error, dk why*/}
                             <h2 className="text-xl">COVID-19 Guidelines</h2>
                             <a href="#">View Guidelines</a>
                             <a href="#">Update Guidelines</a>
