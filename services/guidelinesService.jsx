@@ -75,10 +75,11 @@ export async function deleteGuideline(clientId, guidelineId){
 
 }
 
-export async function updateGuideline(clientId, guidelineId, industryId, isCanOpOnSite, canOpOnSiteDetails, groupSize, groupSizeDetails, covidTestingVaccinated, covidTestingUnvaccinated, covidTestingDetails, contactTracing, contactTracingDetails, opCapacity, opCapacityDetails, opGuidelines, referenceLink){
+export async function editGuideline( clientId, guidelineId, industryId, isCanOpOnSite, canOpOnSiteDetails, groupSize, groupSizeDetails, covidTestingVaccinated, covidTestingUnvaccinated, covidTestingDetails, contactTracing, contactTracingDetails, opCapacity, opCapacityDetails, opGuidelines, referenceLink){
     if (!getInMemoryToken()) return null
     
     try {
+        console.log("updated value:" + isCanOpOnSite)
         const res = await axios.put('/api/v1/guideline/' + clientId, {
             "guidelineId": guidelineId,
             "industryId": industryId,
