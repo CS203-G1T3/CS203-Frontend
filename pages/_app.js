@@ -5,7 +5,7 @@ import { CookiesProvider } from 'react-cookie';
 
 function MyApp({ Component, pageProps }) {
 
-    axios.defaults.baseURL = "https://cs203-alb-754343787.ap-southeast-1.elb.amazonaws.com"
+    axios.defaults.baseURL = "https://alb.trailsg.biz"
 
     return(
         <CookiesProvider>
