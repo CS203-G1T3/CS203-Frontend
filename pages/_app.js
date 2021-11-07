@@ -5,7 +5,7 @@ import { CookiesProvider } from 'react-cookie';
 
 function MyApp({ Component, pageProps }) {
 
-    axios.defaults.baseURL = "http://localhost:8080"
+    axios.defaults.baseURL = "https://cs203-alb-754343787.ap-southeast-1.elb.amazonaws.com"
 
     return(
         <CookiesProvider>
