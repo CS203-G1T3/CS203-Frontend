@@ -45,13 +45,6 @@ function AddEmployee(cookies) {
         <div className="flex bg-gray-50 h-screen">
             <Navbar />
             <div className="p-4 w-full">
-                {/* <div className="w-full flex justify-around">
-                    <div className="flex w-96 p-2 px-4 border-2 rounded-full bg-gray-200" >
-                        <SearchIcon className="w-6 h-6 mx-2" />
-                        <input className="bg-gray-200" type="text" placeholder="Search"></input>
-                    </div>
-                </div> */}
-
                 <div className="mx-8 mt-8 flex flex-col h-full">
                     <Link href="/dashboard/employees">
                         <button className="flex items-center text-gray-500">

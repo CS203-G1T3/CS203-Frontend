@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Form, Input, Button, Table, Space} from 'antd';
 import { addIndustry, getAllIndustries } from '../../services/industryService';
 import Navbar from "../../components/admin/Navbar";
-import AdminUserProfile from '../../components/dashboard/AdminUserProfile';
+import AdminUserProfile from '../../components/admin/AdminUserProfile';
 import { getAllIndustryNames} from '../../services/industryService'
 
 const rowSelection = {

@@ -71,7 +71,7 @@ function GuidelineForm({clientId, industries}) {
             onChange={onChange} 
         >
             {industries.map((element, index) => {
-                return (<Option value={element.industryId}>{element.industryName}: {element.industrySubtype}</Option>
+                return (<Option key={index} value={element.industryId}>{element.industryName}: {element.industrySubtype}</Option>
                 )})
             }
         </Select>
@@ -92,8 +92,8 @@ function GuidelineForm({clientId, industries}) {
             placeholder="Select an option"
             onChange={onChange} 
         >
-            <Option value={true}>Yes</Option>
-            <Option value={false}>No</Option>
+            <Option key={1} value={true}>Yes</Option>
+            <Option key={2} value={false}>No</Option>
         </Select>
         </Form.Item>
 
