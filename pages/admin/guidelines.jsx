@@ -160,11 +160,11 @@ function AdminGuidelines(cookies) {
         try {
             const userCookie = JSON.parse(cookies.cookies.user)
             const user_data = await getUser(userCookie.user_id, userCookie.refresh_token)
-            if (!user_data) router.push('/login')
+            if (!user_data) router.push('/admin/login')
             if (!user) setUser(user_data)    
         }
         catch {
-            router.push('/login')
+            router.push('/admin/login')
         }
     }
     useEffect(() => {
