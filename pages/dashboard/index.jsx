@@ -103,7 +103,7 @@ function Dashboard ({ cookies }) {
     }, [user])
 
     return (
-        <div className="h-screen flex">
+        <div className="h-screen flex font-Inter">
             <Head>
                 <title>Dashboard</title>
             </Head>

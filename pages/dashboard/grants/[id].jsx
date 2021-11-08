@@ -66,7 +66,7 @@ const Grant = ({cookies}) => {
     }, [user])
 
     return (
-        <div className="flex bg-gray-50 min-h-screen">
+        <div className="flex bg-gray-50 min-h-screen font-Inter">
             <Navbar />
             <div className="p-8 w-full">
                 <div className="w-full flex justify-around items-center">

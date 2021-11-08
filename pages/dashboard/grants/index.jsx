@@ -116,7 +116,7 @@ function Grants({cookies}) {
     }, [user])
 
     return (        
-        <div className="flex min-h-screen">
+        <div className="flex min-h-screen font-Inter">
             <Navbar businessName={businessName} clientEmail={email} />
             <div className="p-8 w-full">
                 <div className="w-full flex items-center">
