@@ -4,7 +4,7 @@ let inMemoryToken = null
 
 // call this function when we do not have inMemoryToken
 export async function silentRefresh(refresh_token) {
-    const response = await axios.get('/api/v1/token/refresh/', {
+    const response = await axios.get('/api/token/refresh/', {
         headers: {
             'Authorization': `Bearer ${refresh_token}`
         }
