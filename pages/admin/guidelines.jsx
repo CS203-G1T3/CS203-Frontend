@@ -1,4 +1,4 @@
-import { Table, Modal,Input,Form,Button } from 'antd'
+import { Table,Modal,Input,Form,Button,Select } from 'antd'
 import { useRouter } from "next/router";
 import { getUser } from "../../services/userService";
 import { useState, useEffect } from "react";
@@ -10,7 +10,6 @@ import AdminUserProfile from '../../components/admin/AdminUserProfile';
 import { EyeOutlined,EditOutlined,DeleteOutlined } from '@ant-design/icons';
 import { editGuideline,deleteGuideline } from "../../services/guidelinesService"
 
-
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
     },
@@ -20,7 +19,6 @@ function AdminGuidelines(cookies) {
     const router = useRouter()
     const { Column } = Table;
     const { TextArea } = Input;
-
     const [user, setUser] = useState()
     const [clientId, setClientId] = useState()
     const [email, setEmail] = useState()
@@ -30,7 +28,6 @@ function AdminGuidelines(cookies) {
     const [isEditing, setIsEditing] = useState(false)
     const [editingGuideline, setEditingGuideline] = useState()
     const [isViewing, setIsViewing] = useState(false)
-    const [isCanOpOnSite, setIsCanOpOnSite] = useState()
     const [canOpOnSiteDetails, setCanOpOnSiteDetails] = useState()
     const [contactTracing, setContactTracing] = useState()
     const [contactTracingDetails, setContactTracingDetails] = useState()
@@ -46,7 +43,7 @@ function AdminGuidelines(cookies) {
     const [recordKey, setRecordKey] = useState()
     const [industryId, setIndustryId] = useState()
     const [isSuccessful, setIsSuccessful] = useState(false)
-
+    const [isTrue, isTrueSet] = useState(false);
 
     const setData = async() =>  {
         if (!user) return
@@ -87,11 +84,12 @@ function AdminGuidelines(cookies) {
 
     const onEditGuideline = async (record) => {
         // modal will show
-       setIsEditing(true)
+        setIsEditing(true)
 
         //to display the current values
-       const editGuideline = await getLatestGuidelineByIndustry(record.industryId)
-       const editIndustry = await getIndustry(record.industryId)
+        const editGuideline = await getLatestGuidelineByIndustry(record.industryId)
+        const editIndustry = await getIndustry(record.industryId)
+        console.log("edit:" + editGuideline)
         setIndustry(editIndustry)
         setEditingGuideline(editGuideline)
         setRecordKey(record.key)
@@ -112,12 +110,10 @@ function AdminGuidelines(cookies) {
     }
 
     const onFinish = async () => {
-        console.log("updated:" + isCanOpOnSite)
         const res = await editGuideline(
             clientId,
             recordKey,
             industryId,
-            isCanOpOnSite,
             canOpOnSiteDetails,
             groupSize,
             groupSizeDetails,
@@ -129,7 +125,8 @@ function AdminGuidelines(cookies) {
             opCapacity,
             opCapacityDetails,
             opGuidelines,
-            referenceLink
+            referenceLink,
+            isTrue
         )
         if (res.status == 200){
             console.log(res)
@@ -138,22 +135,16 @@ function AdminGuidelines(cookies) {
     
         }
 
-
     const onFinishFailed = (errorInfo) => {
         alert("Guideline creation failed!")
     }
 
-
-
     const onViewGuideline = async (record) => {
         setIsViewing(true)
-
-        const editGuideline = await getLatestGuidelineByIndustry(record.industryId)
-        console.log(editGuideline)
-        const editIndustry = await getIndustry(record.industryId)
-        setIndustry(editIndustry)
-        setEditingGuideline(editGuideline)
-        
+        const viewGuideline = await getLatestGuidelineByIndustry(record.industryId)
+        const viewIndustry = await getIndustry(record.industryId)
+        setIndustry(viewIndustry)
+        setEditingGuideline(viewGuideline)
     }
 
     const getAuthentication = async() => {
@@ -219,7 +210,7 @@ function AdminGuidelines(cookies) {
                         <div>Industry</div>
                         <Input name = "industry" value= {industry?.industryName} readOnly></Input>
                         <div>Can shops operate on site?</div>
-                        <Input name = "isCanOptOnSite" value= {editingGuideline?.isCanOpOnSite}></Input>
+                        <Input name = "isCanOpOnSite" value= {editingGuideline?.isCanOpOnSite}></Input>
                         <div>Additional Details</div>
                         <TextArea rows={4}  value= {editingGuideline?.canOpOnSiteDetails}/>
                         <div>Contact Tracing Measures</div>
@@ -269,10 +260,13 @@ function AdminGuidelines(cookies) {
                             <Form.Item>
                                 <div>Industry</div>
                                 <Input name = "industry" value= {industry?.industryName} readOnly></Input>
+                            </Form.Item>
+
+                            <Form.Item>
                                 <div>Can shops operate on site?</div>
-                                <Input name = "isCanOptOnSite" value= {editingGuideline?.isCanOpOnSite} onChange={(e) => {
+                                <Input name = "isCanOpOnSite" value= {editingGuideline?.isCanOpOnSite} onChange={(e) => {
                                     setEditingGuideline((pre) => {
-                                    setIsCanOpOnSite(e.target.value)
+                                    isTrueSet(e.target.value === 'true')
                                     return {...pre, isCanOpOnSite : e.target.value}
                                 })
                                 }}></Input>

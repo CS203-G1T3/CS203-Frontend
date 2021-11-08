@@ -75,15 +75,14 @@ export async function deleteGuideline(clientId, guidelineId){
 
 }
 
-export async function editGuideline( clientId, guidelineId, industryId, isCanOpOnSite, canOpOnSiteDetails, groupSize, groupSizeDetails, covidTestingVaccinated, covidTestingUnvaccinated, covidTestingDetails, contactTracing, contactTracingDetails, opCapacity, opCapacityDetails, opGuidelines, referenceLink){
+export async function editGuideline( clientId, guidelineId, industryId, canOpOnSiteDetails, groupSize, groupSizeDetails, covidTestingVaccinated, covidTestingUnvaccinated, covidTestingDetails, contactTracing, contactTracingDetails, opCapacity, opCapacityDetails, opGuidelines, referenceLink, isTrue){
     if (!getInMemoryToken()) return null
     
     try {
-        console.log("updated value:" + isCanOpOnSite)
+        console.log("updated value:" + isTrue + typeof isTrue)
         const res = await axios.put('/api/v1/guideline/' + clientId, {
             "guidelineId": guidelineId,
             "industryId": industryId,
-            "isCanOpOnSite": isCanOpOnSite,
             "canOpOnSiteDetails": canOpOnSiteDetails,
             "groupSize": groupSize,
             "groupSizeDetails": groupSizeDetails,
@@ -96,6 +95,8 @@ export async function editGuideline( clientId, guidelineId, industryId, isCanOpO
             "opCapacityDetails": opCapacityDetails,
             "opGuidelines": opGuidelines,
             "referenceLink": referenceLink,
+            "isCanOpOnSite": isTrue
+
         }, {
             headers: {
                 'Authorization': `Bearer ${getInMemoryToken()}`
