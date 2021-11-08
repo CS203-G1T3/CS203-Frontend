@@ -62,58 +62,42 @@ function Employees({ cookies }) {
     }, [user])
 
     return(
-        <div className="flex bg-gray-50 min-h-screen">
-            <Navbar />
-            <div className="p-4 w-full">
-                <div className="w-full flex justify-around items-center">
-                    <div className="flex w-96 px-4 border-2 rounded-full bg-gray-200 items-center" >
+        <div className="flex min-h-screen font-Inter">
+            <Navbar businessName={businessName} clientEmail={email} />
+            <div className="pt-8 pl-8 w-full">
+                <div className="w-full flex">
+                    <div className="flex w-96 px-2 border-2 rounded-lg items-center" >
                         <SearchIcon className="w-6 h-6 mx-2 m-1" />
-                        <input className="bg-gray-200 w-full p-2" type="text" placeholder="Search"></input>
+                        <input className="w-full p-2" type="text" placeholder="Search"></input>
                     </div>
-
-                    <button className="flex">
-                        <div className="h-10 w-10 p-1">
-                            <img className="object-cover rounded-lg h-full w-full" src="/hawker.webp" alt="profile_pic" />
-                        </div>
-                        <div className="flex flex-col text-left mx-2">
-                            <div className="text-indigo-500 font-bold text-sm">{ businessName }</div>
-                            <div className="text-gray-400 font-bold text-xs">{ email }</div>
-                        </div>
-                        <DownOutlined className="w-4 pt-1"/>
-                        {/* TODO: add logout method */}
-                    </button>
-
                 </div>
 
-                <div className="mx-8 mt-4 flex flex-col h-full">
-                    <span className="text-2xl">Employee Management</span>
+                <div className="pr-4 mt-8 flex flex-col h-full">
+                    <div className="text-2xl">Employee Management</div>
+                    <div className="text-gray-400">View and manage all employees under the company.</div>
+
 
                     <div className="flex mt-4 w-full h-56">
                         <div className="w-full mr-3">
                             <span className="text-xl">Overview</span>
-                            <div className="bg-white rounded-lg mt-2 p-4 h-full">
-                                <Row gutter={16}>
-                                    <Col span={12}>
+                            <div className="flex justify-between mt-2 h-full">
+                                <div className="bg-blue-50 p-4 rounded-lg w-1/3 mr-2">
                                     <Statistic title="Number of employees" value={numEmployees} />
-                                    </Col>
-                                    <Col span={12}>
+                                </div>
+                                <div className="bg-yellow-50 p-4 rounded-lg w-1/3 mx-2">
                                     <Statistic title="Total number vaccinated" value={numVaccinatedEmployees} />
-                                    <Button style={{ marginTop: 16 }} type="primary">
-                                        See breakdown
-                                    </Button>
-                                    </Col>
-                                    <Col span={12}>
+                                </div>
+                                <div className="bg-green-50 p-4 rounded-lg w-1/3 ml-1">
                                     <Statistic title="Vaccination Rate" value={vaccinationRate} />
-                                    </Col>
-                                </Row>
+                                </div>
                             </div>
                         </div>
 
                         <div className="w-144 ml-3 h-full">
-                            <span className="text-xl">Workforce Engagement</span>
-                            <div className="bg-white rounded-lg mt-2 p-4 h-full">
+                            <span className="text-xl">Headcount</span>
+                            <div className="bg-red-50 rounded-lg mt-2 p-4 h-full">
                                 <span className=""></span>
-                                <VaccinationChart />
+                                <VaccinationChart currentNum={numEmployees} />
                             </div>
                         </div>
                     </div>

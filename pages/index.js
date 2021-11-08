@@ -9,7 +9,6 @@ export default function Home() {
     <div className="flex flex-col h-screen font-Inter">
       <Head>
         <title>trailbiz.sg</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className=" w-screen h-full p-8 px-20 bg-white">
@@ -95,7 +94,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           Powered by{' '}
-          <img src="/credit_suisse.jpeg" alt="Credit Suisse" className="h-16 ml-2 mb-3" />
+          <img src="/credit_suisse.jpeg" alt="Credit Suisse" className="h-16 mb-3" />
         </a>
       </footer>
     </div>
