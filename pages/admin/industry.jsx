@@ -6,6 +6,8 @@ import { addIndustry, getAllIndustries } from '../../services/industryService';
 import Navbar from "../../components/admin/Navbar";
 import AdminUserProfile from '../../components/admin/AdminUserProfile';
 import { getAllIndustryNames} from '../../services/industryService'
+import { EyeOutlined,EditOutlined,DeleteOutlined } from '@ant-design/icons';
+
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -17,8 +19,12 @@ function AdminIndustry( cookies ){
     const [user, setUser] = useState()
     const [email, setEmail] = useState()
     const [industries, setIndustries] = useState([])
+    const [industry, setIndustry] = useState()
     const [clientId, setClientId] = useState()
-    const { Column, ColumnGroup } = Table;
+    const [isViewing, setIsViewing] = useState(false)
+
+
+    const { Column} = Table;
     const router = useRouter()
 
     async function setData() {
@@ -34,6 +40,13 @@ function AdminIndustry( cookies ){
             console.log(subIndustryResponse)
         }
         setIndustries(industryArray)
+    }
+
+    const onViewGuideline = async (record) => {
+        setIsViewing(true)
+
+        const viewIndustry = await getIndustry(record.industryId)
+        setIndustry(viewIndustry)        
     }
         
 
@@ -84,23 +97,43 @@ function AdminIndustry( cookies ){
                     <Column title="Sub-Industry" dataIndex="subIndustry" key="subIndustry" />
 
                     <Column
-                    title="Action"
-                    key="action"
-                    render={(text, record) => (
-                        <Space size="middle">
-                        <button className="text-blue-500 hover:text-blue-300" onClick={async() => {
-                                                                                                    router.reload(window.location.pathname
-                                                                                                    )}}>View</button>
-                        <button className="text-blue-500 hover:text-blue-300" onClick={async() => {
-                                                                                                    router.reload(window.location.pathname
-                                                                                                    )}}>Edit</button>
-                        <button className="text-blue-500 hover:text-blue-300" onClick={async() => {
-                                                                                                    router.reload(window.location.pathname
-                                                                                                    )}}>Delete</button>
-                        </Space>
-                    )}          
-                    />
-                </Table>
+                        title="Action"
+                        key="action"
+                        render={(record) => {
+                            return (
+                                <>
+                                    <EyeOutlined onClick = {() => {
+                                        onViewGuideline(record)
+                                    }}/>
+                                    <EditOutlined onClick = {() => {
+                                        onEditGuideline(record)
+                                    }} style={{color:'blue', marginLeft:25}}/>
+                                    <DeleteOutlined onClick = {() => {
+                                        onDeleteGuideline(record)
+                                    }} style={{color:'red', marginLeft:25}}/>
+                                </>
+                            )
+                        }}          
+                        />
+                    </Table>
+
+                    <Modal
+                        title="View Guideline"
+                        visible={isViewing}
+                        cancelButtonProps={{style:{display:'none'}}}
+                        onCancel={() => setIsViewing(false)}
+                        onOk={() => setIsViewing(false)}
+                        okText = 'Got it!'
+                    >
+                        <div>Industry</div>
+                        <Input name = "industry" value= {industry?.industryName} readOnly></Input>
+                        <div>Sub-Industry</div>
+                        <Input name = "isCanOptOnSite" value= {industry?.industrySubtype}></Input>
+                        <div>Description</div>
+                        <TextArea rows={4} value = {industry?.industryDesc}/>
+                        
+                    </Modal>
+
 
                 <span className="text-2xl font-bold pb-4">Create New Industry</span>
             

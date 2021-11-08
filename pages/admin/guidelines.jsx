@@ -46,6 +46,9 @@ function AdminGuidelines(cookies) {
     const [recordKey, setRecordKey] = useState()
     const [industryId, setIndustryId] = useState()
     const [isSuccessful, setIsSuccessful] = useState(false)
+    const [isTrue, isTrueSet] = useState(false);
+
+
 
 
     const setData = async() =>  {
@@ -117,7 +120,6 @@ function AdminGuidelines(cookies) {
             clientId,
             recordKey,
             industryId,
-            isCanOpOnSite,
             canOpOnSiteDetails,
             groupSize,
             groupSizeDetails,
@@ -129,7 +131,9 @@ function AdminGuidelines(cookies) {
             opCapacity,
             opCapacityDetails,
             opGuidelines,
-            referenceLink
+            referenceLink,
+            isTrue
+
         )
         if (res.status == 200){
             console.log(res)
@@ -148,11 +152,11 @@ function AdminGuidelines(cookies) {
     const onViewGuideline = async (record) => {
         setIsViewing(true)
 
-        const editGuideline = await getLatestGuidelineByIndustry(record.industryId)
+        const viewGuideline = await getLatestGuidelineByIndustry(record.industryId)
         console.log(editGuideline)
-        const editIndustry = await getIndustry(record.industryId)
-        setIndustry(editIndustry)
-        setEditingGuideline(editGuideline)
+        const viewIndustry = await getIndustry(record.industryId)
+        setIndustry(viewIndustry)
+        setEditingGuideline(viewGuideline)
         
     }
 
@@ -272,7 +276,7 @@ function AdminGuidelines(cookies) {
                                 <div>Can shops operate on site?</div>
                                 <Input name = "isCanOptOnSite" value= {editingGuideline?.isCanOpOnSite} onChange={(e) => {
                                     setEditingGuideline((pre) => {
-                                    setIsCanOpOnSite(e.target.value)
+                                    isTrueSet(e.target.value === 'true')
                                     return {...pre, isCanOpOnSite : e.target.value}
                                 })
                                 }}></Input>
