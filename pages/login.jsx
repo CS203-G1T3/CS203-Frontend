@@ -6,13 +6,13 @@ import { CodeIcon } from '@heroicons/react/solid'
 
 function LogIn () {
     return (
-        <div className="flex w-all h-screen font-Inter">
+        <div className="flex w-screen h-screen font-Inter">
             <Head>
             <title>Log In</title>
             {/* <link rel="icon" href="/favicon.ico" /> */}
             </Head>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col w-1/3">
                 <div className="absolute flex">
                     <Link href="/">
                         <button className="flex px-32 pt-16 text-3xl items-center">
@@ -37,7 +37,7 @@ function LogIn () {
             </div>
 
 
-            <div className="flex">
+            <div className="flex w-3/4">
                 <div className="absolute p-4 flex flex-col h-full bg-black bg-opacity-30">  
                     <div className="p-20 flex flex-col justify-center h-full">
                         <div>

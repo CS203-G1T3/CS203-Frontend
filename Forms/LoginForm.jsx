@@ -94,7 +94,7 @@ const LoginForm = () => {
             name="email"
             type="email"
             placeholder="Email"
-            className="h-full w-full p-2"
+            className="h-full w-80 p-2"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
@@ -112,7 +112,7 @@ const LoginForm = () => {
             name="password"
             type="password"
             placeholder="Password"
-            className="h-full w-full p-2"
+            className="h-full w-80 p-2"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
