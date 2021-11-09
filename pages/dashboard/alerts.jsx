@@ -51,7 +51,6 @@ function Alerts ({ cookies }) {
             unackNotifArray.push({key: element.notifId, message: element.messageBody, date: date.toDateString()})
         })
         setAllUnackNotifications(unackNotifArray)
-        console.log(unackNotifArray);
     }
 
     // this function gets the current authenticated user or redirects to login if not found
@@ -92,7 +91,7 @@ function Alerts ({ cookies }) {
                     <div className="text-2xl">Alerts and Notifications</div>
                     <div className="text-gray-400">Review and manage all alerts from the governing administrator.</div>
 
-                    <div className="bg-red-50 rounded-lg p-4 mt-4">
+                    <div className={allUnackNotifications.length == 0 ? "bg-green-100 rounded-lg p-4 mt-4" : "bg-red-50 rounded-lg p-4 mt-4"}>
                         <div>
                             <div className="text-xl">You have <span className="text-2xl font-bold">{allUnackNotifications.length}</span> alerts that require your attention.</div>
                             <div className="text-gray-600 mb-2">for {clientEmail} as of {today.toDateString()}</div>
