@@ -41,11 +41,10 @@ function AdminIndustry( cookies ){
         setClientId(user.clientId)
         setEmail(user.email)
 
-        const industryResponse = await getAllIndustryNames();
+        const industryResponse = await getAllIndustries();
         const industryArray = []
         for (const element of industryResponse) {
-            let subIndustryResponse = await getAllIndustries(element);
-            industryArray.push({key: subIndustryResponse[0].industryId, industry: element, subIndustry:subIndustryResponse[0].industrySubtype, desc:subIndustryResponse[0].industryDesc })
+            industryArray.push({key: element.industryId, industry: element.industryName, subIndustry:element.industrySubtype, desc:element.industryDesc })
         }
         setIndustries(industryArray)
     }
@@ -137,7 +136,7 @@ function AdminIndustry( cookies ){
             <div className="flex flex-col">
                 <span className="text-2xl font-bold mt-6 mb-2">All Industries </span>
 
-                <Table dataSource={industries} rowSelection={{type: 'checkbox', ...rowSelection}} pagination = {{defaultPageSize:5}}>
+                <Table dataSource={industries} rowSelection={{type: 'checkbox', ...rowSelection}} pagination = {{defaultPageSize:3}}>
                     <Column title="Industry" dataIndex="industry" key="industry" />
                     <Column title="Sub-Industry" dataIndex="subIndustry" key="subIndustry" />
                     <Column title="Description" dataIndex="desc" key="desc" />
