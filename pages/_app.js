@@ -10,9 +10,8 @@ function MyApp({ Component, pageProps }) {
         <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
     </head>
 
-    // axios.defaults.baseURL = "https://alb.trailsg.biz"
-    axios.defaults.baseURL = "http://localhost:8080"
-
+    axios.defaults.baseURL = "https://alb.trailsg.biz"
+    // axios.defaults.baseURL = "http://localhost:8080"
 
     return(
         <CookiesProvider>

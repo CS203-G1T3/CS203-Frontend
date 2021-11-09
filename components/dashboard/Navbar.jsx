@@ -56,7 +56,7 @@ function Navbar ({businessName, clientEmail}) {
                     </button>
                 </Link>
 
-                <Link href="#">
+                <Link href="/dashboard/alerts">
                     <button className="flex items-center hover:bg-blue-100 rounded-lg p-4">
                         <ChatIcon className="ml-2 w-6" />
                         <span className="ml-4 text-left">Alerts</span>
