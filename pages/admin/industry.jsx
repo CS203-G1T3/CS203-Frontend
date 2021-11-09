@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { getUser } from "../../services/userService"
 import { useRouter } from "next/router";
-import { Form, Input, Button, Table, Space} from 'antd';
+import { Form, Input, Button, Table, Modal} from 'antd';
 import { addIndustry, getAllIndustries } from '../../services/industryService';
 import Navbar from "../../components/admin/Navbar";
 import AdminUserProfile from '../../components/admin/AdminUserProfile';
-import { getAllIndustryNames} from '../../services/industryService'
+import { deleteIndustry, editIndustry, getIndustry, getAllIndustryNames} from '../../services/industryService'
 import { EyeOutlined,EditOutlined,DeleteOutlined } from '@ant-design/icons';
 
 
@@ -20,12 +20,21 @@ function AdminIndustry( cookies ){
     const [email, setEmail] = useState()
     const [industries, setIndustries] = useState([])
     const [industry, setIndustry] = useState()
+    const [industryId, setIndustryId] = useState()
     const [clientId, setClientId] = useState()
     const [isViewing, setIsViewing] = useState(false)
+    const [isEditing, setIsEditing] = useState(false)
+    const [industryName, setIndustryName] = useState()
+    const [subIndustry, setSubIndustry] = useState()
+    const [industryDesc ,setIndustryDesc] = useState()
+    const [isSuccessful, setIsSuccessful] = useState(false)
+    const [editingIndustry, setEditingIndustry] = useState()
 
 
     const { Column} = Table;
     const router = useRouter()
+    const { TextArea } = Input;
+
 
     async function setData() {
         if (!user) return
@@ -36,18 +45,65 @@ function AdminIndustry( cookies ){
         const industryArray = []
         for (const element of industryResponse) {
             let subIndustryResponse = await getAllIndustries(element);
-            industryArray.push({key: element, industry: element, subIndustry:subIndustryResponse[0].industrySubtype})
+            industryArray.push({key: subIndustryResponse[0].industryId, industry: element, subIndustry:subIndustryResponse[0].industrySubtype})
             console.log(subIndustryResponse)
         }
         setIndustries(industryArray)
     }
 
-    const onViewGuideline = async (record) => {
-        setIsViewing(true)
+    const onDeleteIndustry = (record) => {
+        Modal.confirm({
+           title: 'Are you sure you want to delete this industry record?',
+           okText:'Yes',
+           okType:'danger',
+           onOk: async () => {
+               //the industry i want to delete
+               deleteIndustry(user.clientId,record.key)
+            //    location.reload()
+           }
+       })
+   }
 
-        const viewIndustry = await getIndustry(record.industryId)
+    const onViewIndustry = async (record) => {
+        setIsViewing(true)
+        console.log(record.key)
+        console.log("id" + user.clientId)
+
+        const viewIndustry = await getIndustry(record.key)
         setIndustry(viewIndustry)        
     }
+
+    const onEditIndustry = async (record) => {
+        // modal will show
+       setIsEditing(true)
+
+        //to display the current values
+       const editIndustry = await getIndustry(record.key)
+        setIndustry(editIndustry)
+        setIndustryName(record.industryName)
+        setIndustryDesc(record.industryDesc)
+        setIndustryId(record.key)
+        setSubIndustry(editIndustry.subIndustryName)
+       
+    }
+
+    // const onFinish = async () => {
+    //     const res = await editIndustry(
+    //         clientId,
+    //         industryId,
+            
+    //     )
+    //     if (res.status == 200){
+    //         console.log(res)
+    //         setIsSuccessful(true)
+    //     }
+    
+    //     }
+
+
+    // const onFinishFailed = (errorInfo) => {
+    //     alert("Industry edit failed!")
+    // }
         
 
     const getAuthentication = async() => {
@@ -103,13 +159,13 @@ function AdminIndustry( cookies ){
                             return (
                                 <>
                                     <EyeOutlined onClick = {() => {
-                                        onViewGuideline(record)
+                                        onViewIndustry(record)
                                     }}/>
                                     <EditOutlined onClick = {() => {
-                                        onEditGuideline(record)
+                                        onEditIndustry(record)
                                     }} style={{color:'blue', marginLeft:25}}/>
                                     <DeleteOutlined onClick = {() => {
-                                        onDeleteGuideline(record)
+                                        onDeleteIndustry(record)
                                     }} style={{color:'red', marginLeft:25}}/>
                                 </>
                             )
@@ -118,7 +174,7 @@ function AdminIndustry( cookies ){
                     </Table>
 
                     <Modal
-                        title="View Guideline"
+                        title="View Industry"
                         visible={isViewing}
                         cancelButtonProps={{style:{display:'none'}}}
                         onCancel={() => setIsViewing(false)}
@@ -128,11 +184,67 @@ function AdminIndustry( cookies ){
                         <div>Industry</div>
                         <Input name = "industry" value= {industry?.industryName} readOnly></Input>
                         <div>Sub-Industry</div>
-                        <Input name = "isCanOptOnSite" value= {industry?.industrySubtype}></Input>
+                        <Input name = "isCanOptOnSite" value= {industry?.industrySubtype} readOnly></Input>
                         <div>Description</div>
-                        <TextArea rows={4} value = {industry?.industryDesc}/>
+                        <TextArea rows={4} value = {industry?.industryDesc} readOnly/>
                         
                     </Modal>
+
+                     {/* Modal to edit guideline */}
+                     <Modal
+                        title="Edit Guideline"
+                        visible={isEditing}
+                        onCancel={() => setIsEditing(false)}
+                        onOk={() => setIsEditing(false)}
+                        okText = 'Done!'
+                    >
+                        <Form name="basic"
+                        labelCol={{
+                            span: 7,
+                        }}
+                        wrapperCol={{
+                            span: 10,
+                        }}
+                       
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        autoComplete="off">
+                            <Form.Item>
+                                <div>Industry</div>
+                                <Input name = "industry" value= {industry?.industryName} readOnly></Input>
+                            </Form.Item>
+
+                            <Form.Item>
+                                <div>Sub-Industry</div>
+                                <Input name = "subIndustry" value= {industry?.subIndustry} readOnly></Input>
+                            </Form.Item>
+
+                            <Form.Item>
+                                <div>Contact Tracing Measures</div>
+                                <Input value= {editingIndustry?.industryDesc} onChange={(e) => {
+                                    setEditingIndustry((pre) => {
+                                    setIndustryDesc(e.target.value)
+                                    return {...pre, industryDesc : e.target.value}
+                                })
+                                }}></Input>
+                            </Form.Item>
+
+                        </Form>
+
+                    </Modal>
+
+                    {/* Modal to tell user if edit was successful*/} 
+                    <Modal
+                        title="Edit Industry"
+                        visible={isSuccessful}
+                        cancelButtonProps={{style:{display:'none'}}}
+                        cancelButtonProps={{ style: { display: 'none' } }}
+                        onOk={() => setIsSuccessful(false)}
+                        okText = 'Got it!'
+                    >
+                        Edit is successful! 
+                    </Modal>
+
 
 
                 <span className="text-2xl font-bold pb-4">Create New Industry</span>

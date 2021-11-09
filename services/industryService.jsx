@@ -54,3 +54,42 @@ export async function addIndustry(adminId, industryName, subIndustryName, indust
         console.log(e);
     }
 }
+
+export async function editIndustry(adminId, industryName, subIndustryName, industryDesc) {
+    if (!getInMemoryToken()) return null
+
+    try {
+        const res = await axios.post(`/api/v1/industry/` + adminId, {
+            "industryName": industryName,
+            "industrySubtype": subIndustryName,
+            "industryDesc": industryDesc,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${getInMemoryToken()}`
+            }
+        })
+        return res
+    } 
+    catch (e) {
+        console.log(e);
+    }
+}
+
+export async function deleteIndustry(adminId, industryId){
+    if (!getInMemoryToken()) return null
+
+    try{
+        const res = await axios.delete('/api/v1/industry/' + adminId + '/' + industryId, {
+            headers: {
+                'Authorization': `Bearer ${getInMemoryToken()}`
+            }
+        })
+        return res
+    }
+
+    catch (e) {
+        console.log(e)
+        console.log(getInMemoryToken())
+    }
+
+}

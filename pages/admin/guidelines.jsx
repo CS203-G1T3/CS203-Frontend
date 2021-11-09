@@ -79,9 +79,6 @@ function AdminGuidelines(cookies) {
             okType:'danger',
             onOk: async () => {
                 //the guideline i want to delete
-                const delGuideline = await getIndustry(record.industryId)
-                console.log(user.clientId)
-                console.log(record.key)
                 deleteGuideline(user.clientId,record.key)
                 location.reload()
             }
@@ -144,7 +141,7 @@ function AdminGuidelines(cookies) {
 
 
     const onFinishFailed = (errorInfo) => {
-        alert("Guideline creation failed!")
+        alert("Guideline edit failed!")
     }
 
 
@@ -223,31 +220,31 @@ function AdminGuidelines(cookies) {
                         <div>Industry</div>
                         <Input name = "industry" value= {industry?.industryName} readOnly></Input>
                         <div>Can shops operate on site?</div>
-                        <Input name = "isCanOptOnSite" value= {editingGuideline?.isCanOpOnSite}></Input>
+                        <Input name = "isCanOptOnSite" value= {editingGuideline?.isCanOpOnSite} readOnly></Input>
                         <div>Additional Details</div>
-                        <TextArea rows={4}  value= {editingGuideline?.canOpOnSiteDetails}/>
+                        <TextArea rows={4}  value= {editingGuideline?.canOpOnSiteDetails} readOnly/>
                         <div>Contact Tracing Measures</div>
-                        <Input value= {editingGuideline?.contactTracing}></Input>
+                        <Input value= {editingGuideline?.contactTracing} readOnly></Input>
                         <div>Additional Details</div>
-                        <TextArea rows={4}  value= {editingGuideline?.contactTracingDetails}/>
+                        <TextArea rows={4}  value= {editingGuideline?.contactTracingDetails} readOnly/>
                         <div>[Vaccinated] Swab Test Every __ Day(s)</div>
-                        <Input value= {editingGuideline?.covidTestingVaccinated}></Input>
+                        <Input value= {editingGuideline?.covidTestingVaccinated} readOnly></Input>
                         <div>[Unvaccinated] Swab Test Every __ Day(s)</div>
-                        <Input value= {editingGuideline?.covidTestingUnvaccinated}></Input>
+                        <Input value= {editingGuideline?.covidTestingUnvaccinated} readOnly></Input>
                         <div>Covid Testing Details</div>
-                        <TextArea rows={4} value= {editingGuideline?.covidTestingDetails}/>
+                        <TextArea rows={4} value= {editingGuideline?.covidTestingDetails} readOnly/>
                         <div>Maximum Group Size</div>
-                        <Input value= {editingGuideline?.groupSize}></Input>
+                        <Input value= {editingGuideline?.groupSize} readOnly></Input>
                         <div>Additional Details</div>
-                        <TextArea rows={4} value= {editingGuideline?.groupSizeDetails}/>
+                        <TextArea rows={4} value= {editingGuideline?.groupSizeDetails} readOnly/>
                         <div>Maximum Operating Capacity</div>
-                        <Input value= {editingGuideline?.opCapacity}></Input>
+                        <Input value= {editingGuideline?.opCapacity} readOnly></Input>
                         <div>Additional Details</div>
-                        <Input value= {editingGuideline?.opCapacityDetails}></Input>
+                        <Input value= {editingGuideline?.opCapacityDetails} readOnly></Input>
                         <div>Operating Guidelines</div>
-                        <TextArea rows={4} value= {editingGuideline?.opGuidelines}/>
+                        <TextArea rows={4} value= {editingGuideline?.opGuidelines} readOnly/>
                         <div>Reference Link</div>
-                        <Input value= {editingGuideline?.referenceLink}></Input>
+                        <Input value= {editingGuideline?.referenceLink} readOnly></Input>
                     </Modal>
 
 
