@@ -18,13 +18,13 @@ function AdminIndustry( cookies ){
     const [user, setUser] = useState()
     const [email, setEmail] = useState()
     const [industries, setIndustries] = useState([])
-    const [industry, setIndustry] = useState()
+    // const [industry, setIndustry] = useState()
     const [industrySubtype, setIndustrySubtype] = useState()
     const [industryName, setIndustryName] = useState()
     const [business, setBusiness] = useState()
     const [industryId, setIndustryId] = useState()
     const [clientId, setClientId] = useState()
-    const [isViewing, setIsViewing] = useState(false)
+    // const [isViewing, setIsViewing] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
     const [isSuccessful, setIsSuccessful] = useState(false)
     const [editingIndustry, setEditingIndustry] = useState()
@@ -51,13 +51,13 @@ function AdminIndustry( cookies ){
     }
 
 
-    const onViewBusinesses = async (record) => {
-        setIsViewing(true)
+    // const onViewBusinesses = async (record) => {
+    //     setIsViewing(true)
 
-        const viewIndustry = await getIndustry(record.key)
-        setIndustry(viewIndustry)
-        setBusiness(viewIndustry.registeredBusinesses[0])      
-    }
+    //     const viewIndustry = await getIndustry(record.key)
+    //     setIndustry(viewIndustry)
+    //     setBusiness(viewIndustry.registeredBusinesses[0])      
+    // }
 
     const onEditIndustry = async (record) => {
         // modal will show
@@ -119,7 +119,7 @@ function AdminIndustry( cookies ){
         const res = await addIndustry(
             user.clientId,
             values.industryName,
-            values.subIndustryName,
+            values.subIndustry,
             values.industryDesc,
         )
         console.log(res)
@@ -141,19 +141,17 @@ function AdminIndustry( cookies ){
                     <Column title="Industry" dataIndex="industry" key="industry" />
                     <Column title="Sub-Industry" dataIndex="subIndustry" key="subIndustry" />
                     <Column title="Description" dataIndex="desc" key="desc" />
-
-
                     <Column
                         title="Action"
                         key="action"
                         render={(record) => {
                             return (
                                 <>
-                                    <Tooltip placement="bottom" title= "View Businesses In This Industry">
+                                    {/* <Tooltip placement="bottom" title= "View Businesses In This Industry">
                                         <EyeOutlined onClick = {() => {
                                             onViewBusinesses(record)
                                         }}/>
-                                    </Tooltip>
+                                    </Tooltip> */}
 
                                     <Tooltip placement="bottom" title= "Edit Industry Description">
                                         <EditOutlined onClick = {() => {
@@ -167,7 +165,7 @@ function AdminIndustry( cookies ){
                         />
                     </Table>
 
-                    <Modal
+                    {/* <Modal
                         title="View Businesses In This Industry"
                         visible={isViewing}
                         cancelButtonProps={{style:{display:'none'}}}
@@ -188,7 +186,7 @@ function AdminIndustry( cookies ){
 
 
                         
-                    </Modal>
+                    </Modal> */}
 
                      {/* Modal to edit industry */}
                      <Modal
