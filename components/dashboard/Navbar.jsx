@@ -75,7 +75,7 @@ function Navbar ({businessName, clientEmail}) {
             <Dropdown overlay={menu}>
                 <div className="flex flex-col mt-4 p-2 items-center justify-center">
                     <div className="p-1 border-2 rounded-lg">
-                        <img className="object-cover rounded-lg h-12 w-12" src="/admin.png" alt="profile_pic" />
+                        <img className="object-cover rounded-lg h-12 w-12" src="/hawker.webp" alt="profile_pic" />
                         <div className="absolute w-3 h-3 rounded-full bg-green-500 left-28 bottom-20"></div>
                     </div>
                     <div className="font-bold w-32 text-center">{ businessName }</div>

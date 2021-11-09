@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { Form, Input, Button, Table, Modal, Tooltip} from 'antd';
 import { addIndustry, getAllIndustries } from '../../services/industryService';
 import Navbar from "../../components/admin/Navbar";
-import AdminUserProfile from '../../components/admin/AdminUserProfile';
 import {editIndustry, getIndustry, getAllIndustryNames} from '../../services/industryService'
 import { EyeOutlined, EditOutlined, ProfileOutlined, MessageOutlined} from '@ant-design/icons';
 
@@ -132,14 +131,11 @@ function AdminIndustry( cookies ){
     }
 
     return(
-        <div className="flex">
-        <Navbar/>
-      
+        <div className= "flex min-h-screen font-Inter">
+        <Navbar email = {email}/>
         <div className="p-4 w-full">
-           <AdminUserProfile email = {email}/>
-
-            <div className="m-8 flex flex-col">
-                <span className="text-2xl font-bold mt-8 mb-2">All Industries </span>
+            <div className="flex flex-col">
+                <span className="text-2xl font-bold mt-6 mb-2">All Industries </span>
 
                 <Table dataSource={industries} rowSelection={{type: 'checkbox', ...rowSelection}} pagination = {{defaultPageSize:5}}>
                     <Column title="Industry" dataIndex="industry" key="industry" />

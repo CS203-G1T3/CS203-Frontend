@@ -14,11 +14,11 @@ function Dashboard ({ cookies }) {
 
     // user states
     const [user, setUser] = useState()
-    const [businessName, setBusinessName] = useState("Waterloo Caifan")
-    const [clientEmail, setClientEmail] = useState("waterloo@caifan.com")
-    const [businessIndustry, setBusinessIndustry] = useState("Food & Beverage")
-    const [businessSubindustry, setBusinessSubindustry] = useState("Coffee Shop")
-    const [guidelineDate, setGuidelineDate] = useState("31 August 2021")
+    const [businessName, setBusinessName] = useState()
+    const [clientEmail, setClientEmail] = useState()
+    const [businessIndustry, setBusinessIndustry] = useState()
+    const [businessSubindustry, setBusinessSubindustry] = useState()
+    const [guidelineDate, setGuidelineDate] = useState()
 
 
     // popup states: placed as json objects

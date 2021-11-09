@@ -6,7 +6,7 @@ import Navbar from "../../components/admin/Navbar"
 import GuidelineForm from "../../components/admin/GuidelineForm"
 import {  getLatestGuidelineByIndustry,getAllGuidelines } from '../../services/guidelinesService';
 import { getAllIndustries, getIndustry } from '../../services/industryService';
-import AdminUserProfile from '../../components/admin/AdminUserProfile';
+// import AdminUserProfile from '../../components/admin/AdminUserProfile';
 import { EyeOutlined,EditOutlined,DeleteOutlined } from '@ant-design/icons';
 import { editGuideline,deleteGuideline } from "../../services/guidelinesService"
 
@@ -174,11 +174,11 @@ function AdminGuidelines(cookies) {
     <div className="flex">
         <Navbar/>
       
-        <div className="p-4 w-full">
-           <AdminUserProfile email = {email}/>
+        <div className="w-full">
+           {/* <AdminUserProfile email = {email}/> */}
 
             <div className="m-8 flex flex-col">
-                <span className="text-2xl font-bold mt-8 mb-2">All Operating Guidelines</span>
+                <span className="text-2xl font-bold mt-2 mb-2">All Operating Guidelines</span>
 
                     <Table dataSource={guidelines} rowSelection={{type: 'checkbox', ...rowSelection,}} pagination = {{defaultPageSize:5}}>
                             <Column title="Industry" dataIndex="industry" key="industry" />
