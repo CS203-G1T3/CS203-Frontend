@@ -35,3 +35,25 @@ export async function putAcknowledgeNotification(notifId){
     return notif.data
 }
 
+
+export async function sendNotification(adminId, message, clientId) {
+    if (!getInMemoryToken()) return null
+
+    console.log((clientId));
+
+    try {
+        const res = await axios.post(`/api/v1/notification/` + adminId, {
+            "messageBody": message,
+            "clientId": clientId,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${getInMemoryToken()}`
+            }
+        })
+        return res
+    } 
+    catch (e) {
+        console.log(e);
+    }
+}
+
