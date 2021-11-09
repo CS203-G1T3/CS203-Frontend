@@ -42,7 +42,7 @@ function AddEmployee(cookies) {
     }, [user])
 
     return(
-        <div className="flex bg-gray-50 h-screen">
+        <div className="flex bg-gray-50 h-screen font-Inter">
             <Navbar />
             <div className="p-4 w-full">
                 <div className="mx-8 mt-8 flex flex-col h-full">

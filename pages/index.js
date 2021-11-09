@@ -6,13 +6,12 @@ import { Carousel } from 'antd';
 
 export default function Home() {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen font-Inter">
       <Head>
-        <title>trail.sg</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>trailbiz.sg</title>
       </Head>
 
-      <main className=" w-full h-full p-8 px-20 bg-white">
+      <main className=" w-screen h-full p-8 px-20 bg-white">
 
             <div className="flex justify-between w-all h-6 items-center">
                 
@@ -31,7 +30,7 @@ export default function Home() {
                     <div className="border-r m-1 border-black"></div>
 
                     <Link href="#"> 
-                        <button className="hover:text-blue-500"> Activities </button> 
+                        <button className="hover:text-blue-500"> Features </button> 
                     </Link>
 
                     <div className="border-r m-1 border-black"></div>
@@ -45,41 +44,42 @@ export default function Home() {
                     <Link href="/login"> 
                         <button className="flex mx-4 items-center"> Log In </button> 
                     </Link>
-                    <Link href="/admin/login"> 
+                    <Link href="/signup"> 
                         <button className="flex bg-blue-500 text-white p-2 rounded-lg items-center"> Get Started </button> 
                     </Link>
                 </div>
             </div>
 
-            <div className="flex flex-col justify-center w-full pt-8 items-center">
-                <div className="2xl:px-48 w-3/4">
-                    <Carousel autoplay draggable>
-                        <div>
-                            <img src="/LHL-v2.jpg" alt="wfe" />
-                        </div>
-                        <div>
-                            <img src="/sg_kids-v2.jpg" alt="wfe" />
-                        </div>
-                        <div>
-                            <img src="/vaccine-poster-v2.jpg" alt="wef" />
-                        </div>
-                    </Carousel>
-                </div>
+            <div className="flex justify-center w-full pt-8 items-end">
                 
-                
-                <div className="flex max-w-4xl flex-col text-center mt-4">
-                    <span className="text-5xl font-bold">The Road Ahead Is Long.</span>
-                    <span className="text-5xl font-bold mt-1">But we can get there together.</span>
-                    <p className="mt-2">Join us at trail.sg as we strive to make a difference for businesses heavily hit by the pandemic.</p>
-                    <div className="flex justify-center">
+                <div className="flex w-1/4 flex-col text-justify h-full pb-12">
+                    <span className="text-6xl font-bold">An app for businesses.</span>
+                    <span className="my-8">Join us at trailsg.biz as we strive to make a difference for businesses heavily hit by the pandemic.</span>
+                    <div className="flex">
                         <Link href="/login"> 
-                        <button className="flex bg-blue-500 text-white p-2 m-2 rounded-lg items-center"> Business Portal Log In </button> 
+                        <button className="flex bg-blue-500 text-white p-2 mr-2 rounded-lg items-center"> Business Log In </button> 
                         </Link>
                         <Link href="/admin/login"> 
-                            <button className="flex border-2 p-2 m-2 rounded-lg items-center"> Admin Portal Log In </button> 
+                            <button className="flex border-2 p-2 mx-2 rounded-lg items-center"> Admin Log In </button> 
                         </Link>
                     </div>
-                    {/* <img className="object-cover" src="/sg_kids.png" alt="Log in cover" /> */}
+                </div>
+
+                <div className="flex pt-2 justify-center items-center w-3/4 h-full">
+                    <div className="w-3/4">
+                        <Carousel autoplay draggable>
+                            <div>
+                                <img className="h-auto" src="/collaboration_resized.jpg" alt="wfe" />
+                            </div>
+                            <div>
+                                <img src="/vaccine-poster.jpg" alt="wfe" />
+                            </div>
+                            <div>
+                                <img src="/sg_gbtb.jpg" alt="wef" />
+                            </div>
+                        </Carousel>
+                    </div>
+
                 </div>
             </div>
             
@@ -94,7 +94,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           Powered by{' '}
-          <img src="/credit_suisse.jpeg" alt="Credit Suisse" className="h-16 ml-2 mb-3" />
+          <img src="/credit_suisse.jpeg" alt="Credit Suisse" className="h-16 mb-3" />
         </a>
       </footer>
     </div>

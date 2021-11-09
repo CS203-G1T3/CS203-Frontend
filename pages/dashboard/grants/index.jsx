@@ -116,37 +116,28 @@ function Grants({cookies}) {
     }, [user])
 
     return (        
-        <div className="flex bg-gray-50 min-h-screen">
-            <Navbar />
-            <div className="p-4 w-full">
-                <div className="w-full flex justify-around items-center">
-                    <div className="flex w-96 px-4 border-2 rounded-full bg-gray-200 items-center" >
+        <div className="flex min-h-screen font-Inter">
+            <Navbar businessName={businessName} clientEmail={email} />
+            <div className="p-8 w-full">
+                <div className="w-full flex items-center">
+                    <div className="flex w-96 px-2 border-2 rounded-lg items-center" >
                         <SearchIcon className="w-6 h-6 mx-2 m-1" />
-                        <input className="bg-gray-200 w-full p-2" type="text" placeholder="Search"></input>
+                        <input className="w-full p-2" type="text" placeholder="Search"></input>
                     </div>
-
-                    <button className="flex">
-                        <div className="h-10 w-10 p-1">
-                            <img className="object-cover rounded-lg h-full w-full" src="/hawker.webp" alt="profile_pic" />
-                        </div>
-                        <div className="flex flex-col text-left mx-2">
-                            <div className="text-indigo-500 font-bold text-sm">{ businessName }</div>
-                            <div className="text-gray-400 font-bold text-xs">{ email }</div>
-                        </div>
-                        <DownOutlined className="w-4 pt-1"/>
-                        {/* TODO: add logout method */}
-                    </button>
                 </div>
 
-                <div className="mx-8 mt-4 flex flex-col h-full">
+                <div className="mt-8 flex flex-col h-full">
                     <span className="text-2xl">Grants and Support</span>
-                    <span className="text-gray-400 mb-2">View available grants to businesses of your industry</span>
+                    <span className="text-gray-400 mb-4">View available grants to businesses of your industry</span>
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item>Grants & Support</Breadcrumb.Item>
                         <Breadcrumb.Item>{industrySubtype}</Breadcrumb.Item>
                     </Breadcrumb>
 
                     <div className="mt-4">
+
+                        {grants.length == 0 ? "No grants to show" : ""}
+
                         {grants.map((element, index) => {
                             if (index < (pageNum-1)*3 || index > pageNum * 3 -1) return
 

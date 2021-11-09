@@ -7,7 +7,11 @@ module.exports = {
             spacing: {
             '112': '28rem',
             '144': '36rem',
+            }, 
+            fontFamily: {
+                'Inter': ['Inter', 'sans-serif']
             },
+        
         },
         minWidth: {
             '0': '0',
