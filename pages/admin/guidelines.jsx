@@ -88,7 +88,6 @@ function AdminGuidelines(cookies) {
     const onEditGuideline = async (record) => {
         // modal will show
        setIsEditing(true)
-
         //to display the current values
        const editGuideline = await getLatestGuidelineByIndustry(record.industryId)
        const editIndustry = await getIndustry(record.industryId)
@@ -112,11 +111,11 @@ function AdminGuidelines(cookies) {
     }
 
     const onFinish = async () => {
-        console.log("updated:" + isCanOpOnSite)
         const res = await editGuideline(
             clientId,
             recordKey,
             industryId,
+            isTrue,
             canOpOnSiteDetails,
             groupSize,
             groupSizeDetails,
@@ -128,8 +127,7 @@ function AdminGuidelines(cookies) {
             opCapacity,
             opCapacityDetails,
             opGuidelines,
-            referenceLink,
-            isTrue
+            referenceLink
 
         )
         if (res.status == 200){
@@ -150,7 +148,6 @@ function AdminGuidelines(cookies) {
         setIsViewing(true)
 
         const viewGuideline = await getLatestGuidelineByIndustry(record.industryId)
-        console.log(editGuideline)
         const viewIndustry = await getIndustry(record.industryId)
         setIndustry(viewIndustry)
         setEditingGuideline(viewGuideline)
