@@ -1,4 +1,4 @@
-import { Table, Modal,Input,Form,Button } from 'antd'
+import { Table, Modal,Input,Form,Button,Tooltip } from 'antd'
 import { useRouter } from "next/router";
 import { getUser } from "../../services/userService";
 import { useState, useEffect } from "react";
@@ -6,7 +6,7 @@ import Navbar from "../../components/admin/Navbar"
 import GuidelineForm from "../../components/admin/GuidelineForm"
 import {  getLatestGuidelineByIndustry,getAllGuidelines } from '../../services/guidelinesService';
 import { getAllIndustries, getIndustry } from '../../services/industryService';
-import AdminUserProfile from '../../components/admin/AdminUserProfile';
+// import AdminUserProfile from '../../components/admin/AdminUserProfile';
 import { EyeOutlined,EditOutlined,DeleteOutlined } from '@ant-design/icons';
 import { editGuideline,deleteGuideline } from "../../services/guidelinesService"
 
@@ -46,6 +46,9 @@ function AdminGuidelines(cookies) {
     const [recordKey, setRecordKey] = useState()
     const [industryId, setIndustryId] = useState()
     const [isSuccessful, setIsSuccessful] = useState(false)
+    const [isTrue, isTrueSet] = useState(false);
+
+
 
 
     const setData = async() =>  {
@@ -76,9 +79,6 @@ function AdminGuidelines(cookies) {
             okType:'danger',
             onOk: async () => {
                 //the guideline i want to delete
-                const delGuideline = await getIndustry(record.industryId)
-                console.log(user.clientId)
-                console.log(record.key)
                 deleteGuideline(user.clientId,record.key)
                 location.reload()
             }
@@ -88,7 +88,6 @@ function AdminGuidelines(cookies) {
     const onEditGuideline = async (record) => {
         // modal will show
        setIsEditing(true)
-
         //to display the current values
        const editGuideline = await getLatestGuidelineByIndustry(record.industryId)
        const editIndustry = await getIndustry(record.industryId)
@@ -112,12 +111,11 @@ function AdminGuidelines(cookies) {
     }
 
     const onFinish = async () => {
-        console.log("updated:" + isCanOpOnSite)
         const res = await editGuideline(
             clientId,
             recordKey,
             industryId,
-            isCanOpOnSite,
+            isTrue,
             canOpOnSiteDetails,
             groupSize,
             groupSizeDetails,
@@ -130,6 +128,7 @@ function AdminGuidelines(cookies) {
             opCapacityDetails,
             opGuidelines,
             referenceLink
+
         )
         if (res.status == 200){
             console.log(res)
@@ -140,7 +139,7 @@ function AdminGuidelines(cookies) {
 
 
     const onFinishFailed = (errorInfo) => {
-        alert("Guideline creation failed!")
+        alert("Guideline edit failed!")
     }
 
 
@@ -148,11 +147,10 @@ function AdminGuidelines(cookies) {
     const onViewGuideline = async (record) => {
         setIsViewing(true)
 
-        const editGuideline = await getLatestGuidelineByIndustry(record.industryId)
-        console.log(editGuideline)
-        const editIndustry = await getIndustry(record.industryId)
-        setIndustry(editIndustry)
-        setEditingGuideline(editGuideline)
+        const viewGuideline = await getLatestGuidelineByIndustry(record.industryId)
+        const viewIndustry = await getIndustry(record.industryId)
+        setIndustry(viewIndustry)
+        setEditingGuideline(viewGuideline)
         
     }
 
@@ -176,11 +174,11 @@ function AdminGuidelines(cookies) {
     <div className="flex">
         <Navbar/>
       
-        <div className="p-4 w-full">
-           <AdminUserProfile email = {email}/>
+        <div className="w-full">
+           {/* <AdminUserProfile email = {email}/> */}
 
             <div className="m-8 flex flex-col">
-                <span className="text-2xl font-bold mt-8 mb-2">All Operating Guidelines</span>
+                <span className="text-2xl font-bold mt-2 mb-2">All Operating Guidelines</span>
 
                     <Table dataSource={guidelines} rowSelection={{type: 'checkbox', ...rowSelection,}} pagination = {{defaultPageSize:5}}>
                             <Column title="Industry" dataIndex="industry" key="industry" />
@@ -192,15 +190,23 @@ function AdminGuidelines(cookies) {
                             render={(record) => {
                                 return (
                                     <>
-                                        <EyeOutlined onClick = {() => {
-                                            onViewGuideline(record)
-                                        }}/>
-                                        <EditOutlined onClick = {() => {
-                                            onEditGuideline(record)
-                                        }} style={{color:'blue', marginLeft:25}}/>
-                                        <DeleteOutlined onClick = {() => {
-                                            onDeleteGuideline(record)
-                                        }} style={{color:'red', marginLeft:25}}/>
+                                        <Tooltip placement="bottom" title= "View Full Guideline">
+                                            <EyeOutlined onClick = {() => {
+                                                onViewGuideline(record)
+                                            }}/>
+                                        </Tooltip>
+
+                                        <Tooltip placement="bottom" title= "Edit Guideline">
+                                            <EditOutlined onClick = {() => {
+                                                onEditGuideline(record)
+                                            }} style={{color:'blue', marginLeft:25}}/>
+                                        </Tooltip>
+
+                                        <Tooltip placement="bottom" title= "Delete Guideline">
+                                            <DeleteOutlined onClick = {() => {
+                                                onDeleteGuideline(record)
+                                            }} style={{color:'red', marginLeft:25}}/>
+                                        </Tooltip>
                                     </>
                                 )
                             }}          
@@ -219,31 +225,31 @@ function AdminGuidelines(cookies) {
                         <div>Industry</div>
                         <Input name = "industry" value= {industry?.industryName} readOnly></Input>
                         <div>Can shops operate on site?</div>
-                        <Input name = "isCanOptOnSite" value= {editingGuideline?.isCanOpOnSite}></Input>
+                        <Input name = "isCanOptOnSite" value= {editingGuideline?.isCanOpOnSite} readOnly></Input>
                         <div>Additional Details</div>
-                        <TextArea rows={4}  value= {editingGuideline?.canOpOnSiteDetails}/>
+                        <TextArea rows={4}  value= {editingGuideline?.canOpOnSiteDetails} readOnly/>
                         <div>Contact Tracing Measures</div>
-                        <Input value= {editingGuideline?.contactTracing}></Input>
+                        <Input value= {editingGuideline?.contactTracing} readOnly></Input>
                         <div>Additional Details</div>
-                        <TextArea rows={4}  value= {editingGuideline?.contactTracingDetails}/>
+                        <TextArea rows={4}  value= {editingGuideline?.contactTracingDetails} readOnly/>
                         <div>[Vaccinated] Swab Test Every __ Day(s)</div>
-                        <Input value= {editingGuideline?.covidTestingVaccinated}></Input>
+                        <Input value= {editingGuideline?.covidTestingVaccinated} readOnly></Input>
                         <div>[Unvaccinated] Swab Test Every __ Day(s)</div>
-                        <Input value= {editingGuideline?.covidTestingUnvaccinated}></Input>
+                        <Input value= {editingGuideline?.covidTestingUnvaccinated} readOnly></Input>
                         <div>Covid Testing Details</div>
-                        <TextArea rows={4} value= {editingGuideline?.covidTestingDetails}/>
+                        <TextArea rows={4} value= {editingGuideline?.covidTestingDetails} readOnly/>
                         <div>Maximum Group Size</div>
-                        <Input value= {editingGuideline?.groupSize}></Input>
+                        <Input value= {editingGuideline?.groupSize} readOnly></Input>
                         <div>Additional Details</div>
-                        <TextArea rows={4} value= {editingGuideline?.groupSizeDetails}/>
+                        <TextArea rows={4} value= {editingGuideline?.groupSizeDetails} readOnly/>
                         <div>Maximum Operating Capacity</div>
-                        <Input value= {editingGuideline?.opCapacity}></Input>
+                        <Input value= {editingGuideline?.opCapacity} readOnly></Input>
                         <div>Additional Details</div>
-                        <Input value= {editingGuideline?.opCapacityDetails}></Input>
+                        <Input value= {editingGuideline?.opCapacityDetails} readOnly></Input>
                         <div>Operating Guidelines</div>
-                        <TextArea rows={4} value= {editingGuideline?.opGuidelines}/>
+                        <TextArea rows={4} value= {editingGuideline?.opGuidelines} readOnly/>
                         <div>Reference Link</div>
-                        <Input value= {editingGuideline?.referenceLink}></Input>
+                        <Input value= {editingGuideline?.referenceLink} readOnly></Input>
                     </Modal>
 
 
@@ -272,7 +278,7 @@ function AdminGuidelines(cookies) {
                                 <div>Can shops operate on site?</div>
                                 <Input name = "isCanOptOnSite" value= {editingGuideline?.isCanOpOnSite} onChange={(e) => {
                                     setEditingGuideline((pre) => {
-                                    setIsCanOpOnSite(e.target.value)
+                                    isTrueSet(e.target.value === 'true')
                                     return {...pre, isCanOpOnSite : e.target.value}
                                 })
                                 }}></Input>

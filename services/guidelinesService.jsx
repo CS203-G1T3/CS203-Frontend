@@ -79,7 +79,6 @@ export async function editGuideline( clientId, guidelineId, industryId, isCanOpO
     if (!getInMemoryToken()) return null
     
     try {
-        console.log("updated value:" + isCanOpOnSite)
         const res = await axios.put('/api/v1/guideline/' + clientId, {
             "guidelineId": guidelineId,
             "industryId": industryId,
