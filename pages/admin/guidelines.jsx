@@ -1,4 +1,4 @@
-import { Table, Modal,Input,Form,Button } from 'antd'
+import { Table, Modal,Input,Form,Button,Tooltip } from 'antd'
 import { useRouter } from "next/router";
 import { getUser } from "../../services/userService";
 import { useState, useEffect } from "react";
@@ -193,15 +193,23 @@ function AdminGuidelines(cookies) {
                             render={(record) => {
                                 return (
                                     <>
-                                        <EyeOutlined onClick = {() => {
-                                            onViewGuideline(record)
-                                        }}/>
-                                        <EditOutlined onClick = {() => {
-                                            onEditGuideline(record)
-                                        }} style={{color:'blue', marginLeft:25}}/>
-                                        <DeleteOutlined onClick = {() => {
-                                            onDeleteGuideline(record)
-                                        }} style={{color:'red', marginLeft:25}}/>
+                                        <Tooltip placement="bottom" title= "View Full Guideline">
+                                            <EyeOutlined onClick = {() => {
+                                                onViewGuideline(record)
+                                            }}/>
+                                        </Tooltip>
+
+                                        <Tooltip placement="bottom" title= "Edit Guideline">
+                                            <EditOutlined onClick = {() => {
+                                                onEditGuideline(record)
+                                            }} style={{color:'blue', marginLeft:25}}/>
+                                        </Tooltip>
+
+                                        <Tooltip placement="bottom" title= "Delete Guideline">
+                                            <DeleteOutlined onClick = {() => {
+                                                onDeleteGuideline(record)
+                                            }} style={{color:'red', marginLeft:25}}/>
+                                        </Tooltip>
                                     </>
                                 )
                             }}          

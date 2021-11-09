@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { getUser } from "../../services/userService"
 import { useRouter } from "next/router";
-import { Form, Input, Button, Table, Modal} from 'antd';
+import { Form, Input, Button, Table, Modal, Tooltip} from 'antd';
 import { addIndustry, getAllIndustries } from '../../services/industryService';
 import Navbar from "../../components/admin/Navbar";
 import AdminUserProfile from '../../components/admin/AdminUserProfile';
-import { deleteIndustry, editIndustry, getIndustry, getAllIndustryNames} from '../../services/industryService'
-import { EyeOutlined,EditOutlined,DeleteOutlined } from '@ant-design/icons';
+import {editIndustry, getIndustry, getAllIndustryNames} from '../../services/industryService'
+import { EyeOutlined, EditOutlined, ProfileOutlined, MessageOutlined} from '@ant-design/icons';
 
 
 const rowSelection = {
@@ -20,15 +20,16 @@ function AdminIndustry( cookies ){
     const [email, setEmail] = useState()
     const [industries, setIndustries] = useState([])
     const [industry, setIndustry] = useState()
+    const [industrySubtype, setIndustrySubtype] = useState()
+    const [industryName, setIndustryName] = useState()
+    const [business, setBusiness] = useState()
     const [industryId, setIndustryId] = useState()
     const [clientId, setClientId] = useState()
     const [isViewing, setIsViewing] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
-    const [industryName, setIndustryName] = useState()
-    const [subIndustry, setSubIndustry] = useState()
-    const [industryDesc ,setIndustryDesc] = useState()
     const [isSuccessful, setIsSuccessful] = useState(false)
     const [editingIndustry, setEditingIndustry] = useState()
+    const [industryDesc, setIndustryDesc] = useState()
 
 
     const { Column} = Table;
@@ -45,32 +46,18 @@ function AdminIndustry( cookies ){
         const industryArray = []
         for (const element of industryResponse) {
             let subIndustryResponse = await getAllIndustries(element);
-            industryArray.push({key: subIndustryResponse[0].industryId, industry: element, subIndustry:subIndustryResponse[0].industrySubtype})
-            console.log(subIndustryResponse)
+            industryArray.push({key: subIndustryResponse[0].industryId, industry: element, subIndustry:subIndustryResponse[0].industrySubtype, desc:subIndustryResponse[0].industryDesc })
         }
         setIndustries(industryArray)
     }
 
-    const onDeleteIndustry = (record) => {
-        Modal.confirm({
-           title: 'Are you sure you want to delete this industry record?',
-           okText:'Yes',
-           okType:'danger',
-           onOk: async () => {
-               //the industry i want to delete
-               deleteIndustry(user.clientId,record.key)
-            //    location.reload()
-           }
-       })
-   }
 
-    const onViewIndustry = async (record) => {
+    const onViewBusinesses = async (record) => {
         setIsViewing(true)
-        console.log(record.key)
-        console.log("id" + user.clientId)
 
         const viewIndustry = await getIndustry(record.key)
-        setIndustry(viewIndustry)        
+        setIndustry(viewIndustry)
+        setBusiness(viewIndustry.registeredBusinesses[0])      
     }
 
     const onEditIndustry = async (record) => {
@@ -79,31 +66,37 @@ function AdminIndustry( cookies ){
 
         //to display the current values
        const editIndustry = await getIndustry(record.key)
-        setIndustry(editIndustry)
-        setIndustryName(record.industryName)
-        setIndustryDesc(record.industryDesc)
         setIndustryId(record.key)
-        setSubIndustry(editIndustry.subIndustryName)
+        setEditingIndustry(editIndustry)
+        setIndustryName(editIndustry.industryName)
+        setIndustrySubtype(editIndustry.industrySubtype)
+        setIndustryDesc(editIndustry.industryDesc)
        
     }
 
-    // const onFinish = async () => {
-    //     const res = await editIndustry(
-    //         clientId,
-    //         industryId,
-            
-    //     )
-    //     if (res.status == 200){
-    //         console.log(res)
-    //         setIsSuccessful(true)
-    //     }
+    const onFinishEdit = async () => {
+        console.log("industry:" + clientId)
+        console.log("industry:" + industryId)
+
+        const res = await editIndustry(
+            clientId,
+            industryId,
+            industryName,
+            industrySubtype,
+            industryDesc
+        )
+        if (res.status == 200){
+            console.log(res)
+            setIsSuccessful(true)
+            setData()
+
+        }
     
-    //     }
+    }
 
-
-    // const onFinishFailed = (errorInfo) => {
-    //     alert("Industry edit failed!")
-    // }
+    const onFinishEditFailed = (errorInfo) => {
+        alert("Industry edit failed!")
+    }
         
 
     const getAuthentication = async() => {
@@ -151,6 +144,8 @@ function AdminIndustry( cookies ){
                 <Table dataSource={industries} rowSelection={{type: 'checkbox', ...rowSelection}} pagination = {{defaultPageSize:5}}>
                     <Column title="Industry" dataIndex="industry" key="industry" />
                     <Column title="Sub-Industry" dataIndex="subIndustry" key="subIndustry" />
+                    <Column title="Description" dataIndex="desc" key="desc" />
+
 
                     <Column
                         title="Action"
@@ -158,15 +153,18 @@ function AdminIndustry( cookies ){
                         render={(record) => {
                             return (
                                 <>
-                                    <EyeOutlined onClick = {() => {
-                                        onViewIndustry(record)
-                                    }}/>
-                                    <EditOutlined onClick = {() => {
-                                        onEditIndustry(record)
-                                    }} style={{color:'blue', marginLeft:25}}/>
-                                    <DeleteOutlined onClick = {() => {
-                                        onDeleteIndustry(record)
-                                    }} style={{color:'red', marginLeft:25}}/>
+                                    <Tooltip placement="bottom" title= "View Businesses In This Industry">
+                                        <EyeOutlined onClick = {() => {
+                                            onViewBusinesses(record)
+                                        }}/>
+                                    </Tooltip>
+
+                                    <Tooltip placement="bottom" title= "Edit Industry Description">
+                                        <EditOutlined onClick = {() => {
+                                            onEditIndustry(record)
+                                        }} style={{color:'blue', marginLeft:25}}/>
+                                     </Tooltip>
+                                
                                 </>
                             )
                         }}          
@@ -174,7 +172,7 @@ function AdminIndustry( cookies ){
                     </Table>
 
                     <Modal
-                        title="View Industry"
+                        title="View Businesses In This Industry"
                         visible={isViewing}
                         cancelButtonProps={{style:{display:'none'}}}
                         onCancel={() => setIsViewing(false)}
@@ -183,14 +181,20 @@ function AdminIndustry( cookies ){
                     >
                         <div>Industry</div>
                         <Input name = "industry" value= {industry?.industryName} readOnly></Input>
-                        <div>Sub-Industry</div>
-                        <Input name = "isCanOptOnSite" value= {industry?.industrySubtype} readOnly></Input>
+                        <div className="flex mt-5">
+                            <div>Business </div>
+                            <div><Tooltip placement="bottom" title= "View Risk Assessment Scores"><ProfileOutlined style={{color:'blue', fontSize:18, marginLeft:15}}/></Tooltip></div>
+                            <div><Tooltip placement="bottom" title= "Contact Business"><MessageOutlined style={{color:'blue', fontSize:18, marginLeft:15}}/></Tooltip></div>
+                        </div>
+                        <Input name = "industrySubtype" value= {business?.businessName} readOnly></Input>
                         <div>Description</div>
-                        <TextArea rows={4} value = {industry?.industryDesc} readOnly/>
+                        <TextArea rows={4} value = {business?.businessDesc} readOnly/>
+
+
                         
                     </Modal>
 
-                     {/* Modal to edit guideline */}
+                     {/* Modal to edit industry */}
                      <Modal
                         title="Edit Guideline"
                         visible={isEditing}
@@ -198,7 +202,7 @@ function AdminIndustry( cookies ){
                         onOk={() => setIsEditing(false)}
                         okText = 'Done!'
                     >
-                        <Form name="basic"
+                        <Form name="editIndustry"
                         labelCol={{
                             span: 7,
                         }}
@@ -206,27 +210,36 @@ function AdminIndustry( cookies ){
                             span: 10,
                         }}
                        
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
+                        onFinish={onFinishEdit}
+                        onFinishFailed={onFinishEditFailed}
                         autoComplete="off">
                             <Form.Item>
                                 <div>Industry</div>
-                                <Input name = "industry" value= {industry?.industryName} readOnly></Input>
+                                <Input name = "industry" value= {editingIndustry?.industryName} readOnly></Input>
                             </Form.Item>
 
                             <Form.Item>
                                 <div>Sub-Industry</div>
-                                <Input name = "subIndustry" value= {industry?.subIndustry} readOnly></Input>
+                                <Input name = "subIndustry" value= {editingIndustry?.industrySubtype} readOnly></Input>
                             </Form.Item>
 
                             <Form.Item>
-                                <div>Contact Tracing Measures</div>
-                                <Input value= {editingIndustry?.industryDesc} onChange={(e) => {
+                                <div>Description</div>
+                                <TextArea rows={4} value= {editingIndustry?.industryDesc} onChange={(e) => {
                                     setEditingIndustry((pre) => {
                                     setIndustryDesc(e.target.value)
                                     return {...pre, industryDesc : e.target.value}
                                 })
-                                }}></Input>
+                                }}/>
+                            </Form.Item>
+
+                            <Form.Item
+                                wrapperCol={{
+                                offset: 8,
+                                span: 16,
+                                }}
+                                >
+                                <Button type="primary" htmlType="submit"> Confirm Edit</Button>
                             </Form.Item>
 
                         </Form>

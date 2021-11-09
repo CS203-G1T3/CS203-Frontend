@@ -55,11 +55,14 @@ export async function addIndustry(adminId, industryName, subIndustryName, indust
     }
 }
 
-export async function editIndustry(adminId, industryName, subIndustryName, industryDesc) {
+export async function editIndustry(adminId, industryId, industryName, subIndustryName, industryDesc) {
     if (!getInMemoryToken()) return null
 
+    console.log("service" + industryDesc)
+
     try {
-        const res = await axios.post(`/api/v1/industry/` + adminId, {
+        const res = await axios.put(`/api/v1/industry/` + adminId, {
+            "industryId": industryId,
             "industryName": industryName,
             "industrySubtype": subIndustryName,
             "industryDesc": industryDesc,
