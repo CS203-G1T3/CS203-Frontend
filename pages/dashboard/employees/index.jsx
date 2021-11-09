@@ -1,13 +1,13 @@
+import Head from "next/head"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { SearchIcon } from '@heroicons/react/solid'
 import { PlusCircleIcon } from "@heroicons/react/solid"
-import { Statistic, Row, Col, Button, Table, Tag, Space, Pagination} from 'antd'
+import { Statistic, Table, Space} from 'antd'
 import { getUser } from "../../../services/userService"
 import Navbar from "../../../components/dashboard/Navbar"
 import VaccinationChart from "../../../components/dashboard/VaccinationChart"
 import { deleteEmployee, getEmployeeAge, getEmployees, getNumberOfVaccinatedEmployees } from "../../../services/employeesService"
-import { DownOutlined } from "@ant-design/icons"
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -62,7 +62,11 @@ function Employees({ cookies }) {
     }, [user])
 
     return(
-        <div className="flex min-h-screen font-Inter">
+        <div className="flex h-screen font-Inter">
+            <Head>
+                <title>Employee Management</title>
+            </Head>
+
             <Navbar businessName={businessName} clientEmail={email} />
             <div className="pt-8 pl-8 w-full">
                 <div className="w-full flex">
@@ -72,7 +76,7 @@ function Employees({ cookies }) {
                     </div>
                 </div>
 
-                <div className="pr-4 mt-8 flex flex-col h-full">
+                <div className="pr-4 mt-8 flex flex-col">
                     <div className="text-2xl">Employee Management</div>
                     <div className="text-gray-400">View and manage all employees under the company.</div>
 
@@ -93,7 +97,7 @@ function Employees({ cookies }) {
                             </div>
                         </div>
 
-                        <div className="w-144 ml-3 h-full">
+                        <div className="w-144 ml-3">
                             <span className="text-xl">Headcount</span>
                             <div className="bg-red-50 rounded-lg mt-2 p-4 h-full">
                                 <span className=""></span>
@@ -102,7 +106,7 @@ function Employees({ cookies }) {
                         </div>
                     </div>
 
-                    <div className="w-full mt-14">
+                    <div className="w-full mt-12">
                         <div className="flex items-center">
                             <span className="text-xl">Employees</span>
 

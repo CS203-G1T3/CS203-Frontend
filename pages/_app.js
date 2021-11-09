@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }) {
     </head>
 
     axios.defaults.baseURL = "https://alb.trailsg.biz"
+    // axios.defaults.baseURL = "http://localhost:8080"
 
     return(
         <CookiesProvider>

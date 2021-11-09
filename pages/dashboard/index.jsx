@@ -8,6 +8,7 @@ import PopUps from "../../components/dashboard/PopUps"
 import { getIndustry } from "../../services/industryService";
 import { getLatestGuidelineByIndustry } from "../../services/guidelinesService";
 import Head from "next/head";
+import { getEmployees } from "../../services/employeesService";
 
 function Dashboard ({ cookies }) {
     const router = useRouter()
@@ -19,6 +20,7 @@ function Dashboard ({ cookies }) {
     const [businessIndustry, setBusinessIndustry] = useState("Food & Beverage")
     const [businessSubindustry, setBusinessSubindustry] = useState("Coffee Shop")
     const [guidelineDate, setGuidelineDate] = useState("31 August 2021")
+    const [numEmployeesAllowed, setNumEmployeesAllowed] = useState(5)
 
 
     // popup states: placed as json objects
@@ -80,6 +82,9 @@ function Dashboard ({ cookies }) {
         setpopup5({header: "Covid Testing", value: guideline.covidTestingVaccinated + " DAYS", title: "Covid Testing: " + guideline.covidTestingVaccinated, body: guideline.covidTestingDetails})
         setpopup6({header: "Operating Guidelines", value: "BY MOM", title: "Operating Guidelines: Ministry of Manpower", body: guideline.opGuidelines})
 
+        const employees = await getEmployees(business.businessId)
+        console.log(employees)
+        setNumEmployeesAllowed(Math.round(Math.ceil(employees.length / guideline.opCapacity)))
     }
 
     // this function gets the current authenticated user or redirects to login if not found
@@ -153,6 +158,7 @@ function Dashboard ({ cookies }) {
                     <div className="bg-red-50 p-8 rounded-lg w-full mr-2">
                         <div className="text-2xl mb-4">Operations</div>
                         <PopUps header={popup4.header} value={popup4.value} title={popup4.title} body={popup4.body}/>
+                        <PopUps header={"Employees Allowed"} value={numEmployeesAllowed} title={popup4.title} body={popup4.body}/>
                     </div>
                     <div className="bg-blue-50 p-8 rounded-lg w-full ml-2">
                         <div className="text-2xl mb-4">Social Gatherings</div>
