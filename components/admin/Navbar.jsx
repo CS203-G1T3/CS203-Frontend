@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { HomeIcon, UsersIcon, DocumentTextIcon, CodeIcon } from '@heroicons/react/outline'
+import { HomeIcon, UsersIcon, DocumentTextIcon, CodeIcon, OfficeBuildingIcon, BellIcon} from '@heroicons/react/outline'
 import { Menu, Dropdown } from 'antd';
 
 
@@ -50,8 +50,22 @@ function Navbar ({email}) {
 
                 <Link href="/admin/industry">
                     <button className="flex items-center hover:bg-blue-100 rounded-lg p-4">
+                        <OfficeBuildingIcon className="ml-2 w-6" />
+                        <span className="ml-4 text-left">Industries</span>
+                    </button>
+                </Link>
+
+                <Link href="/admin/business">
+                    <button className="flex items-center hover:bg-blue-100 rounded-lg p-4">
                         <UsersIcon className="ml-2 w-6" />
-                        <span className="ml-4 text-left">Industries and Businesses</span>
+                        <span className="ml-4 text-left">Businesses</span>
+                    </button>
+                </Link>
+
+                <Link href="/admin/alerts">
+                    <button className="flex items-center hover:bg-blue-100 rounded-lg p-4">
+                        <BellIcon className="ml-2 w-6" />
+                        <span className="ml-4 text-left">Alerts</span>
                     </button>
                 </Link>
             </div>

@@ -1,9 +1,11 @@
 import Navbar from "../../components/admin/Navbar"
-import Graphs from "../../components/admin/Graphs"
-import { SearchIcon } from '@heroicons/react/solid';
+import LineChart from "../../components/admin/Graphs"
+import { SearchIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import { useRouter } from "next/router";
 import { getUser } from "../../services/userService";
 import { useState, useEffect } from "react";
+import {Tooltip} from 'antd';
+
 
 function AdminDashboard (cookies) {
     const router = useRouter()
@@ -52,19 +54,24 @@ function AdminDashboard (cookies) {
                 </div>
                 
 
-                <div className="m-8 flex flex-col">
-                    <span className="text-2xl font-bold">Overview</span>
+                
+                <div className="flex mt-4 mb-8 w-full flex-direction: column ">
+
+                    <div className="bg-red-50 p-8 rounded-lg w-full mr-10">
+                        <div className="text-2xl mb-4">Updates</div>
+                        <div>  <Tooltip placement="bottom" title= "Action Required"> <ExclamationCircleIcon className="w-5 h-5"/> </Tooltip> There has been changes to the COVID-19 guidelines for Food & Beverage - Hawker Center. Please refer to the latest copy of the <a href="https://www.nea.gov.sg/media/news/advisories/index/enhanced-safe-management-measures-at-hawker-centres-and-coffeeshops"  target="_blank"> NEA guideline</a> and update accordingly. </div>
+                    </div>
+
+                    <div className="bg-yellow-50 p-8 rounded-lg w-full mr-10">
+                    <h2 className="text-2xl m-4">Current Vaccination Rates Per Industry</h2>
+                    <div className="w-full"><LineChart/></div>
+
+                </div>
                 </div>
 
-                <h2 className="text-2xl m-8">Current Vaccination Rates Per Industry</h2>
-                <div className="grid grid-flow-col lg:grid-cols-4 lg:grid-rows-1 gap-20 md:grid-cols-2 md:grid-rows-3 p-1 m-8">
-                    <Graphs industry="F&B" vaccinated="12,000" unvacccinated="100"/>
-                    <Graphs industry="Retail"/>
-                    <Graphs industry="Entertainment"/>
-                    <Graphs industry="Office"/>
-                </div>
-                
-                <h2 className="text-2xl m-5">Quicklinks</h2>
+                <div className="bg-green-50 p-8 rounded-lg mr-9 mb-9">
+
+                <h2 className="text-2xl">Quicklinks</h2>
                 <div className="grid grid-flow-col lg:grid-cols-3 lg:grid-rows-1 gap-20 md:grid-cols-2 md:grid-rows-3 ">
                     <div className="flex flex-col items-baseline shadow-xl h-50 w-60 m-4 bg-gray-200 rounded-lg p-4">
                             <h2 className="text-xl">COVID-19 Guidelines</h2>
@@ -84,6 +91,7 @@ function AdminDashboard (cookies) {
 
                 </div>
             </div>
+        </div>
             
         </div>
        

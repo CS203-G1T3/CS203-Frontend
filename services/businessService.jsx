@@ -32,3 +32,15 @@ export async function addBusiness(businessName, businessDesc, industryId, client
         console.log(e);
     }
 }
+
+export async function getAllBusinesses(){
+    if (!getInMemoryToken()) return null
+
+    const business = await axios.get('/api/v1/registered-businesses/', {
+        headers: {
+            'Authorization': `Bearer ${getInMemoryToken()}`
+        }
+    })
+    return business.data
+}
+

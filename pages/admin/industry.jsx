@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { Form, Input, Button, Table, Modal, Tooltip} from 'antd';
 import { addIndustry, getAllIndustries } from '../../services/industryService';
 import Navbar from "../../components/admin/Navbar";
-import {editIndustry, getIndustry, getAllIndustryNames} from '../../services/industryService'
-import { EyeOutlined, EditOutlined, ProfileOutlined, MessageOutlined} from '@ant-design/icons';
+import {editIndustry, getIndustry} from '../../services/industryService'
+import {EditOutlined} from '@ant-design/icons';
 
 
 const rowSelection = {
@@ -18,13 +18,10 @@ function AdminIndustry( cookies ){
     const [user, setUser] = useState()
     const [email, setEmail] = useState()
     const [industries, setIndustries] = useState([])
-    // const [industry, setIndustry] = useState()
     const [industrySubtype, setIndustrySubtype] = useState()
     const [industryName, setIndustryName] = useState()
-    const [business, setBusiness] = useState()
     const [industryId, setIndustryId] = useState()
     const [clientId, setClientId] = useState()
-    // const [isViewing, setIsViewing] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
     const [isSuccessful, setIsSuccessful] = useState(false)
     const [editingIndustry, setEditingIndustry] = useState()
@@ -115,6 +112,7 @@ function AdminIndustry( cookies ){
     }, [user])
 
     const onFinish = async (values) => {
+        // console.log(values.subIndustry)
         const res = await addIndustry(
             user.clientId,
             values.industryName,
@@ -136,7 +134,7 @@ function AdminIndustry( cookies ){
             <div className="flex flex-col">
                 <span className="text-2xl font-bold mt-6 mb-2">All Industries </span>
 
-                <Table dataSource={industries} rowSelection={{type: 'checkbox', ...rowSelection}} pagination = {{defaultPageSize:3}}>
+                <Table dataSource={industries} rowSelection={{type: 'checkbox', ...rowSelection}} pagination = {{defaultPageSize:5}}>
                     <Column title="Industry" dataIndex="industry" key="industry" />
                     <Column title="Sub-Industry" dataIndex="subIndustry" key="subIndustry" />
                     <Column title="Description" dataIndex="desc" key="desc" />
@@ -285,7 +283,7 @@ function AdminIndustry( cookies ){
 
                     <Form.Item
                         label="Name of Sub-Industry"
-                        name="subIndustryName"
+                        name="subIndustry"
                         rules={[
                         {
                             required: true,

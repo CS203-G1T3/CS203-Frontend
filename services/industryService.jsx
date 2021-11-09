@@ -37,6 +37,7 @@ export async function getAllIndustryNames() {
 
 export async function addIndustry(adminId, industryName, subIndustryName, industryDesc) {
     if (!getInMemoryToken()) return null
+    console.log("subname" + subIndustryName)
 
     try {
         const res = await axios.post(`/api/v1/industry/` + adminId, {
